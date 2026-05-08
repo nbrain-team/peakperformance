@@ -1,0 +1,433 @@
+{
+  "builtAt": "2026-05-07T19:59:35.935Z",
+  "siteUrl": "https://www.peakpropertyperformance.com",
+  "outDir": "peak-html",
+  "entries": {
+    "https://www.peakpropertyperformance.com/podcast": {
+      "kind": "page",
+      "localPath": "podcast/index.html",
+      "bytes": 70633,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/book": {
+      "kind": "page",
+      "localPath": "book/index.html",
+      "bytes": 34033,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/": {
+      "kind": "page",
+      "localPath": "index.html",
+      "bytes": 46502,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/about": {
+      "kind": "page",
+      "localPath": "about/index.html",
+      "bytes": 36027,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/resources": {
+      "kind": "page",
+      "localPath": "resources/index.html",
+      "bytes": 25843,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/ppp-review": {
+      "kind": "page",
+      "localPath": "ppp-review/index.html",
+      "bytes": 22256,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/for-owners": {
+      "kind": "page",
+      "localPath": "for-owners/index.html",
+      "bytes": 32669,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/be-on-the-show": {
+      "kind": "page",
+      "localPath": "be-on-the-show/index.html",
+      "bytes": 23542,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/5c-framework": {
+      "kind": "page",
+      "localPath": "5c-framework/index.html",
+      "bytes": 33914,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/for-property-managers": {
+      "kind": "page",
+      "localPath": "for-property-managers/index.html",
+      "bytes": 32899,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/for-asset-managers": {
+      "kind": "page",
+      "localPath": "for-asset-managers/index.html",
+      "bytes": 32708,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/podcast/when-technology-sprawl-meets-real-estate-managing-risk-and-control-in-modern": {
+      "kind": "page",
+      "localPath": "podcast/when-technology-sprawl-meets-real-estate-managing-risk-and-control-in-modern/index.html",
+      "bytes": 35234,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/for-it-managers": {
+      "kind": "page",
+      "localPath": "for-it-managers/index.html",
+      "bytes": 32724,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/podcast/redefining-risk-how-outdated-cre-due-diligence-leaves-owners-exposed": {
+      "kind": "page",
+      "localPath": "podcast/redefining-risk-how-outdated-cre-due-diligence-leaves-owners-exposed/index.html",
+      "bytes": 34253,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/podcast/moving-from-static-data-to-decision-velocity-in-commercial-real-estate": {
+      "kind": "page",
+      "localPath": "podcast/moving-from-static-data-to-decision-velocity-in-commercial-real-estate/index.html",
+      "bytes": 34365,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/podcast/ownership-blindspots-when-market-data-and-asset-operations-don-t-align": {
+      "kind": "page",
+      "localPath": "podcast/ownership-blindspots-when-market-data-and-asset-operations-don-t-align/index.html",
+      "bytes": 34157,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/podcast/why-vendor-agnostic-systems-empower-property-owners-and-operators": {
+      "kind": "page",
+      "localPath": "podcast/why-vendor-agnostic-systems-empower-property-owners-and-operators/index.html",
+      "bytes": 36097,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/podcast/from-design-to-operations-why-commercial-real-estate-projects-fail-before-they": {
+      "kind": "page",
+      "localPath": "podcast/from-design-to-operations-why-commercial-real-estate-projects-fail-before-they/index.html",
+      "bytes": 34223,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/podcast/visibility-breakdowns-and-solutions-for-real-estate-owners": {
+      "kind": "page",
+      "localPath": "podcast/visibility-breakdowns-and-solutions-for-real-estate-owners/index.html",
+      "bytes": 34121,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/podcast/student-housing-s-secret-sauce-data-consistency-and-resident-experience-revealed": {
+      "kind": "page",
+      "localPath": "podcast/student-housing-s-secret-sauce-data-consistency-and-resident-experience-revealed/index.html",
+      "bytes": 37342,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/podcast/auditing-your-tech-stack-lessons-for-brokers-investors-and-property-managers": {
+      "kind": "page",
+      "localPath": "podcast/auditing-your-tech-stack-lessons-for-brokers-investors-and-property-managers/index.html",
+      "bytes": 34773,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/podcast/leveraging-operational-data-to-improve-lender-confidence-in-commercial-real": {
+      "kind": "page",
+      "localPath": "podcast/leveraging-operational-data-to-improve-lender-confidence-in-commercial-real/index.html",
+      "bytes": 35907,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/podcast/how-data-quality-impacts-trust-and-performance-in-workforce-housing": {
+      "kind": "page",
+      "localPath": "podcast/how-data-quality-impacts-trust-and-performance-in-workforce-housing/index.html",
+      "bytes": 35323,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/podcast/navigating-power-control-cost-savings-and-sustainability-for-building-owners": {
+      "kind": "page",
+      "localPath": "podcast/navigating-power-control-cost-savings-and-sustainability-for-building-owners/index.html",
+      "bytes": 35788,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/podcast/from-data-chaos-to-control-real-estate-scaling-without-operational-bottlenecks": {
+      "kind": "page",
+      "localPath": "podcast/from-data-chaos-to-control-real-estate-scaling-without-operational-bottlenecks/index.html",
+      "bytes": 36069,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/podcast/reducing-risk-and-friction-with-better-data-in-real-estate-investing": {
+      "kind": "page",
+      "localPath": "podcast/reducing-risk-and-friction-with-better-data-in-real-estate-investing/index.html",
+      "bytes": 36654,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/podcast/how-tokenization-is-transforming-liquidity-and-ownership-in-commercial-real": {
+      "kind": "page",
+      "localPath": "podcast/how-tokenization-is-transforming-liquidity-and-ownership-in-commercial-real/index.html",
+      "bytes": 35701,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/podcast/the-future-of-facilities-management-turning-data-into-actionable-roi-in": {
+      "kind": "page",
+      "localPath": "podcast/the-future-of-facilities-management-turning-data-into-actionable-roi-in/index.html",
+      "bytes": 34724,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/podcast/why-parking-is-the-first-and-last-impression-in-real-estate": {
+      "kind": "page",
+      "localPath": "podcast/why-parking-is-the-first-and-last-impression-in-real-estate/index.html",
+      "bytes": 34484,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/podcast/breaking-down-data-silos-smarter-more-profitable-properties-through-digitization": {
+      "kind": "page",
+      "localPath": "podcast/breaking-down-data-silos-smarter-more-profitable-properties-through-digitization/index.html",
+      "bytes": 35816,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/podcast/how-robotics-and-automation-are-transforming-hotel-operations-and-commercial": {
+      "kind": "page",
+      "localPath": "podcast/how-robotics-and-automation-are-transforming-hotel-operations-and-commercial/index.html",
+      "bytes": 35271,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/podcast/when-underwriting-assumptions-meet-on-the-ground-challenges-in-property": {
+      "kind": "page",
+      "localPath": "podcast/when-underwriting-assumptions-meet-on-the-ground-challenges-in-property/index.html",
+      "bytes": 35000,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/podcast/why-curiosity-and-communication-matter-most-as-real-estate-adopts-new-tech": {
+      "kind": "page",
+      "localPath": "podcast/why-curiosity-and-communication-matter-most-as-real-estate-adopts-new-tech/index.html",
+      "bytes": 33891,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/podcast/how-digital-transformation-drives-value-for-commercial-real-estate-owners-and": {
+      "kind": "page",
+      "localPath": "podcast/how-digital-transformation-drives-value-for-commercial-real-estate-owners-and/index.html",
+      "bytes": 36093,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/podcast/how-ai-and-energy-data-are-transforming-commercial-real-estate-performance": {
+      "kind": "page",
+      "localPath": "podcast/how-ai-and-energy-data-are-transforming-commercial-real-estate-performance/index.html",
+      "bytes": 34477,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/podcast/the-new-era-of-multifamily-living-integrating-energy-and-digital-solutions": {
+      "kind": "page",
+      "localPath": "podcast/the-new-era-of-multifamily-living-integrating-energy-and-digital-solutions/index.html",
+      "bytes": 35194,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/podcast/how-ai-and-data-ownership-are-transforming-commercial-real-estate-insights-from": {
+      "kind": "page",
+      "localPath": "podcast/how-ai-and-data-ownership-are-transforming-commercial-real-estate-insights-from/index.html",
+      "bytes": 34448,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/podcast/smarter-property-decisions-lessons-on-data-collaboration-and-ai-integration": {
+      "kind": "page",
+      "localPath": "podcast/smarter-property-decisions-lessons-on-data-collaboration-and-ai-integration/index.html",
+      "bytes": 33202,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/podcast/mastering-control-how-data-drives-utilities-vacancy-and-insurance-wins-in": {
+      "kind": "page",
+      "localPath": "podcast/mastering-control-how-data-drives-utilities-vacancy-and-insurance-wins-in/index.html",
+      "bytes": 34993,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/podcast/rethinking-digital-infrastructure-driving-tenant-experience-and-value-in": {
+      "kind": "page",
+      "localPath": "podcast/rethinking-digital-infrastructure-driving-tenant-experience-and-value-in/index.html",
+      "bytes": 35592,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/podcast/mastering-the-art-of-coordination-in-commercial-real-estate-data-and-teams": {
+      "kind": "page",
+      "localPath": "podcast/mastering-the-art-of-coordination-in-commercial-real-estate-data-and-teams/index.html",
+      "bytes": 34890,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/podcast/the-collect-phase-in-commercial-real-estate-building-value-through-smart-data": {
+      "kind": "page",
+      "localPath": "podcast/the-collect-phase-in-commercial-real-estate-building-value-through-smart-data/index.html",
+      "bytes": 34881,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/podcast/unlocking-the-power-of-connect-flowing-data-in-commercial-real-estate": {
+      "kind": "page",
+      "localPath": "podcast/unlocking-the-power-of-connect-flowing-data-in-commercial-real-estate/index.html",
+      "bytes": 34490,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/favicon.ico": {
+      "kind": "asset",
+      "status": "error",
+      "error": "HTTP 404 for https://www.peakpropertyperformance.com/favicon.ico",
+      "httpStatus": 404
+    },
+    "https://www.peakpropertyperformance.com/favicon.png": {
+      "kind": "asset",
+      "status": "error",
+      "error": "HTTP 404 for https://www.peakpropertyperformance.com/favicon.png",
+      "httpStatus": 404
+    },
+    "https://www.peakpropertyperformance.com/podcast/coming-soon-peak-property-performance-with-bill-douglas-drew-hall": {
+      "kind": "page",
+      "localPath": "podcast/coming-soon-peak-property-performance-with-bill-douglas-drew-hall/index.html",
+      "bytes": 33076,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/podcast/beyond-proptech-why-digital-infrastructure-and-data-control-matter-for-your": {
+      "kind": "page",
+      "localPath": "podcast/beyond-proptech-why-digital-infrastructure-and-data-control-matter-for-your/index.html",
+      "bytes": 36071,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/icon.png": {
+      "kind": "asset",
+      "status": "error",
+      "error": "HTTP 404 for https://www.peakpropertyperformance.com/icon.png",
+      "httpStatus": 404
+    },
+    "https://www.peakpropertyperformance.com/robots.txt": {
+      "kind": "asset",
+      "status": "error",
+      "error": "HTTP 404 for https://www.peakpropertyperformance.com/robots.txt",
+      "httpStatus": 404
+    },
+    "https://www.peakpropertyperformance.com/sitemap.xml": {
+      "kind": "asset",
+      "status": "error",
+      "error": "HTTP 404 for https://www.peakpropertyperformance.com/sitemap.xml",
+      "httpStatus": 404
+    },
+    "https://www.peakpropertyperformance.com/podcast/unlocking-value-in-commercial-real-estate-the-first-c-for-clarify-know-your": {
+      "kind": "page",
+      "localPath": "podcast/unlocking-value-in-commercial-real-estate-the-first-c-for-clarify-know-your/index.html",
+      "bytes": 33582,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/blog/feed.xml": {
+      "kind": "asset",
+      "status": "error",
+      "error": "HTTP 404 for https://www.peakpropertyperformance.com/blog/feed.xml",
+      "httpStatus": 404
+    },
+    "https://www.peakpropertyperformance.com/api/media/file/fast-company-press.webp": {
+      "kind": "asset",
+      "localPath": "api/media/file/fast-company-press.webp",
+      "bytes": 5276,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/_next/static/chunks/webpack-649c5b45e10ca4e0.js": {
+      "kind": "asset",
+      "localPath": "_next/static/chunks/webpack-649c5b45e10ca4e0.js",
+      "bytes": 6379,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/_next/static/css/f3145fbd800cc712.css": {
+      "kind": "asset",
+      "localPath": "_next/static/css/f3145fbd800cc712.css",
+      "bytes": 30652,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/apple-touch-icon.png": {
+      "kind": "asset",
+      "status": "error",
+      "error": "HTTP 404 for https://www.peakpropertyperformance.com/apple-touch-icon.png",
+      "httpStatus": 404
+    },
+    "https://www.peakpropertyperformance.com/_next/static/chunks/main-app-e4b300d916c71622.js": {
+      "kind": "asset",
+      "localPath": "_next/static/chunks/main-app-e4b300d916c71622.js",
+      "bytes": 521,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/_next/static/chunks/6874-afb94e54b47f7af1.js": {
+      "kind": "asset",
+      "localPath": "_next/static/chunks/6874-afb94e54b47f7af1.js",
+      "bytes": 7458,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/_next/static/chunks/1684-85eacbe0d1c71223.js": {
+      "kind": "asset",
+      "localPath": "_next/static/chunks/1684-85eacbe0d1c71223.js",
+      "bytes": 173656,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/_next/static/chunks/4bd1b696-d263ca79bde313a0.js": {
+      "kind": "asset",
+      "localPath": "_next/static/chunks/4bd1b696-d263ca79bde313a0.js",
+      "bytes": 169081,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/_next/static/chunks/app/(frontend)/podcast/page-7cb986dca2673bbb.js": {
+      "kind": "asset",
+      "localPath": "_next/static/chunks/app/(frontend)/podcast/page-7cb986dca2673bbb.js",
+      "bytes": 1536,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/_next/static/chunks/app/(frontend)/layout-41347cf127841303.js": {
+      "kind": "asset",
+      "localPath": "_next/static/chunks/app/(frontend)/layout-41347cf127841303.js",
+      "bytes": 5771,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/_next/static/chunks/app/(frontend)/%5Bslug%5D/page-2967d525ecd59b4e.js": {
+      "kind": "asset",
+      "localPath": "_next/static/chunks/app/(frontend)/[slug]/page-2967d525ecd59b4e.js",
+      "bytes": 3371,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/_next/static/chunks/polyfills-42372ed130431b0a.js": {
+      "kind": "asset",
+      "localPath": "_next/static/chunks/polyfills-42372ed130431b0a.js",
+      "bytes": 112594,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/api/media/file/bill-douglas.webp": {
+      "kind": "asset",
+      "localPath": "api/media/file/bill-douglas.webp",
+      "bytes": 5012,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/_next/static/chunks/app/(frontend)/page-fbe68ff0a1f5a2ff.js": {
+      "kind": "asset",
+      "localPath": "_next/static/chunks/app/(frontend)/page-fbe68ff0a1f5a2ff.js",
+      "bytes": 3371,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/api/media/file/drew-hall.webp": {
+      "kind": "asset",
+      "localPath": "api/media/file/drew-hall.webp",
+      "bytes": 6630,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/api/media/file/cover.png": {
+      "kind": "asset",
+      "localPath": "api/media/file/cover.png",
+      "bytes": 238467,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/api/media/file/ryan-goble.webp": {
+      "kind": "asset",
+      "localPath": "api/media/file/ryan-goble.webp",
+      "bytes": 3062,
+      "status": "ok"
+    },
+    "https://www.peakpropertyperformance.com/_next/static/chunks/app/(frontend)/podcast/%5Bslug%5D/page-38d9a5b056047222.js": {
+      "kind": "asset",
+      "localPath": "_next/static/chunks/app/(frontend)/podcast/[slug]/page-38d9a5b056047222.js",
+      "bytes": 1536,
+      "status": "ok"
+    },
+    "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/43770405/43770405-1748464209147-b434d1f531588.jpg": {
+      "kind": "asset",
+      "localPath": "_external/d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/43770405/43770405-1748464209147-b434d1f531588.jpg",
+      "bytes": 1302298,
+      "status": "ok"
+    }
+  }
+}
