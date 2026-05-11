@@ -166,9 +166,8 @@ EDITS = [
     # ---- 16. Joe Fielden Jr ----------------------------------------------
     {
         "label": "#16 Joe Fielden attribution (visible)",
-        "html": ('Joe Fielden Jr., President, Neyland Apartment Associates LLC',
-                 'Joe Fielden Jr. · President, Neyland Apartment Associates · 4,000+ unit operator'),
-        "html_count": 1,
+        "html": ('>Joe Fielden Jr., President, Neyland Apartment Associates LLC<',
+                 '>Joe Fielden Jr. · President, Neyland Apartment Associates · 4,000+ unit operator<'),
     },
     {
         "label": "#16 Joe Fielden attribution (payload)",
@@ -178,9 +177,8 @@ EDITS = [
     # ---- 16. Kevin Choquette ---------------------------------------------
     {
         "label": "#16 Kevin Choquette attribution (visible)",
-        "html": ('Kevin Choquette, Founder, Fident Capital',
-                 'Kevin Choquette · Founder, Fident Capital · CRE Capital Markets'),
-        "html_count": 1,
+        "html": ('>Kevin Choquette, Founder, Fident Capital<',
+                 '>Kevin Choquette · Founder, Fident Capital · CRE Capital Markets<'),
     },
     {
         "label": "#16 Kevin Choquette attribution (payload)",
