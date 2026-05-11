@@ -57,15 +57,15 @@ EDITS = [
     {
         "label": "#2 hero subhead (visible)",
         "html": (
-            'Game-changing strategies for commercial real estate owners who want control, NOI, and AI readiness — without the vendor lock-in tax.',
-            'For commercial real estate owners who want control, NOI growth, and AI readiness — without the vendor lock-in tax.',
+            '<p class="hero__lede mt-3">Game-changing strategies for commercial real estate owners who want control, NOI, and AI readiness — without the vendor lock-in tax.</p>',
+            '<p class="hero__lede mt-3">For commercial real estate owners who want control, NOI growth, and AI readiness — without the vendor lock-in tax.</p>',
         ),
     },
     {
         "label": "#2 hero subhead (payload)",
         "payload": (
-            '"children":"Game-changing strategies for commercial real estate owners who want control, NOI, and AI readiness — without the vendor lock-in tax."',
-            '"children":"For commercial real estate owners who want control, NOI growth, and AI readiness — without the vendor lock-in tax."',
+            '"hero__lede mt-3","children":"Game-changing strategies for commercial real estate owners who want control, NOI, and AI readiness — without the vendor lock-in tax."',
+            '"hero__lede mt-3","children":"For commercial real estate owners who want control, NOI growth, and AI readiness — without the vendor lock-in tax."',
         ),
     },
     # ---- A4. Hero book cover badge wrap (visible) ----------------------------
