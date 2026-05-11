@@ -34,23 +34,22 @@ EDITS = [
             "\"One building's investment is overhead. Five buildings standardized on the same backplane is leverage. Fifty is a moat.\"",
         ),
     },
-    # ---- 19. Behind the Book CTA: "Request a PPP Review" -> "Run the Play on One Building" ----
-    # NOTE: there are 6 "Request a PPP Review" occurrences (3 visible, 3 payload — body button + footer link + meta?). Target just the body one with btn-primary class.
+    # ---- 19. Behind the Book + closing CTA: "Request a PPP Review" -> "Run the Play on One Building" ----
     {
-        "label": "#19 Behind the Book CTA (visible) — btn-primary version only",
+        "label": "#19 PPP Review CTA (visible) — btn-primary",
         "html": (
             '<a class="btn btn-primary btn-lg" href="../ppp-review/index.html">Request a PPP Review</a>',
             '<a class="btn btn-primary btn-lg" href="../ppp-review/index.html">Run the Play on One Building</a>',
         ),
-        "optional": True,
+        "html_count": 2,
     },
     {
-        "label": "#19 Behind the Book CTA (payload) — btn-primary version",
+        "label": "#19 PPP Review CTA (payload) — btn-primary",
         "payload": (
             '"className":"btn btn-primary btn-lg","children":"Request a PPP Review"',
             '"className":"btn btn-primary btn-lg","children":"Run the Play on One Building"',
         ),
-        "optional": True,
+        "payload_count": 2,
     },
     # ---- A10. Bill Douglas bio — add Amazon Best Seller credit ----
     {
