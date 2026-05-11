@@ -77,10 +77,9 @@ EDITS = [
     {
         "label": "#20 Bill bio closing (payload)",
         "payload": (
-            "When he's not running OpticWise, he's coaching execs/entrepreneurs as the \\\"ResilienceGuy\\\", hosting the PPP Podcast, and pursuing unique shared experiences in this treasured life.",
+            'When he\'s not running OpticWise, he\'s coaching execs/entrepreneurs as the \\"ResilienceGuy\\", hosting the PPP Podcast, and pursuing unique shared experiences in this treasured life.',
             "When he's not running OpticWise, he's hosting the Peak Property Performance® Podcast and coaching execs as the ResilienceGuy.",
         ),
-        "payload_raw": True,
     },
     # ---- 21. Foreword attributions ----
     {
