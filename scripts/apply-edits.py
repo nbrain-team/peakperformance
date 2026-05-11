@@ -4,51 +4,67 @@ apply-edits.py — surgical text/markup replacements in Next.js static-export HT
 
 Each file has TWO copies of every text string:
   1. The pre-rendered HTML body (uses HTML entities: &#x27; &amp; etc.)
-  2. The React Flight payload at the bottom (JSON-escaped: raw ' & etc.)
+  2. The React Flight payload at the bottom, which is a JS string literal
+     where every double quote is already escaped as \\"
 
 When the page hydrates, React replaces the DOM with whatever's in the Flight
-payload. So every change has to be made in both places or it'll flash on
+payload. So every change has to be made in BOTH places or it'll flash on
 screen and disappear.
 
+Edits files are Python modules that expose:
+    FILE = "relative/path/to/index.html"
+    EDITS = [
+        {
+            "label": "human description",
+            "html": (old_html, new_html),         # body change (HTML entities)
+            "payload": (old_payload, new_payload),# Flight payload, RAW JSON
+            "html_count": 1,
+            "payload_count": 1,
+            "optional": False,
+        },
+        ...
+    ]
+
+The script automatically converts `payload` raw-JSON strings to their
+JS-string-literal escaped form (`"` -> `\"`, `\\` -> `\\\\`) before
+searching/replacing. Pass `payload_raw=True` to opt out.
+
 Usage:
-    python3 scripts/apply-edits.py <edits.json>
-
-edits.json schema:
-{
-  "file": "index.html",
-  "replacements": [
-    {
-      "label": "human description",
-      "html": ["old html", "new html"],          # body change (HTML-entity encoded)
-      "payload": ["old payload", "new payload"], # Flight payload change (raw json string)
-      "html_count": 1,                            # expected occurrences (defaults to 1)
-      "payload_count": 1,
-      "optional": false                           # if true, missing matches don't fail
-    }
-  ]
-}
-
-If `html` and `payload` are omitted, you can use `both` as a single pair
-that gets applied in BOTH locations (safe when there are no characters
-that escape differently).
-
-Exits non-zero on any unexpected match count.
+    python3 scripts/apply-edits.py scripts/edits/<name>.py
 """
-import json
+import importlib.util
 import sys
 from pathlib import Path
 
 
+def to_js_string_literal_escape(s: str) -> str:
+    """Convert raw JSON content to its JS-string-literal escaped form.
+    
+    The Flight payload sits inside a JS string literal:
+        self.__next_f.push([1,"...content..."])
+    So every \\ becomes \\\\ and every " becomes \\".
+    Newlines are kept as \\n in the wire format too — but our edits work on
+    full single-line strings so we don't need to handle \\n specially.
+    """
+    return s.replace("\\", "\\\\").replace('"', '\\"')
+
+
 def main():
     if len(sys.argv) != 2:
-        print("usage: apply-edits.py <edits.json>", file=sys.stderr)
+        print("usage: apply-edits.py <edits.py>", file=sys.stderr)
         sys.exit(2)
 
     spec_path = Path(sys.argv[1])
-    spec = json.loads(spec_path.read_text())
+    if not spec_path.exists():
+        print(f"ERROR: {spec_path} not found", file=sys.stderr)
+        sys.exit(2)
+
+    spec = importlib.util.spec_from_file_location("edits_module", spec_path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
 
     repo_root = Path(__file__).resolve().parent.parent
-    target = repo_root / spec["file"]
+    target = repo_root / mod.FILE
     if not target.exists():
         print(f"ERROR: {target} not found", file=sys.stderr)
         sys.exit(2)
@@ -57,21 +73,23 @@ def main():
     new = src
     log = []
 
-    for r in spec["replacements"]:
+    for r in mod.EDITS:
         label = r.get("label", "(unlabeled)")
         optional = r.get("optional", False)
 
-        pairs = []
+        pairs = []  # list of (kind, old, new, expected_count)
         if "both" in r:
             old, repl = r["both"]
             pairs.append(("both", old, repl, r.get("count", None)))
-        else:
-            if "html" in r:
-                old, repl = r["html"]
-                pairs.append(("html", old, repl, r.get("html_count", 1)))
-            if "payload" in r:
-                old, repl = r["payload"]
-                pairs.append(("payload", old, repl, r.get("payload_count", 1)))
+        if "html" in r:
+            old, repl = r["html"]
+            pairs.append(("html", old, repl, r.get("html_count", 1)))
+        if "payload" in r:
+            old, repl = r["payload"]
+            if not r.get("payload_raw", False):
+                old = to_js_string_literal_escape(old)
+                repl = to_js_string_literal_escape(repl)
+            pairs.append(("payload", old, repl, r.get("payload_count", 1)))
 
         if not pairs:
             print(f"ERROR [{label}]: no html/payload/both keys", file=sys.stderr)
@@ -83,20 +101,22 @@ def main():
                 if optional:
                     log.append(f"  - skip   [{label}] ({kind}): not found (optional)")
                     continue
-                print(f"ERROR [{label}] ({kind}): pattern not found:\n    {old[:200]!r}", file=sys.stderr)
+                print(f"ERROR [{label}] ({kind}): pattern not found", file=sys.stderr)
+                print(f"  searched for: {old[:200]!r}", file=sys.stderr)
                 sys.exit(1)
             if expected is not None and actual != expected:
-                print(f"ERROR [{label}] ({kind}): expected {expected} occurrences, found {actual}\n    {old[:200]!r}", file=sys.stderr)
+                print(f"ERROR [{label}] ({kind}): expected {expected} occurrences, found {actual}", file=sys.stderr)
+                print(f"  searched for: {old[:200]!r}", file=sys.stderr)
                 sys.exit(1)
             new = new.replace(old, repl)
             log.append(f"  - ok     [{label}] ({kind}): replaced {actual}x")
 
     if new == src:
-        print(f"NO CHANGES applied to {spec['file']}", file=sys.stderr)
+        print(f"NO CHANGES applied to {mod.FILE}", file=sys.stderr)
         sys.exit(0)
 
     target.write_text(new)
-    print(f"OK: {spec['file']}")
+    print(f"OK: {mod.FILE}")
     for line in log:
         print(line)
 
