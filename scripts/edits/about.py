@@ -62,8 +62,8 @@ EDITS = [
     {
         "label": "A10 Bill bio (payload)",
         "payload": (
-            '"For decades, Bill has helped organizations turn data and digital infrastructure into owner-controlled assets that drive NOI, control, and AI readiness."',
-            '"Bill is co-author of the Amazon Best Seller Peak Property Performance® and CEO of OpticWise. For decades, he\'s helped organizations turn data and digital infrastructure into owner-controlled assets that drive NOI, control, and AI readiness."',
+            '"author-card__bio","children":"For decades, Bill has helped organizations turn data and digital infrastructure into owner-controlled assets that drive NOI, control, and AI readiness.',
+            '"author-card__bio","children":"Bill is co-author of the Amazon Best Seller Peak Property Performance® and CEO of OpticWise. For decades, he\'s helped organizations turn data and digital infrastructure into owner-controlled assets that drive NOI, control, and AI readiness.',
         ),
     },
     # ---- 20. Tighten Bill Douglas bio closing ----
