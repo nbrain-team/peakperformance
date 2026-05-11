@@ -79,22 +79,22 @@ EDITS = [
             '"href":"https://www.amazon.com/Peak-Property-Performance-Game-Changing-Strategies/dp/1639081283/","target":"_blank","rel":"noopener","className":"btn btn-primary btn-lg","children":"Get the Book on Amazon"}],["$","a",null,{"href":"#retailers","className":"btn btn-secondary btn-lg","children":"All Retailers"',
         ),
     },
-    # ---- A2. Book hero cover wrapped with badge ---------------------------
+    # ---- A2. Book covers wrapped with badge (hero + retailer block) -------
     {
-        "label": "A2 book hero cover (visible) — wrap with badge",
+        "label": "A2 book cover (visible) — wrap with badge (hero + retailer)",
         "html": (
             '<div class="book-cover-image"><img src="../api/media/file/cover.png" alt="Peak Property Performance® — book cover"/></div>',
             '<div class="book-cover-image book-cover-with-badge"><img src="../api/media/file/cover.png" alt="Peak Property Performance® — book cover"/><img src="../public/images/amazon-best-seller-400.png" alt="Amazon Best Seller" class="best-seller-badge"/></div>',
         ),
-        "html_count": 1,
+        "html_count": 2,
     },
     {
-        "label": "A2 book hero cover (payload) — wrap with badge",
+        "label": "A2 book cover (payload) — wrap with badge (hero + retailer)",
         "payload": (
             '["$","div",null,{"className":"book-cover-image","children":["$","img",null,{"src":"https://www.peakpropertyperformance.com/api/media/file/cover.png","alt":"Peak Property Performance® — book cover"}]}]',
             '["$","div",null,{"className":"book-cover-image book-cover-with-badge","children":[["$","img",null,{"src":"https://www.peakpropertyperformance.com/api/media/file/cover.png","alt":"Peak Property Performance® — book cover"}],["$","img",null,{"src":"/public/images/amazon-best-seller-400.png","alt":"Amazon Best Seller","className":"best-seller-badge"}]]}]',
         ),
-        "payload_count": 1,
+        "payload_count": 2,
     },
     # ---- 13. "What you get" → "What's in the book" ------------------------
     {
