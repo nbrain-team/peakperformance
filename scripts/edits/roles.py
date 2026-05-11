@@ -9,12 +9,17 @@ Driven by a loop in __main__, since the four pages share structure.
 # script, this module enumerates each role and writes its updated file
 # directly using the same escape-and-replace primitives.
 
-import sys
 from pathlib import Path
 
-# Load apply-edits helper
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from apply_edits import to_js_string_literal_escape  # type: ignore
+
+def to_js_string_literal_escape(s: str) -> str:
+    """Same helper as scripts/apply-edits.py — see that file for docs."""
+    return (s
+            .replace("\\", "\\\\")
+            .replace('"', '\\"')
+            .replace("&", "\\u0026")
+            .replace("<", "\\u003c")
+            .replace(">", "\\u003e"))
 
 ROLE_PAGES = [
     {
