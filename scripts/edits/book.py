@@ -111,48 +111,45 @@ EDITS = [
     {
         "label": "#14 Implementation Patterns body (visible)",
         "html": (
-            'Real-world patterns from the field. What works, what fails, and what to do differently when your portfolio scales past a few buildings.',
-            'What works. What fails. What changes when your portfolio scales past five buildings.',
+            '<p class="card__body">Real-world patterns from the field. What works, what fails, and what to do differently when your portfolio scales past a few buildings.</p>',
+            '<p class="card__body">What works. What fails. What changes when your portfolio scales past five buildings.</p>',
         ),
-        "html_count": 1,
     },
     {
         "label": "#14 Implementation Patterns body (payload)",
         "payload": (
-            '"children":"Real-world patterns from the field. What works, what fails, and what to do differently when your portfolio scales past a few buildings."',
-            '"children":"What works. What fails. What changes when your portfolio scales past five buildings."',
+            '"card__body","children":"Real-world patterns from the field. What works, what fails, and what to do differently when your portfolio scales past a few buildings."',
+            '"card__body","children":"What works. What fails. What changes when your portfolio scales past five buildings."',
         ),
     },
     # ---- 14. Card 3 — Tools You Can Use -----------------------------------
     {
         "label": "#14 Tools You Can Use body (visible)",
         "html": (
-            'Worksheets, audit templates, and decision frameworks. Designed to be used by an operating team, not filed away as a reference.',
-            'Worksheets, audit templates, and decision frameworks an operating team will actually use — not file away.',
+            '<p class="card__body">Worksheets, audit templates, and decision frameworks. Designed to be used by an operating team, not filed away as a reference.</p>',
+            '<p class="card__body">Worksheets, audit templates, and decision frameworks an operating team will actually use — not file away.</p>',
         ),
-        "html_count": 1,
     },
     {
         "label": "#14 Tools You Can Use body (payload)",
         "payload": (
-            '"children":"Worksheets, audit templates, and decision frameworks. Designed to be used by an operating team, not filed away as a reference."',
-            '"children":"Worksheets, audit templates, and decision frameworks an operating team will actually use — not file away."',
+            '"card__body","children":"Worksheets, audit templates, and decision frameworks. Designed to be used by an operating team, not filed away as a reference."',
+            '"card__body","children":"Worksheets, audit templates, and decision frameworks an operating team will actually use — not file away."',
         ),
     },
     # ---- 14. Card 4 — The Operator Voice ----------------------------------
     {
         "label": "#14 Operator Voice body (visible)",
         "html": (
-            'No academic theory. Written by people who own and run CRE — for people who own and run CRE.',
-            'Written by operators. For operators. Zero academic theory.',
+            '<p class="card__body">No academic theory. Written by people who own and run CRE — for people who own and run CRE.</p>',
+            '<p class="card__body">Written by operators. For operators. Zero academic theory.</p>',
         ),
-        "html_count": 1,
     },
     {
         "label": "#14 Operator Voice body (payload)",
         "payload": (
-            '"children":"No academic theory. Written by people who own and run CRE — for people who own and run CRE."',
-            '"children":"Written by operators. For operators. Zero academic theory."',
+            '"card__body","children":"No academic theory. Written by people who own and run CRE — for people who own and run CRE."',
+            '"card__body","children":"Written by operators. For operators. Zero academic theory."',
         ),
     },
     # ---- 15. Dorit Fischer attribution (foreword pull quote) -------------
