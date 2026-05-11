@@ -196,15 +196,15 @@ EDITS = [
     {
         "label": "#9 credit line lede (visible)",
         "html": (
-            'Bill Douglas, Drew Hall, and Ryan R. Goble — three voices, decades of technology, operations, and CRE -  one playbook.',
-            'Bill Douglas, Drew Hall, and Ryan R. Goble — decades of operating CRE technology, distilled into a plan any owner can run.',
+            '<p class="lede" style="max-width:52ch;margin-inline:auto">Bill Douglas, Drew Hall, and Ryan R. Goble — three voices, decades of technology, operations, and CRE -  one playbook.</p>',
+            '<p class="lede" style="max-width:52ch;margin-inline:auto">Bill Douglas, Drew Hall, and Ryan R. Goble — decades of operating CRE technology, distilled into a plan any owner can run.</p>',
         ),
     },
     {
         "label": "#9 credit line lede (payload)",
         "payload": (
-            '"children":"Bill Douglas, Drew Hall, and Ryan R. Goble — three voices, decades of technology, operations, and CRE -  one playbook."',
-            '"children":"Bill Douglas, Drew Hall, and Ryan R. Goble — decades of operating CRE technology, distilled into a plan any owner can run."',
+            '{"maxWidth":"52ch","marginInline":"auto"},"children":"Bill Douglas, Drew Hall, and Ryan R. Goble — three voices, decades of technology, operations, and CRE -  one playbook."',
+            '{"maxWidth":"52ch","marginInline":"auto"},"children":"Bill Douglas, Drew Hall, and Ryan R. Goble — decades of operating CRE technology, distilled into a plan any owner can run."',
         ),
     },
     # ---- A6. Footer tagline -------------------------------------------------
