@@ -38,15 +38,26 @@ from pathlib import Path
 
 
 def to_js_string_literal_escape(s: str) -> str:
-    """Convert raw JSON content to its JS-string-literal escaped form.
-    
-    The Flight payload sits inside a JS string literal:
+    """Convert raw JSON content to its file-literal form.
+
+    Next.js's React Server Components serializer puts the Flight payload
+    inside a JS string literal:
         self.__next_f.push([1,"...content..."])
-    So every \\ becomes \\\\ and every " becomes \\".
-    Newlines are kept as \\n in the wire format too — but our edits work on
-    full single-line strings so we don't need to handle \\n specially.
+    Inside that JS string, the JSON is encoded with these substitutions
+    (in addition to standard JS string escaping):
+      \\  -> \\\\
+      "  -> \\"
+      &  -> \\u0026   (so HTML can't accidentally see an entity start)
+      <  -> \\u003c   (so the browser can't see </script>)
+      >  -> \\u003e
+    Order matters: backslash first, then quotes, then HTML-special chars.
     """
-    return s.replace("\\", "\\\\").replace('"', '\\"')
+    return (s
+            .replace("\\", "\\\\")
+            .replace('"', '\\"')
+            .replace("&", "\\u0026")
+            .replace("<", "\\u003c")
+            .replace(">", "\\u003e"))
 
 
 def main():
