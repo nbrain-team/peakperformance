@@ -1,19 +1,23 @@
 # -*- coding: utf-8 -*-
 """Edits for /index.html (home page).
 
-Items applied (from PPP_Sandbox_Content_Review_v2.md):
-  A4, A5, A6, A7, A8 (head meta + footer + hero badge + eyebrow)
-  2  (hero subhead)
-  3  (thesis eyebrow)
-  4  (thesis 3 column h3 rewrites)
-  5  (5C eyebrow)
-  6  (Champion outcome callout)
-  7  (episode grid eyebrow + h2)
-  8  (Get the Book card body)
-  9  (credit line h2 + lede)
-  35 (role grid CTAs)
-  36 (Organization JSON-LD)
-  38 (favicon refs)
+Applied items from PPP_Sandbox_Content_Review_v2.md:
+  A4, A5, A6, A7, A8 — Best Seller integration
+  2  — hero subhead
+  3  — thesis eyebrow
+  4  — thesis 3 column h3 rewrites
+  5  — 5C eyebrow
+  6  — Champion outcome callout
+  7  — episode grid eyebrow + h2
+  8  — Get the Book card body
+  9  — credit line h2 + lede
+  35 — role grid CTAs
+  36 — Organization JSON-LD
+  38 — favicon refs
+
+Convention: payload strings are written in NATURAL JSON form (using
+real `"`, `&`, `<`, `>`); the helper escapes them to file-literal form
+before searching/replacing.
 """
 
 FILE = "index.html"
@@ -28,9 +32,9 @@ EDITS = [
         ),
     },
     {
-        "label": "A7 meta description (Flight payload)",
+        "label": "A7 meta description (payload)",
         "payload": (
-            '"name":"description","content":"The CRE Strategy Playbook for Data, Digital \\u0026 AI. Game-changing strategies for commercial real estate owners who want control, NOI, and AI readiness — without the vendor lock-in tax. Best-selling book and podcast published by Fast Company Press."',
+            '"name":"description","content":"The CRE Strategy Playbook for Data, Digital & AI. Game-changing strategies for commercial real estate owners who want control, NOI, and AI readiness — without the vendor lock-in tax. Best-selling book and podcast published by Fast Company Press."',
             '"name":"description","content":"Amazon Best Seller. The CRE strategy playbook for data, digital, and AI. Game-changing plays for owners who want NOI growth, AI readiness, and control — without vendor lock-in. Book + weekly podcast from Fast Company Press."',
         ),
     },
@@ -43,9 +47,9 @@ EDITS = [
         ),
     },
     {
-        "label": "A5 hero eyebrow (Flight payload)",
+        "label": "A5 hero eyebrow (payload)",
         "payload": (
-            '"children":"A Best-Selling Book \\u0026 Podcast for CRE Leaders"',
+            '"children":"A Best-Selling Book & Podcast for CRE Leaders"',
             '"children":"Amazon Best Seller · Podcast for CRE Leaders"',
         ),
     },
@@ -56,7 +60,6 @@ EDITS = [
             'Game-changing strategies for commercial real estate owners who want control, NOI, and AI readiness — without the vendor lock-in tax.',
             'For commercial real estate owners who want control, NOI growth, and AI readiness — without the vendor lock-in tax.',
         ),
-        "html_count": 1,
     },
     {
         "label": "#2 hero subhead (payload)",
@@ -74,13 +77,12 @@ EDITS = [
         ),
     },
     {
-        "label": "A4 hero book cover (payload) — add badge sibling",
+        "label": "A4 hero book cover (payload) — add badge sibling (hero + retailer block)",
         "payload": (
-            '[\"$\",\"div\",null,{\"className\":\"book-cover-image\",\"children\":[\"$\",\"img\",null,{\"src\":\"https://www.peakpropertyperformance.com/api/media/file/cover.png\",\"alt\":\"Peak Property Performance® — book cover\"}]}]',
-            '[\"$\",\"div\",null,{\"className\":\"book-cover-image book-cover-with-badge\",\"children\":[[\"$\",\"img\",null,{\"src\":\"https://www.peakpropertyperformance.com/api/media/file/cover.png\",\"alt\":\"Peak Property Performance® — book cover\"}],[\"$\",\"img\",null,{\"src\":\"/public/images/amazon-best-seller-400.png\",\"alt\":\"Amazon Best Seller\",\"className\":\"best-seller-badge\"}]]}]',
+            '["$","div",null,{"className":"book-cover-image","children":["$","img",null,{"src":"https://www.peakpropertyperformance.com/api/media/file/cover.png","alt":"Peak Property Performance® — book cover"}]}]',
+            '["$","div",null,{"className":"book-cover-image book-cover-with-badge","children":[["$","img",null,{"src":"https://www.peakpropertyperformance.com/api/media/file/cover.png","alt":"Peak Property Performance® — book cover"}],["$","img",null,{"src":"/public/images/amazon-best-seller-400.png","alt":"Amazon Best Seller","className":"best-seller-badge"}]]}]',
         ),
-        "payload_raw": True,
-        "payload_count": 2,  # appears in both hero block & retailer block
+        "payload_count": 2,
     },
     # ---- 3. Thesis eyebrow ---------------------------------------------------
     {
@@ -135,7 +137,7 @@ EDITS = [
         "payload": ('"eyebrow","children":"The Playbook"',
                     '"eyebrow","children":"The Framework"'),
     },
-    # ---- 6. Champion outcome callout (replace fivec__champion) --------------
+    # ---- 6. Champion outcome callout ----------------------------------------
     {
         "label": "#6 Champion callout (visible)",
         "html": (
@@ -146,10 +148,9 @@ EDITS = [
     {
         "label": "#6 Champion callout (payload)",
         "payload": (
-            '[\"$\",\"div\",null,{\"className\":\"fivec__champion\",\"children\":\"\\\"Champion\\\" is what happens when intelligence compounds across the portfolio — not just one building.\"}]',
-            '[\"$\",\"div\",null,{\"className\":\"outcome-callout\",\"children\":[[\"$\",\"strong\",null,{\"children\":\"The outcome is Champion.\"}],[\"$\",\"p\",null,{\"children\":\"Intelligence that compounds across the portfolio. Not just one building.\"}]]}]',
+            '["$","div",null,{"className":"fivec__champion","children":"\\"Champion\\" is what happens when intelligence compounds across the portfolio — not just one building."}]',
+            '["$","div",null,{"className":"outcome-callout","children":[["$","strong",null,{"children":"The outcome is Champion."}],["$","p",null,{"children":"Intelligence that compounds across the portfolio. Not just one building."}]]}]',
         ),
-        "payload_raw": True,
     },
     # ---- 7. Episode grid eyebrow + h2 ---------------------------------------
     {
@@ -162,10 +163,9 @@ EDITS = [
     {
         "label": "#7 episode grid header (payload)",
         "payload": (
-            '[\"$\",\"div\",null,{\"children\":[[\"$\",\"span\",null,{\"className\":\"eyebrow\",\"children\":\"Peak Property Performance® Podcast latest episodes\"}],null]}]',
-            '[\"$\",\"div\",null,{\"children\":[[\"$\",\"span\",null,{\"className\":\"eyebrow\",\"children\":\"The Podcast\"}],[\"$\",\"h2\",null,{\"className\":\"mt-3 mb-0\",\"children\":\"This week\'s playbook conversations.\"}]]}]',
+            '["$","div",null,{"children":[["$","span",null,{"className":"eyebrow","children":"Peak Property Performance® Podcast latest episodes"}],null]}]',
+            '["$","div",null,{"children":[["$","span",null,{"className":"eyebrow","children":"The Podcast"}],["$","h2",null,{"className":"mt-3 mb-0","children":"This week\'s playbook conversations."}]]}]',
         ),
-        "payload_raw": True,
     },
     # ---- 8. Get the Book card body ------------------------------------------
     {
@@ -178,8 +178,8 @@ EDITS = [
     {
         "label": "#8 Get the Book card body (payload)",
         "payload": (
-            '"children":"Available at Amazon, Barnes \\u0026 Noble, Bookshop, and Hudson. Bulk pricing through Porchlight."',
-            '"children":"Amazon Best Seller. Available at Amazon, Barnes \\u0026 Noble, Bookshop, and Hudson. Forewords by Dorit Fischer (NAI Shames Makovsky) and Zain Jaffer (Blue Field Capital)."',
+            '"children":"Available at Amazon, Barnes & Noble, Bookshop, and Hudson. Bulk pricing through Porchlight."',
+            '"children":"Amazon Best Seller. Available at Amazon, Barnes & Noble, Bookshop, and Hudson. Forewords by Dorit Fischer (NAI Shames Makovsky) and Zain Jaffer (Blue Field Capital)."',
         ),
     },
     # ---- 9. Credit line h2 + lede -------------------------------------------
@@ -235,9 +235,9 @@ EDITS = [
                     '"className":"role-card__cta","children":["See Your Role"," →"]'),
         "payload_count": 4,
     },
-    # ---- A8 + 36 + 38. Head additions: OG, favicon, ppp-additions.css, JSON-LD ----
+    # ---- A8 + 36 + 38. Head additions: ppp-additions.css, favicon, OG, JSON-LD ----
     {
-        "label": "head additions: ppp-additions.css + favicon + OG + JSON-LD (visible)",
+        "label": "head additions (visible)",
         "html": (
             '<link rel="stylesheet" href="./_next/static/css/f3145fbd800cc712.css" data-precedence="next"/>',
             '<link rel="stylesheet" href="./_next/static/css/f3145fbd800cc712.css" data-precedence="next"/>'
