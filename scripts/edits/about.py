@@ -55,8 +55,8 @@ EDITS = [
     {
         "label": "A10 Bill bio (visible) — Amazon Best Seller credit",
         "html": (
-            'For decades, Bill has helped organizations turn data and digital infrastructure into owner-controlled assets that drive NOI, control, and AI readiness.',
-            'Bill is co-author of the Amazon Best Seller <em>Peak Property Performance®</em> and CEO of OpticWise. For decades, he&#x27;s helped organizations turn data and digital infrastructure into owner-controlled assets that drive NOI, control, and AI readiness.',
+            '<p class="author-card__bio">For decades, Bill has helped organizations turn data and digital infrastructure into owner-controlled assets that drive NOI, control, and AI readiness.',
+            '<p class="author-card__bio">Bill is co-author of the Amazon Best Seller <em>Peak Property Performance®</em> and CEO of OpticWise. For decades, he&#x27;s helped organizations turn data and digital infrastructure into owner-controlled assets that drive NOI, control, and AI readiness.',
         ),
     },
     {
