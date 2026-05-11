@@ -155,9 +155,8 @@ EDITS = [
     # ---- 15. Dorit Fischer attribution (foreword pull quote) -------------
     {
         "label": "#15 Dorit Fischer attribution (visible)",
-        "html": ('Dorit Fischer · Partner, NAI Shames Makovsky · Foreword',
-                 'Dorit Fischer wrote the foreword. She’s a Partner at NAI Shames Makovsky.'),
-        "html_count": 1,
+        "html": ('>Dorit Fischer · Partner, NAI Shames Makovsky · Foreword<',
+                 '>Dorit Fischer wrote the foreword. She’s a Partner at NAI Shames Makovsky.<'),
     },
     {
         "label": "#15 Dorit Fischer attribution (payload)",
