@@ -1,0 +1,99 @@
+/* ============================================================
+   PPP additions — content-review v2
+   Loaded after the Next.js bundle CSS so these rules win cascade.
+   ============================================================ */
+
+/* ---- Amazon Best Seller badge overlay (book + home heros) ---- */
+.book-cover-with-badge {
+  position: relative;
+  display: inline-block;
+}
+.book-cover-with-badge .book-cover-image,
+.book-cover-with-badge > img:first-child {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.best-seller-badge {
+  position: absolute;
+  top: -8%;
+  right: -8%;
+  width: 32%;
+  height: auto;
+  z-index: 2;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.20));
+  pointer-events: none;
+}
+@media (max-width: 768px) {
+  .best-seller-badge {
+    width: 28%;
+    top: -6%;
+    right: -6%;
+  }
+}
+
+/* ---- Best Seller eyebrow accent ---- */
+.eyebrow--bestseller {
+  color: #FACF65; /* ppp-yellow-sun */
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+/* ---- Book hero hook line ---- */
+.hero__hook {
+  font-family: inherit;
+  font-size: clamp(1.25rem, 2.2vw, 1.65rem);
+  font-weight: 600;
+  color: #F5F0E4;
+  margin: 1rem 0 1.25rem 0;
+  line-height: 1.3;
+}
+
+/* ---- Champion outcome callout ---- */
+.outcome-callout {
+  background: rgba(250, 207, 101, 0.08);
+  border-left: 4px solid #FACF65;
+  padding: 1.25rem 1.5rem;
+  margin: 1.5rem 0 1rem 0;
+}
+.outcome-callout strong {
+  font-family: inherit;
+  font-size: 1.5rem;
+  color: #F5F0E4;
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+.outcome-callout p {
+  color: rgba(245, 240, 228, 0.85);
+  margin: 0;
+}
+
+/* ---- PPP Review form embed container ---- */
+.ppp-review-form-mount {
+  margin-top: 1.5rem;
+}
+.ppp-review-form-mount .ow-form-embed-card,
+.be-on-the-show-form-mount .ow-form-embed-card {
+  background: #F5F0E4;
+  border-radius: 8px;
+}
+
+/* ---- Resources gated card variant ---- */
+.card-grid .card.card--gated {
+  position: relative;
+}
+.card-grid .card.card--gated::before {
+  content: "Email-gated";
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: rgba(250, 207, 101, 0.18);
+  color: #1B3526;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
