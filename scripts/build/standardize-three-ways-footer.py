@@ -85,7 +85,7 @@ NEW_GRID_TUPLE = (
     '[\\"$\\",\\"$L5\\",\\"ppp-tw1b\\",{\\"href\\":\\"/book\\",\\"className\\":\\"btn btn-primary btn-lg\\",\\"children\\":\\"Get the book\\"}]]}],'
     '[\\"$\\",\\"div\\",\\"ppp-tw2\\",{\\"className\\":\\"three-ways-blocks__block\\",\\"children\\":'
     '[[\\"$\\",\\"h3\\",null,{\\"className\\":\\"three-ways-blocks__heading\\",\\"children\\":\\"Request the review\\"}],'
-    '[\\"$\\",\\"$L5\\",\\"ppp-tw2b\\",{\\"href\\":\\"/ppp-review\\",\\"className\\":\\"btn btn-primary btn-lg\\",\\"children\\":\\"Request the review\\"}]]}'
+    '[\\"$\\",\\"$L5\\",\\"ppp-tw2b\\",{\\"href\\":\\"/ppp-review\\",\\"className\\":\\"btn btn-primary btn-lg\\",\\"children\\":\\"Request the review\\"}]]}]'
     "]]}]"
 )
 
