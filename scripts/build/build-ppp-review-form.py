@@ -181,11 +181,9 @@ SUBMIT_HANDLER_SCRIPT = r'''<script>
 
 OLD_VISIBLE = '<div class="ppp-review-form-mount"><div data-opticwise-form="ppp-review"></div></div>'
 
-OLD_PAYLOAD = (
-    '\\u003cdiv class=\\\\\"ppp-review-form-mount\\\\\"\\u003e'
-    '\\u003cdiv data-opticwise-form=\\\\\"ppp-review\\\\\"\\u003e\\u003c/div\\u003e'
-    '\\u003c/div\\u003e'
-)
+# OLD_PAYLOAD derived from OLD_VISIBLE via the same encoder, so the lookup
+# pattern can never drift from the encoder's output format.
+OLD_PAYLOAD = None  # computed in main() after encode_for_payload_innerhtml is defined
 
 
 def main():
