@@ -318,16 +318,16 @@ def patch_episode_page(
     yt_match: dict | None,
     transcripts_dir: Path,
 ) -> dict:
-    html = path.read_text(encoding="utf-8", errors="replace")
+    page_html = path.read_text(encoding="utf-8", errors="replace")
     ep_num = rss_episode_number(item, slug)
     dur_p = duration_pretty(rss_row["duration_raw"])
     ep_label = str(ep_num) if ep_num >= 0 else "—"
     hero_lede_new = f'<p class="hero__lede mt-3">Episode {ep_label} · {dur_p}</p>'
 
-    html = re.sub(
+    page_html = re.sub(
         r'<p class="hero__lede mt-3">Episode <!-- --> · <!-- -->[^<]*</p>',
         hero_lede_new,
-        html,
+        page_html,
         count=1,
     )
 
@@ -337,24 +337,24 @@ def patch_episode_page(
         else rss_row.get("itunes_image")
     )
     if thumb:
-        html = re.sub(
+        page_html = re.sub(
             r'(<link rel="preload" as="image" href=")([^"]*podcast_uploaded[^"]+)(")',
             rf'\1{html.escape(thumb, quote=True)}\3',
-            html,
+            page_html,
             count=1,
         )
-        html = re.sub(
+        page_html = re.sub(
             r'(<img src=")([^"]+)(" alt="[^"]*" style="border-radius:8px;box-shadow:0 12px 36px rgba\(20, 33, 26, 0\.40\)")',
             rf"\1{html.escape(thumb, quote=True)}\3",
-            html,
+            page_html,
             count=1,
         )
-        html = html.replace(
+        page_html = page_html.replace(
             '<meta property="og:image" content="https://peakpropertyperformance.com/public/images/og-image.png"/>',
             f'<meta property="og:image" content="{html.escape(thumb, quote=True)}"/>',
             1,
         )
-        html = html.replace(
+        page_html = page_html.replace(
             '<meta name="twitter:image" content="https://peakpropertyperformance.com/public/images/og-image.png"/>',
             f'<meta name="twitter:image" content="{html.escape(thumb, quote=True)}"/>',
             1,
@@ -365,15 +365,15 @@ def patch_episode_page(
     def repl_rich(_m: re.Match) -> str:
         return _m.group(1) + notes + _m.group(2)
 
-    html = re.sub(
+    page_html = re.sub(
         r'(<div class="rich-content">)[\s\S]*?(</div></article>)',
         repl_rich,
-        html,
+        page_html,
         count=1,
     )
 
     tr = load_transcript(transcripts_dir, ep_num, slug) if ep_num >= 0 else None
-    html = inject_or_replace_transcript(html, tr)
+    page_html = inject_or_replace_transcript(page_html, tr)
 
     iso_dur = iso_duration_from_itunes(rss_row["duration_raw"])
     desc_plain = re.sub(r"<[^>]+>", " ", notes)
@@ -389,8 +389,8 @@ def patch_episode_page(
     if iso_dur:
         json_updates["duration"] = iso_dur
 
-    html = patch_episode_json_ld(html, json_updates)
-    path.write_text(html, encoding="utf-8")
+    page_html = patch_episode_json_ld(page_html, json_updates)
+    path.write_text(page_html, encoding="utf-8")
 
     return {
         "slug": slug,
