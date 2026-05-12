@@ -165,14 +165,14 @@ def parse_youtube_playlist(xml_text: str) -> list[dict]:
     root = ET.fromstring(xml_text)
     out: list[dict] = []
     for ent in root.findall("atom:entry", NS):
-        link = ent.find("atom:link", NS)
-        href = link.get("href") if link is not None else ""
-        if "/watch?v=" not in href and "watch%3Fv%3D" not in href:
-            continue
         vid_el = ent.find("yt:videoId", NS)
         video_id = vid_el.text if vid_el is not None else None
         if not video_id:
             continue
+        link = ent.find("atom:link", NS)
+        href = link.get("href") if link is not None else ""
+        # Prefer long-form /watch/ URLs for matching; still index Shorts by id for thumbnails.
+        is_watch = "/watch?v=" in href or "watch%3Fv%3D" in href
         title_el = ent.find("atom:title", NS)
         title = (title_el.text or "").strip()
         thumb = None
@@ -187,6 +187,7 @@ def parse_youtube_playlist(xml_text: str) -> list[dict]:
                 "title": title,
                 "thumb": thumb or f"https://i.ytimg.com/vi/{video_id}/hqdefault.jpg",
                 "norm": norm_title(title),
+                "is_watch": is_watch,
             }
         )
     return out
@@ -196,9 +197,11 @@ def match_youtube(rss_title: str, yt: list[dict], min_ratio: float = 0.72) -> di
     n = norm_title(rss_title)
     if len(n) < 8:
         return None
+    watch = [row for row in yt if row.get("is_watch")]
+    pool = watch if watch else yt
     best = None
     best_r = 0.0
-    for row in yt:
+    for row in pool:
         r = SequenceMatcher(None, n, row["norm"]).ratio()
         if r > best_r:
             best_r = r
