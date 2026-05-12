@@ -218,7 +218,7 @@ def extract_audio_play_id(page_html: str) -> str | None:
 
 
 def patch_episode_json_ld(html: str, updates: dict) -> str:
-    def repl_script(m):
+    def repl_script(m: re.Match) -> str:
         raw = m.group(1).strip()
         try:
             data = json.loads(raw)
@@ -231,10 +231,12 @@ def patch_episode_json_ld(html: str, updates: dict) -> str:
                 data.pop(k, None)
             else:
                 data[k] = v
-        return '<script type="application/ld+json">' + json.dumps(data, ensure_ascii=False) + "</script>"
+        return '<script type="application/ld+json">' + json.dumps(
+            data, ensure_ascii=False
+        ) + "</script>"
 
     return re.sub(
-        r'<script type="application/ld\+json">(\s*\{.*?"@type"\s*:\s*"PodcastEpisode"[^<]*\})\s*</script>',
+        r'<script type="application/ld\+json">\s*(.*?)\s*</script>',
         repl_script,
         html,
         flags=re.DOTALL,
@@ -361,12 +363,15 @@ def patch_episode_page(
         )
 
     notes = sanitize_show_notes(rss_row["description_html"])
+
+    def repl_rich(_m: re.Match) -> str:
+        return _m.group(1) + notes + _m.group(2)
+
     html = re.sub(
-        r'<div class="rich-content">.*?</div>(?=<aside|</article>)',
-        f'<div class="rich-content">{notes}</div>',
+        r'(<div class="rich-content">)[\s\S]*?(</div></article>)',
+        repl_rich,
         html,
         count=1,
-        flags=re.DOTALL,
     )
 
     tr = load_transcript(transcripts_dir, ep_num, slug)
@@ -397,7 +402,9 @@ def patch_episode_page(
 
 
 def patch_podcast_index(index_path: Path, card_meta: dict[str, dict]) -> None:
-    html = index_path.read_text(encoding="utf-8", errors="replace")
+    import html as h_esc
+
+    html_page = index_path.read_text(encoding="utf-8", errors="replace")
 
     def replace_card(m: re.Match) -> str:
         full = m.group(0)
@@ -410,28 +417,23 @@ def patch_podcast_index(index_path: Path, card_meta: dict[str, dict]) -> None:
         dur = meta["duration_pretty"]
         full = re.sub(
             r'(<div class="episode-card__art"><img src=")([^"]+)(" alt=")',
-            rf"\1{html_mod.escape(thumb, quote=True)}\3",
+            rf"\1{h_esc.escape(thumb, quote=True)}\3",
             full,
             count=1,
         )
         full = re.sub(
             r'(<div class="episode-card__meta">)([^<]+)(</div>)',
-            rf"\1Episode {ep} · {html_mod.escape(dur)}\3",
+            rf"\1Episode {ep} · {h_esc.escape(dur)}\3",
             full,
             count=1,
         )
         return full
 
-    html_mod = html
-    # reuse stdlib html for escape in f-string — avoid shadowing
-    import html as html_mod
-
     pattern = re.compile(
         r'<a class="episode-card" href="\./([^/]+)/index\.html">.*?</a>',
         re.DOTALL,
     )
-    html_out = pattern.sub(replace_card, html_mod)
-    index_path.write_text(html_out, encoding="utf-8")
+    index_path.write_text(pattern.sub(replace_card, html_page), encoding="utf-8")
 
 
 def main() -> int:
