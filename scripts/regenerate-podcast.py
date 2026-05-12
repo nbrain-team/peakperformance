@@ -659,10 +659,11 @@ def patch_podcast_index(index_path: Path, card_meta: dict[str, dict]) -> None:
             count=1,
         )
         full = re.sub(
-            r'(<div class="episode-card__meta">)([^<]+)(</div>)',
+            r'(<div class="episode-card__meta">)(.*?)(</div>)',
             rf"\1Episode {lbl} · {h_esc.escape(dur)}\3",
             full,
             count=1,
+            flags=re.DOTALL,
         )
         return full
 

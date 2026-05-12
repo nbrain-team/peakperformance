@@ -12,6 +12,7 @@ Run from repo root:
 
 from __future__ import annotations
 
+import re
 import sys
 from pathlib import Path
 
@@ -155,8 +156,6 @@ def synthetic_footer_section(uuid: str) -> str:
 
 def morph_footer_payload_fragment(frag: str) -> str:
     """Mutate a [$section,… Flight fragment (single footer section)."""
-    import re
-
     frag = re.sub(
         r'\\"className\\":\\"cta-section cta-section--(?:dark|paper)\\"',
         '\\"className\\":\\"cta-section cta-section--dark three-ways-blocks\\"',
@@ -272,14 +271,7 @@ def main() -> int:
     if bpath.exists():
         html = bpath.read_text(encoding="utf-8")
         ins = visible_three_ways_section("../")
-        book_sec_frag = (
-            '[\\"$\\",\\"section\\",\\"69pppthree695214ebook\\",{\\"className\\":\\"cta-section cta-section--dark\\",'
-            '\\"children\\":[\\"$\\",\\"div\\",null,{\\"className\\":\\"container\\",\\"children\\":'
-            '[[\\"$\\",\\"span\\",null,{\\"className\\":\\"eyebrow\\",\\"children\\":\\"_\\"}]'
-            ',[\\"$\\",\\"div\\",null,{\\"className\\":\\"cta__buttons\\",\\"children\\":[[\\"$\\",\\"$L5\\",\\"_\\",'
-            '{\\"href\\":\\"/\\",\\"className\\":\\"btn\\",\\"children\\":\\"_\\"}]]}]}]}]}]'
-        )
-        book_sec_new = morph_footer_payload_fragment(book_sec_frag)
+        book_sec_new = morph_footer_payload_fragment(synthetic_footer_section("69pppthree695214ebook"))
         if SPECIAL_BOOK_VISIBLE_MARK in html and ins not in html:
             html = html.replace(
                 SPECIAL_BOOK_VISIBLE_MARK,
@@ -307,14 +299,7 @@ def main() -> int:
     if ppath.exists():
         html = ppath.read_text(encoding="utf-8")
         ins = visible_three_ways_section("../")
-        pod_frag = (
-            '[\\"$\\",\\"section\\",\\"69pppthree695214epod\\",{\\"className\\":\\"cta-section cta-section--dark\\",'
-            '\\"children\\":[\\"$\\",\\"div\\",null,{\\"className\\":\\"container\\",\\"children\\":'
-            '[[\\"$\\",\\"span\\",null,{\\"className\\":\\"eyebrow\\",\\"children\\":\\"_\\"}]'
-            ',[\\"$\\",\\"div\\",null,{\\"className\\":\\"cta__buttons\\",\\"children\\":[[\\"$\\",\\"$L5\\",\\"_\\",'
-            '{\\"href\\":\\"/\\",\\"className\\":\\"btn\\",\\"children\\":\\"_\\"}]]}]}]}]}]'
-        )
-        pod_sec_new = morph_footer_payload_fragment(pod_frag)
+        pod_sec_new = morph_footer_payload_fragment(synthetic_footer_section("69pppthree695214epod"))
         if SPECIAL_PODCAST_VISIBLE_MARK in html and ins not in html:
             html = html.replace(
                 SPECIAL_PODCAST_VISIBLE_MARK,
