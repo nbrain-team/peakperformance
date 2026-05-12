@@ -72,6 +72,152 @@ def fetch(url: str) -> str:
         return r.read().decode("utf-8", errors="replace")
 
 
+def drive_api_list_files(api_key: str, q: str) -> list[dict]:
+    """Drive API v3 files.list; uses API key (folder must be accessible to key / link-shared public)."""
+    out: list[dict] = []
+    page_token: str | None = None
+    while True:
+        params: dict[str, str] = {
+            "q": q,
+            "fields": "nextPageToken,files(id,name,mimeType)",
+            "key": api_key,
+            "pageSize": "100",
+            "supportsAllDrives": "true",
+            "includeItemsFromAllDrives": "true",
+        }
+        if page_token:
+            params["pageToken"] = page_token
+        url = "https://www.googleapis.com/drive/v3/files?" + urllib.parse.urlencode(
+            params
+        )
+        try:
+            payload = json.loads(fetch(url))
+        except urllib.error.HTTPError as e:
+            print(f"WARN Drive API HTTP {e.code}: {e.reason}", file=sys.stderr)
+            break
+        except Exception as ex:
+            print(f"WARN Drive API: {ex}", file=sys.stderr)
+            break
+        out.extend(payload.get("files") or [])
+        page_token = payload.get("nextPageToken")
+        if not page_token:
+            break
+    return out
+
+
+def episode_num_from_drive_folder_title(name: str) -> int | None:
+    s = name.strip()
+    if "&" in s:
+        return None
+    m = re.match(r"(?i)^ep\.?\s*(\d+)", s)
+    if not m:
+        return None
+    return int(m.group(1))
+
+
+def pick_thumbnail_file_id(children: list[dict]) -> str | None:
+    images = [
+        f
+        for f in children
+        if (f.get("mimeType") or "").startswith("image/")
+    ]
+    if not images:
+        return None
+    thumbs = [f for f in images if re.search(r"thumbnail", f.get("name", ""), re.I)]
+    pool = thumbs or images
+
+    def sort_key(f: dict) -> tuple:
+        n = f.get("name", "")
+        has_tn = 0 if re.search(r"thumbnail", n, re.I) else 1
+        return (has_tn, len(n))
+
+    pool.sort(key=sort_key)
+    fid = pool[0].get("id")
+    return fid if fid else None
+
+
+def build_drive_thumbnail_file_index(api_key: str, parent_folder_id: str) -> dict[int, str]:
+    q = (
+        f"'{parent_folder_id}' in parents and "
+        f"mimeType = 'application/vnd.google-apps.folder' and trashed = false"
+    )
+    folders = drive_api_list_files(api_key, q)
+    result: dict[int, str] = {}
+    for fol in folders:
+        name = fol.get("name") or ""
+        ep = episode_num_from_drive_folder_title(name)
+        if ep is None:
+            continue
+        fid = fol.get("id")
+        if not fid:
+            continue
+        cq = f"'{fid}' in parents and trashed = false"
+        kids = drive_api_list_files(api_key, cq)
+        thumb_id = pick_thumbnail_file_id(kids)
+        if thumb_id:
+            result[ep] = thumb_id
+    return result
+
+
+def drive_thumbnail_image_url(file_id: str) -> str:
+    return f"https://drive.google.com/thumbnail?id={urllib.parse.quote(file_id)}&sz=w1280"
+
+
+def load_drive_thumbnail_id_manifest(root: Path) -> dict[int, str]:
+    p = root / "scripts" / "podcast-drive-thumbnails.json"
+    if not p.is_file():
+        return {}
+    try:
+        data = json.loads(p.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return {}
+    out: dict[int, str] = {}
+    if not isinstance(data, dict):
+        return out
+    for k, v in data.items():
+        if not k or str(k).startswith("_"):
+            continue
+        if not isinstance(v, str) or not v.strip():
+            continue
+        try:
+            ki = int(k)
+        except (TypeError, ValueError):
+            continue
+        out[ki] = v.strip()
+    return out
+
+
+def resolve_drive_thumbnail_file_index(
+    root: Path, api_key: str, parent_folder_id: str
+) -> dict[int, str]:
+    merged = load_drive_thumbnail_id_manifest(root)
+    if api_key and parent_folder_id:
+        fetched = build_drive_thumbnail_file_index(api_key, parent_folder_id)
+        merged.update(fetched)
+    return merged
+
+
+def patch_preload_episode_thumb(page_html: str, thumb: str) -> str:
+    """Replace the first non-fast-company preload image (episode art slot)."""
+    replaced = False
+
+    def repl(m: re.Match) -> str:
+        nonlocal replaced
+        href = m.group(2)
+        if "fast-company-press" in href:
+            return m.group(0)
+        if replaced:
+            return m.group(0)
+        replaced = True
+        return m.group(1) + html.escape(thumb, quote=True) + m.group(3)
+
+    return re.sub(
+        r'(<link rel="preload" as="image" href=")([^"]+)(")',
+        repl,
+        page_html,
+    )
+
+
 def play_id_from_anchor_url(u: str) -> str | None:
     m = re.search(r"/play/(\d+)/", u)
     return m.group(1) if m else None
