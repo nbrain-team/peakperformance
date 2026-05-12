@@ -380,9 +380,10 @@ def patch_episode_page(
     desc_plain = html.unescape(re.sub(r"\s+", " ", desc_plain).strip())[:5000]
 
     json_updates = {
-        "episodeNumber": ep_num,
         "description": desc_plain,
     }
+    if ep_num >= 0:
+        json_updates["episodeNumber"] = ep_num
     if thumb:
         json_updates["image"] = thumb
     if iso_dur:
