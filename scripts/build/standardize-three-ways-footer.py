@@ -1,16 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Replace bottom-of-page CTAs with the standardized “Three ways in” strip:
-three wide yellow blocks (CSS: .three-ways-blocks__*) with primary buttons:
-  1. Listen to the podcast  → /podcast
-  2. Get the book           → /book
-  3. Request the review     → /ppp-review
+"""Standardize bottom-of-page CTAs to “Three ways in” + three yellow blocks.
 
-Pages already using the home-style explanatory cards (root index.html card-grid)
-are left unchanged.
+Visible HTML + React Flight payload are both updated so hydration does not revert.
 
-Updates BOTH pre-rendered HTML and the last matching React Flight `[$,section,...]`
-payload block when present (so hydration does not revert the footer).
+Homepage (index.html) card-grid “Three ways in” is intentionally unchanged.
 
 Run from repo root:
   python3 scripts/build/standardize-three-ways-footer.py
@@ -18,7 +12,6 @@ Run from repo root:
 
 from __future__ import annotations
 
-import re
 import sys
 from pathlib import Path
 
@@ -26,66 +19,37 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent.parent
 
 
-def walk_payload_array_end(s: str, start: int) -> int:
-    """Given s[start] == '[', return index of the matching ']' (Flight JSON text)."""
-    if start >= len(s) or s[start] != "[":
-        raise ValueError("walk_payload_array_end: start must point at '['")
-    depth = 0
+def flight_array_end(s: str, start: int) -> int:
+    """s[start] must be '['. Find matching ']' in Flight text using \\\" string rules."""
     i = start
+    depth = 0
     in_str = False
-    esc = False
     while i < len(s):
-        c = s[i]
-        if in_str:
-            if esc:
-                esc = False
-            elif c == "\\":
-                esc = True
-            elif c == '"':
-                in_str = False
+        if not in_str:
+            if s.startswith('\\"', i):
+                in_str = True
+                i += 2
+                continue
+            if s[i] == "[":
+                depth += 1
+            elif s[i] == "]":
+                depth -= 1
+                if depth == 0:
+                    return i
             i += 1
             continue
-        if c == '"':
-            in_str = True
-            i += 1
+        if s.startswith('\\"', i):
+            in_str = False
+            i += 2
             continue
-        if c == "[":
-            depth += 1
-        elif c == "]":
-            depth -= 1
-            if depth == 0:
-                return i
+        if s[i] == "\\" and i + 1 < len(s):
+            i += 2
+            continue
         i += 1
     raise ValueError("unbalanced brackets in Flight payload")
 
 
-def replace_last_payload_section(html: str, section_class: str, replacement: str) -> tuple[str, bool]:
-    """Replace the last [$,\"section\",uuid,{className: section_class ...}] Flight node."""
-    cls_pat = '\\"className\\":\\"' + section_class + '\\"'
-    p = html.rfind(cls_pat)
-    if p < 0:
-        return html, False
-    sec_needle = '[\\"$\\",\\"section\\",\\"'
-    sec_start = html.rfind(sec_needle, 0, p)
-    if sec_start < 0:
-        return html, False
-    sec_end = walk_payload_array_end(html, sec_start)
-    new_html = html[:sec_start] + replacement + html[sec_end + 1 :]
-    return new_html, True
-
-
-def extract_payload_section_uuid(section_src: str) -> str:
-    m = re.match(
-        r'^\[\\"\$\\",\\"section\\",\\"([^"]+)\\",',
-        section_src,
-    )
-    if not m:
-        raise ValueError("could not parse section uuid from payload fragment")
-    return m.group(1)
-
-
 def visible_three_ways_section(prefix: str) -> str:
-    """prefix is '' for root index-style paths, '../' one level down, etc."""
     return (
         '<section class="cta-section cta-section--dark three-ways-blocks"><div class="container">'
         '<span class="eyebrow no-rule" style="justify-content:center;display:flex">Get Started</span>'
@@ -110,47 +74,30 @@ def visible_three_ways_section(prefix: str) -> str:
     )
 
 
-def payload_three_ways_section(uuid: str) -> str:
-    kids = (
-        '[[\\"$\\",\\"span\\",null,{\\"className\\":\\"eyebrow no-rule\\",\\"style\\":{\\"justifyContent\\":\\"center\\",\\"display\\":\\"flex\\"},'
-        '\\"children\\":\\"Get Started\\"}],'
-        '[\\"$\\",\\"h2\\",null,{\\"className\\":\\"mt-4 mb-4\\",\\"children\\":\\"Three ways in.\\"}],'
-        '[\\"$\\",\\"p\\",null,{\\"className\\":\\"lede three-ways-blocks__lede\\",\\"style\\":{\\"maxWidth\\":\\"52ch\\",\\"marginInline\\":\\"auto\\"},'
-        '\\"children\\":\\"Whether you\'re scouting, training camp, or game time — there\'s a way to start today.\\"}],'
-        '[\\"$\\",\\"div\\",null,{\\"className\\":\\"three-ways-blocks__grid\\",\\"children\\":'
-        '[[\\"$\\",\\"div\\",\\"ppp-tw0\\",{\\"className\\":\\"three-ways-blocks__block\\",\\"children\\":'
-        '[[\\"$\\",\\"h3\\",null,{\\"className\\":\\"three-ways-blocks__heading\\",\\"children\\":\\"Listen to the podcast\\"}],'
-        '[\\"$\\",\\"$L5\\",\\"ppp-tw0b\\",{\\"href\\":\\"/podcast\\",\\"className\\":\\"btn btn-primary btn-lg\\",\\"children\\":\\"Listen to the podcast\\"}]]}],'
-        '[\\"$\\",\\"div\\",\\"ppp-tw1\\",{\\"className\\":\\"three-ways-blocks__block\\",\\"children\\":'
-        '[[\\"$\\",\\"h3\\",null,{\\"className\\":\\"three-ways-blocks__heading\\",\\"children\\":\\"Get the book\\"}],'
-        '[\\"$\\",\\"$L5\\",\\"ppp-tw1b\\",{\\"href\\":\\"/book\\",\\"className\\":\\"btn btn-primary btn-lg\\",\\"children\\":\\"Get the book\\"}]]}],'
-        '[\\"$\\",\\"div\\",\\"ppp-tw2\\",{\\"className\\":\\"three-ways-blocks__block\\",\\"children\\":'
-        '[[\\"$\\",\\"h3\\",null,{\\"className\\":\\"three-ways-blocks__heading\\",\\"children\\":\\"Request the review\\"}],'
-        '[\\"$\\",\\"$L5\\",\\"ppp-tw2b\\",{\\"href\\":\\"/ppp-review\\",\\"className\\":\\"btn btn-primary btn-lg\\",\\"children\\":\\"Request the review\\"}]]}]]}]'
-        "]}"
-    )
-    return (
-        '[\\"$\\",\\"section\\",\\"'
-        + uuid
-        + '\\",{\\"className\\":\\"cta-section cta-section--dark three-ways-blocks\\",\\"children\\":'
-        '[\\"$\\",\\"div\\",null,{\\"className\\":\\"container\\",\\"children\\":'
-        + kids
-        + "}]}]"
-    )
+# Fourth container column — mirrors cta__buttons tuple shape (…children:[[…]]]}])
+NEW_GRID_TUPLE = (
+    '[\\"$\\",\\"div\\",null,{\\"className\\":\\"three-ways-blocks__grid\\",\\"children\\":['
+    '[\\"$\\",\\"div\\",\\"ppp-tw0\\",{\\"className\\":\\"three-ways-blocks__block\\",\\"children\\":'
+    '[[\\"$\\",\\"h3\\",null,{\\"className\\":\\"three-ways-blocks__heading\\",\\"children\\":\\"Listen to the podcast\\"}],'
+    '[\\"$\\",\\"$L5\\",\\"ppp-tw0b\\",{\\"href\\":\\"/podcast\\",\\"className\\":\\"btn btn-primary btn-lg\\",\\"children\\":\\"Listen to the podcast\\"}]]}],'
+    '[\\"$\\",\\"div\\",\\"ppp-tw1\\",{\\"className\\":\\"three-ways-blocks__block\\",\\"children\\":'
+    '[[\\"$\\",\\"h3\\",null,{\\"className\\":\\"three-ways-blocks__heading\\",\\"children\\":\\"Get the book\\"}],'
+    '[\\"$\\",\\"$L5\\",\\"ppp-tw1b\\",{\\"href\\":\\"/book\\",\\"className\\":\\"btn btn-primary btn-lg\\",\\"children\\":\\"Get the book\\"}]]}],'
+    '[\\"$\\",\\"div\\",\\"ppp-tw2\\",{\\"className\\":\\"three-ways-blocks__block\\",\\"children\\":'
+    '[[\\"$\\",\\"h3\\",null,{\\"className\\":\\"three-ways-blocks__heading\\",\\"children\\":\\"Request the review\\"}],'
+    '[\\"$\\",\\"$L5\\",\\"ppp-tw2b\\",{\\"href\\":\\"/ppp-review\\",\\"className\\":\\"btn btn-primary btn-lg\\",\\"children\\":\\"Request the review\\"}]]}'
+    "]]}]"
+)
 
 
-def extract_last_visible_section_before_main(html: str, class_attr: str) -> tuple[str, int, int] | None:
-    """Find last <section class="...class_attr..."> before </main>; return (full_tag, start, end)."""
+def extract_last_visible_section_before_main(html: str, class_prefix: str):
+    """Find last <section class="…"> before </main>; class_prefix e.g. 'cta-section cta-section--dark'."""
     main_end = html.find("</main>")
     if main_end < 0:
         return None
     pre = html[:main_end]
-    needle = f'<section class="{class_attr}"'
+    needle = f'<section class="{class_prefix}"'
     idx = pre.rfind(needle)
-    if idx < 0:
-        # optional attributes after class (e.g. style=)
-        alt = f'<section class="{class_attr}" '
-        idx = pre.rfind(alt)
     if idx < 0:
         return None
     pos = idx
@@ -174,88 +121,135 @@ def extract_last_visible_section_before_main(html: str, class_attr: str) -> tupl
 
 
 def patch_visible(html: str, prefix: str, *, paper_ok: bool) -> tuple[str, bool]:
-    """Replace last dark CTA, else last paper CTA before </main>."""
-    dark = "cta-section cta-section--dark"
-    paper = "cta-section cta-section--paper"
     new_sec = visible_three_ways_section(prefix)
-    got = extract_last_visible_section_before_main(html, dark)
-    if got:
-        old, a, b = got
-        # Nested vendor audit: section may include style= — match begins at same prefix
-        if "cta-section cta-section--dark" not in old:
-            pass
-        return html[:a] + new_sec + html[b:], True
+    for cls in ("cta-section cta-section--dark",):
+        got = extract_last_visible_section_before_main(html, cls)
+        if got:
+            old, a, b = got
+            return html[:a] + new_sec + html[b:], True
     if paper_ok:
-        got = extract_last_visible_section_before_main(html, paper)
+        got = extract_last_visible_section_before_main(html, "cta-section cta-section--paper")
         if got:
             old, a, b = got
             return html[:a] + new_sec + html[b:], True
     return html, False
 
 
+def morph_footer_payload_fragment(frag: str) -> str:
+    """Mutate a [$section,… Flight fragment (single footer section)."""
+    frag = frag.replace(
+        '\\"className\\":\\"cta-section cta-section--paper\\"',
+        '\\"className\\":\\"cta-section cta-section--dark three-ways-blocks\\"',
+        1,
+    )
+    frag = frag.replace(
+        '\\"className\\":\\"cta-section cta-section--dark\\"',
+        '\\"className\\":\\"cta-section cta-section--dark three-ways-blocks\\"',
+        1,
+    )
+    marker = '\\"className\\":\\"container\\",\\"children\\":'
+    mi = frag.find(marker)
+    if mi < 0:
+        raise ValueError("container children marker not found in Flight fragment")
+    inner_all = frag[mi + len(marker) :]
+    inner_all = inner_all.replace(
+        '\\"className\\":\\"lede\\"',
+        '\\"className\\":\\"lede three-ways-blocks__lede\\"',
+        1,
+    )
+    tuple_needle = '[\\"$\\",\\"div\\",null,{\\"className\\":\\"cta__buttons\\"'
+    ts = inner_all.find(tuple_needle)
+    if ts < 0:
+        raise ValueError("cta__buttons tuple not found")
+    te = flight_array_end(inner_all, ts)
+    new_inner = inner_all[:ts] + NEW_GRID_TUPLE + inner_all[te + 1 :]
+    return frag[: mi + len(marker)] + new_inner
+
+
 def patch_payload(html: str, *, paper_ok: bool) -> tuple[str, bool]:
-    dark = "cta-section cta-section--dark"
-    paper = "cta-section cta-section--paper"
-    for cls in (dark, paper):
-        if cls == paper and not paper_ok:
+    for cls_esc in (
+        '\\"className\\":\\"cta-section cta-section--dark\\"',
+        '\\"className\\":\\"cta-section cta-section--paper\\"',
+    ):
+        if cls_esc.endswith("paper\\"'):
+
+            if cls_esc.endswith("paper\\"") and not paper_ok:
+                continue
+        if cls_esc.endswith("paper\\"") and not paper_ok:
             continue
-        cls_pat = '\\"className\\":\\"' + cls + '\\"'
-        p = html.rfind(cls_pat)
+        p = html.rfind(cls_esc)
         if p < 0:
             continue
         sec_needle = '[\\"$\\",\\"section\\",\\"'
         sec_start = html.rfind(sec_needle, 0, p)
         if sec_start < 0:
             continue
-        sec_end = walk_payload_array_end(html, sec_start)
-        frag = html[sec_start : sec_end + 1]
+        sec_end = flight_array_end(html, sec_start)
+        old_frag = html[sec_start : sec_end + 1]
         try:
-            uuid = extract_payload_section_uuid(frag)
+            new_frag = morph_footer_payload_fragment(old_frag)
         except ValueError:
             continue
-        rep = payload_three_ways_section(uuid)
-        return html[:sec_start] + rep + html[sec_end + 1 :], True
+        return html[:sec_start] + new_frag + html[sec_end + 1 :], True
     return html, False
 
 
 def rel_prefix(path: Path) -> str:
-    """Relative prefix from this HTML file to site root (parent of index.html)."""
     rel = path.relative_to(REPO)
     depth = len(rel.parts) - 1
     return "../" * depth
 
 
-SPECIAL_BOOK_VISIBLE_MARK = (
-    "</div></section></main><footer class=\"footer\">"
-)
-SPECIAL_BOOK_PAYLOAD_MARK_OLD = (
-    "Partner at NAI Shames Makovsky.\\\",null,null]}]]}]}]]]\\n\"]</script><script>self.__next_f.push([1,"
-    '\\"12:[\\"$\\",\\"section\\",\\"69efb8125996bea084142e33\\"'
+def fix_patch_payload_logic(html: str, *, paper_ok: bool) -> tuple[str, bool]:
+    classes = ['\\"className\\":\\"cta-section cta-section--dark\\"']
+    if paper_ok:
+        classes.append('\\"className\\":\\"cta-section cta-section--paper\\"')
+    for cls_esc in classes:
+        p = html.rfind(cls_esc)
+        if p < 0:
+            continue
+        sec_needle = '[\\"$\\",\\"section\\",\\"'
+        sec_start = html.rfind(sec_needle, 0, p)
+        if sec_start < 0:
+            continue
+        sec_end = flight_array_end(html, sec_start)
+        old_frag = html[sec_start : sec_end + 1]
+        try:
+            new_frag = morph_footer_payload_fragment(old_frag)
+        except ValueError:
+            continue
+        return html[:sec_start] + new_frag + html[sec_end + 1 :], True
+    return html, False
+
+
+# Replace broken patch_payload with correct impl
+patch_payload = fix_patch_payload_logic
+
+
+SPECIAL_BOOK_VISIBLE_MARK = '</div></section></main><footer class="footer">'
+SPECIAL_BOOK_PAYLOAD_OLD = (
+    "Partner at NAI Shames Makovsky.\\\",null,null]}]]}]}],[\\"$\\",\\"section\\",\\"69efb8125996bea084142e33\\""
 )
 
 SPECIAL_PODCAST_VISIBLE_MARK = (
     "</div></div></a></div></div></section></main><footer class=\"footer\">"
 )
-SPECIAL_PODCAST_PAYLOAD_MARK_OLD = (
+SPECIAL_PODCAST_PAYLOAD_OLD = (
     "COMING SOON: Peak Property Performance® With Bill Douglas \\u0026 Drew Hall\\\"}]]}]]}]]}]}]}]]\\n\"]</script><style>"
 )
 
-BOOK_PAYLOAD_INSERT = (
+BOOK_PAYLOAD_NEW = (
     "Partner at NAI Shames Makovsky.\\\",null,null]}]]}]}],["
-    + payload_three_ways_section("69pppthree695214ebook")
-    + "]]]\\n\"]</script><script>self.__next_f.push([1,"
-    '\\"12:[\\"$\\",\\"section\\",\\"69efb8125996bea084142e33\\"'
-)
-
-PODCAST_PAYLOAD_INSERT = (
-    "COMING SOON: Peak Property Performance® With Bill Douglas \\u0026 Drew Hall\\\"}]]}]]}]]}]}]}],["
-    + payload_three_ways_section("69pppthree695214epod")
-    + "]]\\n\"]</script><style>"
+    + morph_footer_payload_fragment(
+        # minimal synthetic fragment containing only the bits morph() touches — invalid alone;
+        # instead splice complete section via duplicated morph target
+        '[\\"$\\",\\"section\\",\\"69pppthree695214ebook\\",{\\"className\\":\\"cta-section cta-section--dark\\",\\"children\\":[\\"$\\",\\"div\\",null,{\\"className\\":\\"container\\",\\"children\\":[[\\"$\\",\\"span\\",null,{\\"className\\":\\"eyebrow\\",\\"children\\":\\"x\\"}],[\\"$\\",\\"div\\",null,{\\"className\\":\\"cta__buttons\\",\\"children\\":[[\\"$\\",\\"$L5\\",\\"z\\",{\\"href\\":\\"/\\",\\"className\\":\\"btn\\",\\"children\\":\\"y\\"}]]}]}]}]}]'
+    )
+    + ',[\\"$\\",\\"section\\",\\"69efb8125996bea084142e33\\"'
 )
 
 
 JOBS: list[tuple[str, str | None, bool]] = [
-    # rel_path, prefix override (None = auto), paper_fallback
     ("about/index.html", None, False),
     ("5c-framework/index.html", None, False),
     ("for-owners/index.html", None, False),
@@ -270,7 +264,11 @@ JOBS: list[tuple[str, str | None, bool]] = [
 
 
 def main() -> int:
-    changed = []
+    # Validate NEW_GRID_TUPLE once
+    flight_array_end(NEW_GRID_TUPLE, 0)
+
+    changed: list[str] = []
+
     for rel, prefix_override, paper_ok in JOBS:
         path = REPO / rel
         if not path.exists():
@@ -278,62 +276,92 @@ def main() -> int:
             continue
         html = path.read_text(encoding="utf-8")
         prefix = prefix_override if prefix_override is not None else rel_prefix(path)
-        new_html, v_ok = patch_visible(html, prefix, paper_ok=paper_ok)
-        flight = "__next_f" in new_html
+        html, v_ok = patch_visible(html, prefix, paper_ok=paper_ok)
+        flight = "__next_f" in html
+        p_ok = False
         if flight:
-            new_html, p_ok = patch_payload(new_html, paper_ok=paper_ok)
+            html, p_ok = patch_payload(html, paper_ok=paper_ok)
             if not p_ok and v_ok:
-                print(f"WARN {rel}: visible patched but no Flight payload match")
-        else:
-            p_ok = False
-        if new_html != html:
-            path.write_text(new_html, encoding="utf-8")
-            changed.append(rel)
-            print(f"OK {rel}  visible={'Y' if v_ok else '-'}  payload={'Y' if flight and p_ok else ('-' if not flight else 'N')}")
+                print(f"WARN {rel}: visible patched but Flight payload not matched")
+        path.write_text(html, encoding="utf-8")
+        changed.append(rel)
+        print(f"OK {rel}  visible={'Y' if v_ok else '-'}  payload={'Y' if flight and p_ok else ('-' if not flight else 'N')}")
 
-    # Vendor audit (no Flight): nested dark section — visible only
     vpath = REPO / "vendor-contract-audit/index.html"
     if vpath.exists():
         html = vpath.read_text(encoding="utf-8")
-        new_html, v_ok = patch_visible(html, "../", paper_ok=False)
-        if v_ok and new_html != html:
-            vpath.write_text(new_html, encoding="utf-8")
+        html, v_ok = patch_visible(html, "../", paper_ok=False)
+        if v_ok:
+            vpath.write_text(html, encoding="utf-8")
             changed.append("vendor-contract-audit/index.html")
-            print(f"OK vendor-contract-audit/index.html  visible=Y  payload=-")
+            print("OK vendor-contract-audit/index.html  visible=Y  payload=-")
 
-    # Book — append before </main> + Flight splice
+    # --- Book: append visible + splice Flight before retailer section ---
     bpath = REPO / "book/index.html"
     if bpath.exists():
         html = bpath.read_text(encoding="utf-8")
         ins = visible_three_ways_section("../")
+        book_sec_frag = (
+            '[\\"$\\",\\"section\\",\\"69pppthree695214ebook\\",{\\"className\\":\\"cta-section cta-section--dark\\",'
+            '\\"children\\":[\\"$\\",\\"div\\",null,{\\"className\\":\\"container\\",\\"children\\":'
+            '[[\\"$\\",\\"span\\",null,{\\"className\\":\\"eyebrow\\",\\"children\\":\\"_\\"}]'
+            ',[\\"$\\",\\"div\\",null,{\\"className\\":\\"cta__buttons\\",\\"children\\":[[\\"$\\",\\"$L5\\",\\"_\\",'
+            '{\\"href\\":\\"/\\",\\"className\\":\\"btn\\",\\"children\\":\\"_\\"}]]}]}]}]}]'
+        )
+        book_sec_new = morph_footer_payload_fragment(book_sec_frag)
         if SPECIAL_BOOK_VISIBLE_MARK in html and ins not in html:
             html = html.replace(
                 SPECIAL_BOOK_VISIBLE_MARK,
                 "</div></section>" + ins + "</main><footer class=\"footer\">",
                 1,
             )
-        if SPECIAL_BOOK_PAYLOAD_MARK_OLD in html and "69pppthree695214ebook" not in html:
-            html = html.replace(SPECIAL_BOOK_PAYLOAD_MARK_OLD, BOOK_PAYLOAD_INSERT, 1)
+        needle = (
+            "Partner at NAI Shames Makovsky.\\\",null,null]}]]}]}]]]\\n\"]</script><script>self.__next_f.push([1,"
+            '\\"12:[\\"$\\",\\"section\\",\\"69efb8125996bea084142e33\\"'
+        )
+        if needle in html and "69pppthree695214ebook" not in html:
+            html = html.replace(
+                needle,
+                "Partner at NAI Shames Makovsky.\\\",null,null]}]]}]}],["
+                + book_sec_new
+                + ']]\\n"])</script><script>self.__next_f.push([1,"12:[\\"$\\",\\"section\\",\\"69efb8125996bea084142e33\\"',
+                1,
+            )
         bpath.write_text(html, encoding="utf-8")
         changed.append("book/index.html")
-        print("OK book/index.html  (insert before main end)")
+        print("OK book/index.html")
 
-    # Podcast hub
+    # --- Podcast hub ---
     ppath = REPO / "podcast/index.html"
     if ppath.exists():
         html = ppath.read_text(encoding="utf-8")
         ins = visible_three_ways_section("../")
+        pod_frag = (
+            '[\\"$\\",\\"section\\",\\"69pppthree695214epod\\",{\\"className\\":\\"cta-section cta-section--dark\\",'
+            '\\"children\\":[\\"$\\",\\"div\\",null,{\\"className\\":\\"container\\",\\"children\\":'
+            '[[\\"$\\",\\"span\\",null,{\\"className\\":\\"eyebrow\\",\\"children\\":\\"_\\"}]'
+            ',[\\"$\\",\\"div\\",null,{\\"className\\":\\"cta__buttons\\",\\"children\\":[[\\"$\\",\\"$L5\\",\\"_\\",'
+            '{\\"href\\":\\"/\\",\\"className\\":\\"btn\\",\\"children\\":\\"_\\"}]]}]}]}]}]'
+        )
+        pod_sec_new = morph_footer_payload_fragment(pod_frag)
         if SPECIAL_PODCAST_VISIBLE_MARK in html and ins not in html:
             html = html.replace(
                 SPECIAL_PODCAST_VISIBLE_MARK,
                 "</div></div></a></div></div></section>" + ins + "</main><footer class=\"footer\">",
                 1,
             )
-        if SPECIAL_PODCAST_PAYLOAD_MARK_OLD in html and "69pppthree695214epod" not in html:
-            html = html.replace(SPECIAL_PODCAST_PAYLOAD_MARK_OLD, PODCAST_PAYLOAD_INSERT, 1)
+        pneedle = SPECIAL_PODCAST_PAYLOAD_OLD
+        if pneedle in html and "69pppthree695214epod" not in html:
+            html = html.replace(
+                pneedle,
+                "COMING SOON: Peak Property Performance® With Bill Douglas \\u0026 Drew Hall\\\"}]]}]]}]]}]}]}],["
+                + pod_sec_new
+                + "]]\\n\"]</script><style>",
+                1,
+            )
         ppath.write_text(html, encoding="utf-8")
         changed.append("podcast/index.html")
-        print("OK podcast/index.html  (insert before main end)")
+        print("OK podcast/index.html")
 
     print(f"\nDone. {len(changed)} files touched.")
     return 0
