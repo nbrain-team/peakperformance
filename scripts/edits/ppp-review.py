@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 """Edits for /ppp-review/index.html (items 1, 28-30, A6, head additions).
 
-Item 1 (P0): The user already has the OpticWise embed pattern shipped on
-/be-on-the-show/. We replicate the same pattern with form slug 'ppp-review'.
-The visible "Please use the form below." paragraph is replaced with an
-empty mount container, and a small inline script appends the OpticWise
-embed loader to the document. The script runs after page load and is
-defensive — it skips if the form has already been mounted (e.g., during
-hot-reload or back/forward cache restore)."""
+Item 1 (P0): Static PPP Review form + mailto fallback is maintained via
+scripts/build/build-ppp-review-form.py (visible HTML + Flight payload + body-end
+handler). The former OpticWise embed loader is intentionally NOT shipped here:
+it injected a second mount next to the static form and interfered with submits.
+
+Historical note: /be-on-the-show/ still uses the OpticWise embed pattern."""
 
 FILE = "ppp-review/index.html"
 
@@ -70,28 +69,6 @@ EDITS = [
         "payload": (
             '"dangerouslySetInnerHTML":{"__html":"<p>Please use the form below.</p>"}',
             '"dangerouslySetInnerHTML":{"__html":"<p>Please use the form below to share who you are, the building, and what you’re hoping to learn. We respond within 1 business day.</p><div class=\\"ppp-review-form-mount\\"><div data-opticwise-form=\\"ppp-review\\"></div></div>"}',
-        ),
-    },
-    # ---- 1 (P0). Loader script: insert just before </body> ----
-    {
-        "label": "#1 P0 form loader script — append before </body>",
-        "html": (
-            '</body></html>',
-            '<script>(function(){'
-                'var SLUG="ppp-review";'
-                'var SRC="https://ownet.opticwise.com/forms/embed.js";'
-                'var SEL=".ppp-review-form-mount";'
-                'var tries=0;'
-                'function tryMount(){tries++;var c=document.querySelector(SEL);if(c){'
-                    'if(c.querySelector(".ow-form-embed-card")||c.querySelector(".ow-form-embed-success")||c.querySelector(".ow-form-embed-loading"))return;'
-                    'if(!c.querySelector("[data-opticwise-form]")){var d=document.createElement("div");d.setAttribute("data-opticwise-form",SLUG);c.appendChild(d);}'
-                    'var old=document.getElementById("ow-embed-script");if(old&&old.parentNode)old.parentNode.removeChild(old);'
-                    'var s=document.createElement("script");s.id="ow-embed-script";s.src=SRC;document.body.appendChild(s);'
-                '}if(tries<20)setTimeout(tryMount,400);}'
-                'function start(){setTimeout(tryMount,200);}'
-                'if(document.readyState==="complete"){start();}else{window.addEventListener("load",start);}'
-            '})();</script>'
-            '</body></html>',
         ),
     },
     # ---- A6 footer tagline ----
