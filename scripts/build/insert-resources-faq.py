@@ -293,14 +293,14 @@ def main():
     visible_html = build_visible_html()
     # Count and remove ALL existing FAQ sections (handles stale duplicates
     # created by earlier script versions that only patched the first hit).
+    # SENTINEL_HTML starts with '<section ', so the match position IS the
+    # opening tag — no rfind needed (which had an off-by-one that backtracked
+    # into the prior section).
     existing = [m.start() for m in re.finditer(re.escape(SENTINEL_HTML), content)]
     if existing:
-        # Remove in reverse order so positions don't shift, then insert ONE
-        # clean section at the original anchor.
         for pos in reversed(existing):
-            sec_open = content.rfind("<section", 0, pos + 1)
-            sec_close = content.find('</section>', sec_open) + len('</section>')
-            content = content[:sec_open] + content[sec_close:]
+            sec_close = content.find('</section>', pos) + len('</section>')
+            content = content[:pos] + content[sec_close:]
         # Now insert exactly one new section at the canonical anchor.
         anchor = '<section class="cta-section cta-section--paper">'
         idx = content.find(anchor)
