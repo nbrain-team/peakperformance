@@ -24,10 +24,12 @@ EDITS = [
         ),
     },
     # ---- 26. Insert Free Downloads CardGrid section BEFORE the StarterKit section ----
-    # The 5C™ one-pager and Five Questions worksheet are intentionally NOT
-    # surfaced here — they're already promised inside the PPP Starter Kit
-    # immediately below this section, so duplicating them in the cards is
-    # redundant. Keep this list to artifacts that aren't already in the kit.
+    # Per v3 content review (May 12, 2026): three differentiated resources
+    # that complement — rather than cannibalize — the Starter Kit below.
+    #  1. 5C™ Quick-Start Worksheet (email-gated, routes to the Starter Kit form)
+    #  2. Vendor Contract Audit Checklist (ungated PDF download)
+    #  3. PPP Glossary (no download — pure AEO play, standalone /glossary page)
+    # PDF + glossary hrefs are placeholders until the actual artifacts ship.
     {
         "label": "#26 insert Free Downloads CardGrid (visible) — before starter-kit",
         "html": (
@@ -37,10 +39,11 @@ EDITS = [
             '<div class="container">'
             '<span class="eyebrow">Free Downloads</span>'
             '<h2 class="mt-4 mb-4">Free tools for operators.</h2>'
-            '<p class="lede" style="max-width:60ch">Worksheets and references from the Amazon Best Seller. Use them. Adapt them. Run them on your buildings.</p>'
-            '<div class="card-grid card-grid--2">'
-                '<div class="card"><h3 class="card__heading">PPP Audit Worksheet</h3><p class="card__body">Start the Clarify pass on one of your buildings yourself. Map ownership, identify what&#x27;s portable, document what&#x27;s trustworthy.</p><a class="card__cta" href="../public/downloads/ppp-audit-worksheet.pdf">Download →</a></div>'
-                '<div class="card card--gated"><h3 class="card__heading">Sample DDIA Report (Redacted)</h3><p class="card__body">Redacted. So you can see what a PPP Review actually delivers before you ask for one. Email-gated.</p><a class="card__cta" href="#starter-kit">Get the Sample →</a></div>'
+            '<p class="lede" style="max-width:60ch">Worksheets, references, and the operator&#x27;s dictionary from the Amazon Best Seller. Use them. Adapt them. Run them on your buildings.</p>'
+            '<div class="card-grid card-grid--3">'
+                '<div class="card card--gated"><h3 class="card__heading">The 5C™ Quick-Start Worksheet</h3><p class="card__body">A 30-minute self-assessment for one of your buildings. Five questions mapped to the five C&#x27;s, scored on a 1-5 grid. You get a Champion / Contender / Catching Up / Cold Start rating with the three plays to run next.</p><a class="card__cta" href="#starter-kit">Get the Worksheet →</a></div>'
+                '<div class="card"><h3 class="card__heading">The Vendor Contract Audit Checklist</h3><p class="card__body">The 12 clauses every CRE owner should demand from their tech vendors — data export rights, admin credentials, API access, migration, and IP. Print-ready. Bring it to your next contract negotiation.</p><a class="card__cta" href="../public/downloads/ppp-vendor-contract-checklist.pdf">Download Free →</a></div>'
+                '<div class="card"><h3 class="card__heading">The PPP Glossary</h3><p class="card__body">Every term in the playbook — 5C™, BoT®, Champion, data and digital infrastructure, owner-controlled, and more — defined in plain language for executive conversations.</p><a class="card__cta" href="../glossary/index.html">Open the Glossary →</a></div>'
             '</div>'
             '</div>'
             '</section><section class="starter-kit',
