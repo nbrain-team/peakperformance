@@ -776,3 +776,37 @@
 .episode-transcript__body--plain {
   white-space: pre-wrap;
 }
+
+/* ---- Standard footer: three wide yellow blocks + primary buttons ---- */
+.cta-section.three-ways-blocks .three-ways-blocks__lede {
+  color: rgba(245, 240, 228, 0.9);
+}
+.three-ways-blocks__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 2rem;
+  align-items: stretch;
+}
+.three-ways-blocks__block {
+  background: #f4df9e;
+  border-radius: 8px;
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border: 1px solid rgba(27, 53, 38, 0.14);
+}
+.three-ways-blocks__heading {
+  font-family: inherit;
+  font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+  font-weight: 700;
+  color: #1b3526;
+  margin: 0;
+  line-height: 1.35;
+}
+@media (max-width: 900px) {
+  .three-ways-blocks__grid {
+    grid-template-columns: 1fr;
+  }
+}
