@@ -253,6 +253,8 @@ def load_youtube_overrides(root: Path) -> dict[str, str]:
     if not isinstance(data, dict):
         return out
     for k, v in data.items():
+        if k.startswith("_"):
+            continue
         if isinstance(k, str) and isinstance(v, str) and len(v) == 11:
             out[k] = v
     return out
@@ -268,7 +270,10 @@ def match_youtube(rss_title: str, yt: list[dict], min_ratio: float = 0.72) -> di
         scored.append((r, row))
     if not scored:
         return None
-    scored.sort(key=lambda x: (x[0], x[1].get("is_watch", False)), reverse=True)
+    scored.sort(
+        key=lambda x: (x[0], 1 if x[1].get("is_watch") else 0),
+        reverse=True,
+    )
     best_r, best = scored[0]
     if best_r >= min_ratio:
         return best

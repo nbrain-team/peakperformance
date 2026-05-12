@@ -739,3 +739,40 @@
   gap: 0.75rem;
   flex-wrap: wrap;
 }
+
+/* ---- Podcast episode transcript (injected by scripts/regenerate-podcast.py) ---- */
+.episode-transcript {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(27, 53, 38, 0.12);
+}
+.episode-transcript__title {
+  font-family: var(--font-display, inherit);
+  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+  font-weight: 700;
+  margin: 0 0 1.25rem 0;
+  color: var(--text, #1b3526);
+}
+.episode-transcript__body,
+.episode-transcript__body--plain {
+  font-size: var(--fs-body, 1rem);
+  line-height: 1.7;
+  color: rgba(27, 53, 38, 0.92);
+}
+.episode-transcript__body p {
+  margin: 0 0 1rem 0;
+}
+.episode-transcript__body h2,
+.episode-transcript__body h3,
+.episode-transcript__body h4 {
+  font-family: var(--font-display, inherit);
+  margin: 1.75rem 0 0.75rem 0;
+  font-weight: 700;
+}
+.episode-transcript__body h2:first-child,
+.episode-transcript__body h3:first-child {
+  margin-top: 0;
+}
+.episode-transcript__body--plain {
+  white-space: pre-wrap;
+}

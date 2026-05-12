@@ -1,0 +1,4 @@
+{
+  "_info": "Optional slug → 11-char YouTube video id. Keys starting with _ are ignored. Used when playlist RSS (~15 items) or title fuzzy-match is not enough.",
+  "_example": { "when-technology-sprawl-meets-real-estate-managing-risk-and-control-in-modern": "5HY3UQskthU" }
+}
