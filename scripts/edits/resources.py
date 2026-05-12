@@ -24,6 +24,10 @@ EDITS = [
         ),
     },
     # ---- 26. Insert Free Downloads CardGrid section BEFORE the StarterKit section ----
+    # The 5C™ one-pager and Five Questions worksheet are intentionally NOT
+    # surfaced here — they're already promised inside the PPP Starter Kit
+    # immediately below this section, so duplicating them in the cards is
+    # redundant. Keep this list to artifacts that aren't already in the kit.
     {
         "label": "#26 insert Free Downloads CardGrid (visible) — before starter-kit",
         "html": (
@@ -34,9 +38,7 @@ EDITS = [
             '<span class="eyebrow">Free Downloads</span>'
             '<h2 class="mt-4 mb-4">Free tools for operators.</h2>'
             '<p class="lede" style="max-width:60ch">Worksheets and references from the Amazon Best Seller. Use them. Adapt them. Run them on your buildings.</p>'
-            '<div class="card-grid card-grid--3">'
-                '<div class="card"><h3 class="card__heading">The 5C™ Framework one-pager</h3><p class="card__body">The whole framework on one page. Print-ready. The version you hand to your CFO before a portfolio review.</p><a class="card__cta" href="../public/downloads/ppp-5c-framework-one-pager.pdf">Download →</a></div>'
-                '<div class="card"><h3 class="card__heading">Five Questions Every Owner Should Ask About Their Building Data</h3><p class="card__body">A short worksheet to run in your next ops meeting. Identifies leakage, ownership gaps, and your top three monthly plays.</p><a class="card__cta" href="../public/downloads/ppp-five-questions-worksheet.pdf">Download →</a></div>'
+            '<div class="card-grid card-grid--2">'
                 '<div class="card"><h3 class="card__heading">PPP Audit Worksheet</h3><p class="card__body">Start the Clarify pass on one of your buildings yourself. Map ownership, identify what&#x27;s portable, document what&#x27;s trustworthy.</p><a class="card__cta" href="../public/downloads/ppp-audit-worksheet.pdf">Download →</a></div>'
                 '<div class="card card--gated"><h3 class="card__heading">Sample DDIA Report (Redacted)</h3><p class="card__body">Redacted. So you can see what a PPP Review actually delivers before you ask for one. Email-gated.</p><a class="card__cta" href="#starter-kit">Get the Sample →</a></div>'
             '</div>'
