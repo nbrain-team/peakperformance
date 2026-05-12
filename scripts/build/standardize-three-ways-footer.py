@@ -76,7 +76,7 @@ def visible_three_ways_section(prefix: str) -> str:
 
 # Fourth container column — mirrors cta__buttons tuple shape (…children:[[…]]]}])
 NEW_GRID_TUPLE = (
-    '[\\"$\\",\\"div\\",null,{\\"className\\":\\"three-ways-blocks__grid\\",\\"children\\":['
+    '[\\"$\\",\\"div\\",null,{\\"className\\":\\"three-ways-blocks__grid\\",\\"children\\":[['
     '[\\"$\\",\\"div\\",\\"ppp-tw0\\",{\\"className\\":\\"three-ways-blocks__block\\",\\"children\\":'
     '[[\\"$\\",\\"h3\\",null,{\\"className\\":\\"three-ways-blocks__heading\\",\\"children\\":\\"Listen to the podcast\\"}],'
     '[\\"$\\",\\"$L5\\",\\"ppp-tw0b\\",{\\"href\\":\\"/podcast\\",\\"className\\":\\"btn btn-primary btn-lg\\",\\"children\\":\\"Listen to the podcast\\"}]]}],'
@@ -91,7 +91,7 @@ NEW_GRID_TUPLE = (
 
 
 def extract_last_visible_section_before_main(html: str, class_prefix: str):
-    """Find last <section class="…"> before </main>; class_prefix e.g. 'cta-section cta-section--dark'."""
+    """Find last section with given class before </main>."""
     main_end = html.find("</main>")
     if main_end < 0:
         return None
@@ -166,41 +166,13 @@ def morph_footer_payload_fragment(frag: str) -> str:
     return frag[: mi + len(marker)] + new_inner
 
 
-def patch_payload(html: str, *, paper_ok: bool) -> tuple[str, bool]:
-    for cls_esc in (
-        '\\"className\\":\\"cta-section cta-section--dark\\"',
-        '\\"className\\":\\"cta-section cta-section--paper\\"',
-    ):
-        if cls_esc.endswith("paper\\"'):
-
-            if cls_esc.endswith("paper\\"") and not paper_ok:
-                continue
-        if cls_esc.endswith("paper\\"") and not paper_ok:
-            continue
-        p = html.rfind(cls_esc)
-        if p < 0:
-            continue
-        sec_needle = '[\\"$\\",\\"section\\",\\"'
-        sec_start = html.rfind(sec_needle, 0, p)
-        if sec_start < 0:
-            continue
-        sec_end = flight_array_end(html, sec_start)
-        old_frag = html[sec_start : sec_end + 1]
-        try:
-            new_frag = morph_footer_payload_fragment(old_frag)
-        except ValueError:
-            continue
-        return html[:sec_start] + new_frag + html[sec_end + 1 :], True
-    return html, False
-
-
 def rel_prefix(path: Path) -> str:
     rel = path.relative_to(REPO)
     depth = len(rel.parts) - 1
     return "../" * depth
 
 
-def fix_patch_payload_logic(html: str, *, paper_ok: bool) -> tuple[str, bool]:
+def patch_payload(html: str, *, paper_ok: bool) -> tuple[str, bool]:
     classes = ['\\"className\\":\\"cta-section cta-section--dark\\"']
     if paper_ok:
         classes.append('\\"className\\":\\"cta-section cta-section--paper\\"')
@@ -222,30 +194,13 @@ def fix_patch_payload_logic(html: str, *, paper_ok: bool) -> tuple[str, bool]:
     return html, False
 
 
-# Replace broken patch_payload with correct impl
-patch_payload = fix_patch_payload_logic
-
-
 SPECIAL_BOOK_VISIBLE_MARK = '</div></section></main><footer class="footer">'
-SPECIAL_BOOK_PAYLOAD_OLD = (
-    "Partner at NAI Shames Makovsky.\\\",null,null]}]]}]}],[\\"$\\",\\"section\\",\\"69efb8125996bea084142e33\\""
-)
 
 SPECIAL_PODCAST_VISIBLE_MARK = (
     "</div></div></a></div></div></section></main><footer class=\"footer\">"
 )
 SPECIAL_PODCAST_PAYLOAD_OLD = (
     "COMING SOON: Peak Property Performance® With Bill Douglas \\u0026 Drew Hall\\\"}]]}]]}]]}]}]}]]\\n\"]</script><style>"
-)
-
-BOOK_PAYLOAD_NEW = (
-    "Partner at NAI Shames Makovsky.\\\",null,null]}]]}]}],["
-    + morph_footer_payload_fragment(
-        # minimal synthetic fragment containing only the bits morph() touches — invalid alone;
-        # instead splice complete section via duplicated morph target
-        '[\\"$\\",\\"section\\",\\"69pppthree695214ebook\\",{\\"className\\":\\"cta-section cta-section--dark\\",\\"children\\":[\\"$\\",\\"div\\",null,{\\"className\\":\\"container\\",\\"children\\":[[\\"$\\",\\"span\\",null,{\\"className\\":\\"eyebrow\\",\\"children\\":\\"x\\"}],[\\"$\\",\\"div\\",null,{\\"className\\":\\"cta__buttons\\",\\"children\\":[[\\"$\\",\\"$L5\\",\\"z\\",{\\"href\\":\\"/\\",\\"className\\":\\"btn\\",\\"children\\":\\"y\\"}]]}]}]}]}]'
-    )
-    + ',[\\"$\\",\\"section\\",\\"69efb8125996bea084142e33\\"'
 )
 
 
