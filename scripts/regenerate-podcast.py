@@ -751,7 +751,13 @@ def main() -> int:
             missing_yt.append(slug)
 
         meta = patch_episode_page(
-            idx, rss_row, item, slug, yt_m, transcripts_dir
+            idx,
+            rss_row,
+            item,
+            slug,
+            yt_m,
+            transcripts_dir,
+            drive_fid,
         )
         card_meta[slug] = meta
         print(f"OK {slug} → ep {meta['episode_num']}", file=sys.stderr)
@@ -763,8 +769,12 @@ def main() -> int:
 
     if missing_rss:
         print("WARN no RSS match for slugs:", ", ".join(missing_rss), file=sys.stderr)
-    if missing_yt:
-        print("WARN no YouTube thumb match (using RSS art):", ", ".join(missing_yt), file=sys.stderr)
+    if missing_drive:
+        print(
+            "WARN no Drive thumbnail for episode (YouTube/RSS fallback):",
+            ", ".join(missing_drive),
+            file=sys.stderr,
+        )
 
     return 0
 
