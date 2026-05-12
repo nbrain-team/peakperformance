@@ -1,0 +1,7 @@
+{
+  "_comment": "Episode number → Google Drive file id for PNG/JPG thumbnail. Fills gaps when GOOGLE_DRIVE_API_KEY is not set. Live API scan merges on top (see scripts/regenerate-podcast.py).",
+  "31": "1GAu6I5z24eSsTF7q5F-m7Vzc5PjUYT8e",
+  "32": "1nzRM4PzY1JNMKtsjpNSG-5LGTNFx1uo4",
+  "33": "1OrRIf-36JodnwfswK22GhJqEc5LLhoXr",
+  "34": "1d3A_GnpUeOoJe5oDlXR_RpdUskFW74PF"
+}

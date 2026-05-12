@@ -775,6 +775,12 @@ def main() -> int:
             ", ".join(missing_drive),
             file=sys.stderr,
         )
+    if missing_yt:
+        print(
+            "WARN no YouTube match (Drive or RSS art may still apply):",
+            ", ".join(missing_yt),
+            file=sys.stderr,
+        )
 
     return 0
 
