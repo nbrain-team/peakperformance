@@ -30,76 +30,103 @@
 /*
   PPP Review form — submit handler.
 
-  TODO(WIRE_CRM_ENDPOINT): replace the mailto fallback in submitForm() with
+  TODO(WIRE_CRM_ENDPOINT): replace the mailto fallback in mailtoUrlForFields() with
   a fetch() POST to the real CRM endpoint. The form already collects all
   fields the OpticWise CRM expects (source=ppp, type=ppp-review, etc.).
 
   Until that endpoint is wired, submissions open the user's mail client
   with a pre-filled message to bill@opticwise.com so leads aren't dropped.
+
+  Uses capture-phase submit delegation on document so the handler survives
+  React hydration replacing the form subtree.
+
+  Long mailto URLs fail silently in many clients; the detailed-request field
+  is truncated iteratively until the URL fits MAILTO_MAX_LEN.
 */
 (function () {
   "use strict";
 
-  function init() {
-    var form = document.getElementById("ppp-review-form");
-    if (!form) return;
-    var success = document.getElementById("ppp-review-success");
-    var errorBox = document.getElementById("ppp-review-error");
+  var MAILTO_MAX_LEN = 1950;
 
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      errorBox.hidden = true;
-      errorBox.textContent = "";
-
-      // HTML5 validation pass
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
-
-      submitForm(form, success, errorBox);
-    });
-  }
-
-  function submitForm(form, success, errorBox) {
+  function collectFields(form) {
     var data = new FormData(form);
     var fields = {};
-    data.forEach(function (value, key) { fields[key] = value; });
+    data.forEach(function (value, key) {
+      fields[key] = value;
+    });
+    return fields;
+  }
 
-    // ---- INTERIM: mailto fallback (until CRM endpoint is wired) ----
-    // Once a CRM endpoint exists, replace this whole block with a
-    // fetch() POST and use .then/.catch to toggle states accordingly.
+  function buildBody(fields, descLimit) {
+    var raw = fields.description || "(none provided)";
+    var desc = raw;
+    if (desc.length > descLimit) {
+      desc = raw.slice(0, descLimit) + "\n[truncated — URL length limit; paste full details from the page if needed]";
+    }
+    return [
+      "PPP REVIEW REQUEST",
+      "",
+      "Name:          " + (fields.name || ""),
+      "Email:         " + (fields.email || ""),
+      "Phone:         " + (fields.phone || ""),
+      "Property name: " + (fields["property-name"] || ""),
+      "Property type: " + (fields["property-type"] || ""),
+      "Role:          " + (fields.role || ""),
+      "",
+      "Detailed request:",
+      desc,
+      "",
+      "---",
+      "Submitted via peakpropertyperformance.com/ppp-review",
+      "Source: " + (fields.source || "") + " / Type: " + (fields.type || ""),
+    ].join("\n");
+  }
+
+  function mailtoUrlForFields(fields) {
+    var subject =
+      "mailto:bill@opticwise.com?subject=" +
+      encodeURIComponent(
+        "PPP Review request from " + (fields.name || "site visitor")
+      ) +
+      "&body=";
+    var descLimit = 6000;
+    var url;
+    for (;;) {
+      url = subject + encodeURIComponent(buildBody(fields, descLimit));
+      if (url.length <= MAILTO_MAX_LEN || descLimit <= 120) {
+        break;
+      }
+      descLimit = Math.floor(descLimit * 0.55);
+    }
+    return url;
+  }
+
+  function onSubmitCapture(e) {
+    var form = e.target;
+    if (!form || form.id !== "ppp-review-form") {
+      return;
+    }
+
+    var errorBox = document.getElementById("ppp-review-error");
+    var success = document.getElementById("ppp-review-success");
+    if (!errorBox || !success) {
+      return;
+    }
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    errorBox.hidden = true;
+    errorBox.textContent = "";
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
     try {
-      var body = [
-        "PPP REVIEW REQUEST",
-        "",
-        "Name:          " + (fields.name || ""),
-        "Email:         " + (fields.email || ""),
-        "Phone:         " + (fields.phone || ""),
-        "Property name: " + (fields["property-name"] || ""),
-        "Property type: " + (fields["property-type"] || ""),
-        "Role:          " + (fields.role || ""),
-        "",
-        "Detailed request:",
-        (fields.description || "(none provided)"),
-        "",
-        "---",
-        "Submitted via peakpropertyperformance.com/ppp-review",
-        "Source: " + (fields.source || "") + " / Type: " + (fields.type || "")
-      ].join("\n");
-
-      var mailtoUrl =
-        "mailto:bill@opticwise.com" +
-        "?subject=" + encodeURIComponent("PPP Review request from " + (fields.name || "site visitor")) +
-        "&body=" + encodeURIComponent(body);
-
-      // Trigger the user's mail client. Open in same window so a popup
-      // blocker doesn't kill it. On mobile, this hands off to Mail/Gmail.
-      window.location.href = mailtoUrl;
-
-      // Show success state regardless of mail-client outcome — leads still
-      // know we received the intent (and the form data is now in their
-      // outbox for them to send).
+      var fields = collectFields(form);
+      window.location.href = mailtoUrlForFields(fields);
       form.hidden = true;
       success.hidden = false;
       success.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -110,10 +137,6 @@
     }
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
-  }
+  document.addEventListener("submit", onSubmitCapture, true);
 })();
 </script></body></html>

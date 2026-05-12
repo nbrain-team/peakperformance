@@ -88,76 +88,103 @@ SUBMIT_HANDLER_SCRIPT = r'''<script>
 /*
   PPP Review form — submit handler.
 
-  TODO(WIRE_CRM_ENDPOINT): replace the mailto fallback in submitForm() with
+  TODO(WIRE_CRM_ENDPOINT): replace the mailto fallback in mailtoUrlForFields() with
   a fetch() POST to the real CRM endpoint. The form already collects all
   fields the OpticWise CRM expects (source=ppp, type=ppp-review, etc.).
 
   Until that endpoint is wired, submissions open the user's mail client
   with a pre-filled message to bill@opticwise.com so leads aren't dropped.
+
+  Uses capture-phase submit delegation on document so the handler survives
+  React hydration replacing the form subtree.
+
+  Long mailto URLs fail silently in many clients; the detailed-request field
+  is truncated iteratively until the URL fits MAILTO_MAX_LEN.
 */
 (function () {
   "use strict";
 
-  function init() {
-    var form = document.getElementById("ppp-review-form");
-    if (!form) return;
-    var success = document.getElementById("ppp-review-success");
-    var errorBox = document.getElementById("ppp-review-error");
+  var MAILTO_MAX_LEN = 1950;
 
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      errorBox.hidden = true;
-      errorBox.textContent = "";
-
-      // HTML5 validation pass
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
-
-      submitForm(form, success, errorBox);
-    });
-  }
-
-  function submitForm(form, success, errorBox) {
+  function collectFields(form) {
     var data = new FormData(form);
     var fields = {};
-    data.forEach(function (value, key) { fields[key] = value; });
+    data.forEach(function (value, key) {
+      fields[key] = value;
+    });
+    return fields;
+  }
 
-    // ---- INTERIM: mailto fallback (until CRM endpoint is wired) ----
-    // Once a CRM endpoint exists, replace this whole block with a
-    // fetch() POST and use .then/.catch to toggle states accordingly.
+  function buildBody(fields, descLimit) {
+    var raw = fields.description || "(none provided)";
+    var desc = raw;
+    if (desc.length > descLimit) {
+      desc = raw.slice(0, descLimit) + "\n[truncated — URL length limit; paste full details from the page if needed]";
+    }
+    return [
+      "PPP REVIEW REQUEST",
+      "",
+      "Name:          " + (fields.name || ""),
+      "Email:         " + (fields.email || ""),
+      "Phone:         " + (fields.phone || ""),
+      "Property name: " + (fields["property-name"] || ""),
+      "Property type: " + (fields["property-type"] || ""),
+      "Role:          " + (fields.role || ""),
+      "",
+      "Detailed request:",
+      desc,
+      "",
+      "---",
+      "Submitted via peakpropertyperformance.com/ppp-review",
+      "Source: " + (fields.source || "") + " / Type: " + (fields.type || ""),
+    ].join("\n");
+  }
+
+  function mailtoUrlForFields(fields) {
+    var subject =
+      "mailto:bill@opticwise.com?subject=" +
+      encodeURIComponent(
+        "PPP Review request from " + (fields.name || "site visitor")
+      ) +
+      "&body=";
+    var descLimit = 6000;
+    var url;
+    for (;;) {
+      url = subject + encodeURIComponent(buildBody(fields, descLimit));
+      if (url.length <= MAILTO_MAX_LEN || descLimit <= 120) {
+        break;
+      }
+      descLimit = Math.floor(descLimit * 0.55);
+    }
+    return url;
+  }
+
+  function onSubmitCapture(e) {
+    var form = e.target;
+    if (!form || form.id !== "ppp-review-form") {
+      return;
+    }
+
+    var errorBox = document.getElementById("ppp-review-error");
+    var success = document.getElementById("ppp-review-success");
+    if (!errorBox || !success) {
+      return;
+    }
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    errorBox.hidden = true;
+    errorBox.textContent = "";
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
     try {
-      var body = [
-        "PPP REVIEW REQUEST",
-        "",
-        "Name:          " + (fields.name || ""),
-        "Email:         " + (fields.email || ""),
-        "Phone:         " + (fields.phone || ""),
-        "Property name: " + (fields["property-name"] || ""),
-        "Property type: " + (fields["property-type"] || ""),
-        "Role:          " + (fields.role || ""),
-        "",
-        "Detailed request:",
-        (fields.description || "(none provided)"),
-        "",
-        "---",
-        "Submitted via peakpropertyperformance.com/ppp-review",
-        "Source: " + (fields.source || "") + " / Type: " + (fields.type || "")
-      ].join("\n");
-
-      var mailtoUrl =
-        "mailto:bill@opticwise.com" +
-        "?subject=" + encodeURIComponent("PPP Review request from " + (fields.name || "site visitor")) +
-        "&body=" + encodeURIComponent(body);
-
-      // Trigger the user's mail client. Open in same window so a popup
-      // blocker doesn't kill it. On mobile, this hands off to Mail/Gmail.
-      window.location.href = mailtoUrl;
-
-      // Show success state regardless of mail-client outcome — leads still
-      // know we received the intent (and the form data is now in their
-      // outbox for them to send).
+      var fields = collectFields(form);
+      window.location.href = mailtoUrlForFields(fields);
       form.hidden = true;
       success.hidden = false;
       success.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -168,11 +195,7 @@ SUBMIT_HANDLER_SCRIPT = r'''<script>
     }
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
-  }
+  document.addEventListener("submit", onSubmitCapture, true);
 })();
 </script>'''
 
@@ -184,6 +207,11 @@ OLD_VISIBLE = '<div class="ppp-review-form-mount"><div data-opticwise-form="ppp-
 # OLD_PAYLOAD derived from OLD_VISIBLE via the same encoder, so the lookup
 # pattern can never drift from the encoder's output format.
 OLD_PAYLOAD = None  # computed in main() after encode_for_payload_innerhtml is defined
+
+SUBMIT_SCRIPT_RE = re.compile(
+    r"<script>\s*/\*\s*\n\s*PPP Review form — submit handler\.[\s\S]*?</script>",
+    re.MULTILINE,
+)
 
 
 def main():
@@ -230,17 +258,19 @@ def main():
         else:
             print(f"⚠ Payload: could not find form mount in dangerouslySetInnerHTML")
 
-    # Submit handler script — insert before </body>
-    if "PPP Review form — submit handler" in content:
-        print("Submit handler already present — skipping script insert.")
+    # Submit handler script — insert or replace before </body>
+    script_m = SUBMIT_SCRIPT_RE.search(content)
+    body_close = content.rfind("</body>")
+    if script_m:
+        content = content[: script_m.start()] + SUBMIT_HANDLER_SCRIPT + content[script_m.end() :]
+        script_done = True
+        print("✓ Submit handler script replaced")
+    elif body_close != -1:
+        content = content[:body_close] + SUBMIT_HANDLER_SCRIPT + content[body_close:]
+        script_done = True
+        print("✓ Submit handler script inserted before </body>")
     else:
-        body_close = content.rfind("</body>")
-        if body_close == -1:
-            print("⚠ Could not find </body> to insert submit handler script")
-        else:
-            content = content[:body_close] + SUBMIT_HANDLER_SCRIPT + content[body_close:]
-            script_done = True
-            print("✓ Submit handler script inserted before </body>")
+        print("⚠ Could not find </body> to insert submit handler script")
 
     FILE.write_text(content, encoding="utf-8")
     print(f"\nFinal: visible={'Y' if visible_done else '-'}  payload={'Y' if payload_done else '-'}  script={'Y' if script_done else '-'}")
