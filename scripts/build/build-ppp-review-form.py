@@ -50,28 +50,34 @@ FORM_BLOCK_VISIBLE = f'<div class="ppp-review-form-mount">{FORM_HTML}</div>'
 def encode_for_payload_innerhtml(html: str) -> str:
     """Encode HTML for embedding inside the dangerouslySetInnerHTML.__html
     JSON value, which itself lives inside a JS double-quoted string in the
-    Flight payload. So we apply TWO escape passes:
-      1. JSON-string escape: \\ → \\\\, " → \\", <, > → \\u003c, \\u003e, & → \\u0026
-      2. JS-string escape:   \\ → \\\\, " → \\"  (applied to step 1's output)
+    Flight payload. Empirically observed encoding (matches Next.js output):
 
-    The existing payload uses the patterns:
-      <  →  \\u003c
-      >  →  \\u003e
-      "  →  \\\\\\\"     (i.e., once for JSON, then once for JS)
+      Original   →   In-file bytes
+      "          →   \\\\\\"   (4 chars: 3 backslashes + 1 quote)
+      \\          →   \\\\\\\\        (4 chars: 4 backslashes)
+      <          →   \\u003c   (1 backslash + u003c — a JS unicode escape)
+      >          →   \\u003e
+      &          →   \\u0026
+      other      →   unchanged
 
-    We replicate that exactly so the patched payload parses identically.
+    The chain of transforms: JSON-encode (esc \\ and "), then JS-string-encode
+    that JSON (esc \\ and " again), THEN apply the JS-unicode-escape pass for
+    the HTML-meta characters (<, >, &). The unicode-escape pass goes last so
+    its backslashes are NOT double-escaped — they're JS unicode escape
+    syntax, not JSON content, so JS evaluates them to literal <, >, & at
+    parse time, after which the JSON parser sees those characters literally.
     """
-    # Step 1: JSON-string escape
     s = html
-    s = s.replace("\\", "\\\\")        # \ → \\
-    s = s.replace('"', '\\"')           # " → \"
+    # JSON encode
+    s = s.replace("\\", "\\\\")
+    s = s.replace('"', '\\"')
+    # JS-string encode (apply to JSON output)
+    s = s.replace("\\", "\\\\")
+    s = s.replace('"', '\\"')
+    # JS unicode escapes for HTML meta chars (single backslash, not double)
     s = s.replace("<", "\\u003c")
     s = s.replace(">", "\\u003e")
     s = s.replace("&", "\\u0026")
-
-    # Step 2: JS-string escape (applied to step 1's output)
-    s = s.replace("\\", "\\\\")        # every \ doubled
-    s = s.replace('"', '\\"')           # every remaining " escaped
     return s
 
 
