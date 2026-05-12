@@ -135,17 +135,33 @@ def patch_visible(html: str, prefix: str, *, paper_ok: bool) -> tuple[str, bool]
     return html, False
 
 
+def synthetic_footer_section(uuid: str) -> str:
+    """Minimal valid footer Flight fragment for morph_footer_payload_fragment."""
+    inner = (
+        '[[\\"$\\",\\"span\\",null,{\\"className\\":\\"eyebrow no-rule\\",\\"style\\":{\\"justifyContent\\":\\"center\\",\\"display\\":\\"flex\\"},\\"children\\":\\"Get Started\\"}],'
+        '[\\"$\\",\\"h2\\",null,{\\"className\\":\\"mt-4 mb-4\\",\\"children\\":\\"Three ways in.\\"}],'
+        '[\\"$\\",\\"p\\",null,{\\"className\\":\\"lede\\",\\"style\\":{\\"maxWidth\\":\\"52ch\\",\\"marginInline\\":\\"auto\\"},\\"children\\":\\"Whether you\'re scouting\\"}],'
+        '[\\"$\\",\\"div\\",null,{\\"className\\":\\"cta__buttons\\",\\"children\\":[[\\"$\\",\\"$L5\\",\\"x\\",{\\"href\\":\\"/\\",\\"className\\":\\"btn\\",\\"children\\":\\"_\\"}]]}]'
+        ']]'
+    )
+    return (
+        '[\\"$\\",\\"section\\",\\"'
+        + uuid
+        + '\\",{\\"className\\":\\"cta-section cta-section--dark\\",\\"children\\":[\\"$\\",\\"div\\",null,{\\"className\\":\\"container\\",\\"children\\":'
+        + inner
+        + '}]}]}]'
+    )
+
+
 def morph_footer_payload_fragment(frag: str) -> str:
     """Mutate a [$section,… Flight fragment (single footer section)."""
-    frag = frag.replace(
-        '\\"className\\":\\"cta-section cta-section--paper\\"',
+    import re
+
+    frag = re.sub(
+        r'\\"className\\":\\"cta-section cta-section--(?:dark|paper)\\"',
         '\\"className\\":\\"cta-section cta-section--dark three-ways-blocks\\"',
-        1,
-    )
-    frag = frag.replace(
-        '\\"className\\":\\"cta-section cta-section--dark\\"',
-        '\\"className\\":\\"cta-section cta-section--dark three-ways-blocks\\"',
-        1,
+        frag,
+        count=1,
     )
     marker = '\\"className\\":\\"container\\",\\"children\\":'
     mi = frag.find(marker)
