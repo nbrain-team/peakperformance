@@ -180,8 +180,9 @@ def has_schema_id(content: str, schema_id: str) -> bool:
     return f'"@id":"{schema_id}"' in content or f'"@id": "{schema_id}"' in content
 
 
-def extract_episode_name(content: str) -> str | None:
-    """Pull the episode title from the page's PodcastEpisode JSON-LD."""
+def extract_episode_name(content: str):
+    """Pull the episode title from the page's PodcastEpisode JSON-LD.
+    Returns None if no episode JSON-LD or no 'name' field present."""
     m = re.search(
         r'"@type"\s*:\s*"PodcastEpisode".*?"name"\s*:\s*"([^"]+)"',
         content, re.DOTALL
