@@ -91,9 +91,13 @@ def drive_api_list_files(api_key: str, q: str) -> list[dict]:
             params
         )
         try:
-            payload = json.loads(fetch(url))
+            raw = fetch(url)
+            payload = json.loads(raw)
         except urllib.error.HTTPError as e:
             print(f"WARN Drive API HTTP {e.code}: {e.reason}", file=sys.stderr)
+            break
+        except json.JSONDecodeError as ex:
+            print(f"WARN Drive API bad JSON: {ex}", file=sys.stderr)
             break
         except Exception as ex:
             print(f"WARN Drive API: {ex}", file=sys.stderr)
@@ -546,6 +550,7 @@ def patch_episode_page(
     slug: str,
     yt_match: dict | None,
     transcripts_dir: Path,
+    drive_thumb_file_id: str | None,
 ) -> dict:
     page_html = path.read_text(encoding="utf-8", errors="replace")
     ep_num = rss_episode_number(item, slug)
@@ -560,18 +565,20 @@ def patch_episode_page(
         count=1,
     )
 
+    drive_url = (
+        drive_thumbnail_image_url(drive_thumb_file_id) if drive_thumb_file_id else None
+    )
     thumb = (
-        f"https://i.ytimg.com/vi/{yt_match['video_id']}/hqdefault.jpg"
-        if yt_match
-        else rss_row.get("itunes_image")
+        drive_url
+        or (
+            f"https://i.ytimg.com/vi/{yt_match['video_id']}/hqdefault.jpg"
+            if yt_match
+            else None
+        )
+        or rss_row.get("itunes_image")
     )
     if thumb:
-        page_html = re.sub(
-            r'(<link rel="preload" as="image" href=")([^"]*podcast_uploaded[^"]+)(")',
-            rf'\1{html.escape(thumb, quote=True)}\3',
-            page_html,
-            count=1,
-        )
+        page_html = patch_preload_episode_thumb(page_html, thumb)
         page_html = re.sub(
             r'(<img src=")([^"]+)(" alt="[^"]*" style="border-radius:8px;box-shadow:0 12px 36px rgba\(20, 33, 26, 0\.40\)")',
             rf"\1{html.escape(thumb, quote=True)}\3",
@@ -677,6 +684,18 @@ def main() -> int:
 
     yt_overrides = load_youtube_overrides(root)
 
+    drive_parent = os.environ.get(
+        "DRIVE_EPISODES_PARENT_FOLDER_ID", DEFAULT_DRIVE_EPISODES_PARENT_ID
+    ).strip()
+    drive_key = (
+        os.environ.get("GOOGLE_DRIVE_API_KEY", "")
+        or os.environ.get("GOOGLE_API_KEY", "")
+    ).strip()
+
+    print("Resolving Drive episode thumbnails…", file=sys.stderr)
+    drive_index = resolve_drive_thumbnail_file_index(root, drive_key, drive_parent)
+    print(f"  {len(drive_index)} episodes with Drive thumbnail file ids", file=sys.stderr)
+
     print("Fetching YouTube…", file=sys.stderr)
     api_key = os.environ.get("YOUTUBE_API_KEY", "").strip()
     if api_key:
@@ -693,6 +712,7 @@ def main() -> int:
     card_meta: dict[str, dict] = {}
     missing_rss: list[str] = []
     missing_yt: list[str] = []
+    missing_drive: list[str] = []
 
     for ep_dir in sorted(podcast_dir.iterdir()):
         if not ep_dir.is_dir():
@@ -709,6 +729,12 @@ def main() -> int:
         rss_row = by_play[pid]
         item = rss_row["_item"]
         rss_title = rss_row["title"]
+        ep_num_pre = rss_episode_number(item, slug)
+
+        drive_fid = drive_index.get(ep_num_pre) if ep_num_pre >= 0 else None
+        if ep_num_pre >= 1 and not drive_fid:
+            missing_drive.append(slug)
+
         yt_m = None
         if slug in yt_overrides:
             vid = yt_overrides[slug]
