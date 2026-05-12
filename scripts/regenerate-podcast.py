@@ -320,10 +320,8 @@ def patch_episode_page(
 ) -> dict:
     html = path.read_text(encoding="utf-8", errors="replace")
     ep_num = rss_episode_number(item, slug)
-    if ep_num < 0:
-        ep_num = 0
     dur_p = duration_pretty(rss_row["duration_raw"])
-    ep_label = str(ep_num)
+    ep_label = str(ep_num) if ep_num >= 0 else "—"
     hero_lede_new = f'<p class="hero__lede mt-3">Episode {ep_label} · {dur_p}</p>'
 
     html = re.sub(
