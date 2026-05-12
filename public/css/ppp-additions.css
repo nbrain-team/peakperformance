@@ -79,12 +79,12 @@
   border-radius: 8px;
 }
 
-/* ---- Resources gated card variant ---- */
-.card-grid .card.card--gated {
+/* ---- Resources card badges (gated + featured variants) ---- */
+.card-grid .card.card--gated,
+.card-grid .card.card--featured {
   position: relative;
 }
-.card-grid .card.card--gated::before {
-  content: "Email-gated";
+.card__badge {
   position: absolute;
   top: 0.75rem;
   right: 0.75rem;
@@ -92,8 +92,13 @@
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  background: rgba(250, 207, 101, 0.18);
+  background: rgba(250, 207, 101, 0.18); /* yellow tint — gated */
   color: #1B3526;
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
+  line-height: 1.4;
+}
+.card--featured .card__badge {
+  background: rgba(97, 166, 14, 0.18); /* green tint — interactive */
+  color: #1B3526;
 }
