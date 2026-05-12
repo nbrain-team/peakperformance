@@ -69,8 +69,8 @@ FAQS = [
     {
         "cat": "About the process",
         "q": "What if my property manager already handles tech decisions?",
-        "a_text": "This is the most common pattern in CRE — and it's the \"Right Butt, Wrong Seat\" problem described in the book. Property management and digital infrastructure are different positions. The PM runs day-to-day building operations. Picking the technology stack — network architecture, data plane, integration design, governance rules — requires a different skill set and a different timeframe. The decisions should sit with whoever owns NOI growth, debt service, refinancing terms, and exit math. That's the asset manager or owner, leading from the skybox, not the field.",
-        "a_html": 'This is the most common pattern in CRE — and it\u2019s the <strong><a href="../glossary/index.html#term-right-butt-wrong-seat">&ldquo;Right Butt, Wrong Seat&rdquo;</a></strong> problem described in the book. Property management and digital infrastructure are different positions. The PM runs day-to-day building operations. Picking the technology stack — network architecture, data plane, integration design, governance rules — requires a different skill set and a different timeframe. The decisions should sit with whoever owns NOI growth, debt service, refinancing terms, and exit math. That\u2019s the asset manager or owner, leading from the <strong><a href="../glossary/index.html#term-skybox-principle">skybox</a></strong>, not the field.',
+        "a_text": "This is the most common pattern in CRE — and it's the \"Right Butt, Wrong Seat\" problem described in the book. Running the building and running the building's data & digital infrastructure are different jobs. The PM runs day-to-day building operations. Picking the technology stack — network architecture, data plane, integration design, governance rules — requires a different skill set and a different timeframe. The decisions should sit with whoever owns NOI growth, debt service, refinancing terms, and exit math. That's the asset manager or owner, leading from the skybox, not the field.",
+        "a_html": 'This is the most common pattern in CRE — and it\u2019s the <strong><a href="../glossary/index.html#term-right-butt-wrong-seat">&ldquo;Right Butt, Wrong Seat&rdquo;</a></strong> problem described in the book. Running the building and running the building\u2019s data &amp; digital infrastructure are different jobs. The PM runs day-to-day building operations. Picking the technology stack — network architecture, data plane, integration design, governance rules — requires a different skill set and a different timeframe. The decisions should sit with whoever owns NOI growth, debt service, refinancing terms, and exit math. That\u2019s the asset manager or owner, leading from the <strong><a href="../glossary/index.html#term-skybox-principle">skybox</a></strong>, not the field.',
     },
     {
         "cat": "About the value",
@@ -291,17 +291,26 @@ def main():
 
     # 1) Insert visible HTML (or replace existing)
     visible_html = build_visible_html()
-    if SENTINEL_HTML in content:
-        # replace existing FAQ section
-        # find the section span and replace it
-        start = content.find(SENTINEL_HTML)
-        # back up to the opening <section
-        sec_open = content.rfind("<section", 0, start + 1)
-        sec_close_marker = '</section>'
-        # find the matching close — naive: assume our generated section has no nested <section>
-        sec_close = content.find(sec_close_marker, sec_open) + len(sec_close_marker)
-        content = content[:sec_open] + visible_html + content[sec_close:]
-        print("visible: replaced existing FAQ section")
+    # Count and remove ALL existing FAQ sections (handles stale duplicates
+    # created by earlier script versions that only patched the first hit).
+    # SENTINEL_HTML starts with '<section ', so the match position IS the
+    # opening tag — no rfind needed (which had an off-by-one that backtracked
+    # into the prior section).
+    existing = [m.start() for m in re.finditer(re.escape(SENTINEL_HTML), content)]
+    if existing:
+        for pos in reversed(existing):
+            sec_close = content.find('</section>', pos) + len('</section>')
+            content = content[:pos] + content[sec_close:]
+        # Now insert exactly one new section at the canonical anchor.
+        anchor = '<section class="cta-section cta-section--paper">'
+        idx = content.find(anchor)
+        if idx == -1:
+            sys.exit("could not find anchor for visible FAQ insert after dedup cleanup")
+        content = content[:idx] + visible_html + content[idx:]
+        if len(existing) > 1:
+            print(f"visible: removed {len(existing)} stale FAQ section(s), inserted fresh single section")
+        else:
+            print("visible: replaced existing FAQ section")
     else:
         # insert immediately before the closing cta-section (Beyond the Book)
         anchor = '<section class="cta-section cta-section--paper">'

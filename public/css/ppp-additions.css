@@ -605,3 +605,137 @@
 .faq-item__a li {
   margin-bottom: 0.25rem;
 }
+
+/* ---- /ppp-review form ---- */
+.ppp-review-form-mount {
+  max-width: 720px;
+  margin: 2rem auto 0 auto;
+}
+.ppp-review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  background: #F5F0E4;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  border-radius: 10px;
+  border: 1px solid rgba(27, 53, 38, 0.10);
+}
+.ppp-review-form .form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.ppp-review-form label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1B3526;
+  letter-spacing: 0.01em;
+}
+.ppp-review-form .form-req {
+  color: #C75B45;
+  margin-left: 0.15rem;
+}
+.ppp-review-form input[type="text"],
+.ppp-review-form input[type="email"],
+.ppp-review-form input[type="tel"],
+.ppp-review-form select,
+.ppp-review-form textarea {
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  border: 1.5px solid rgba(27, 53, 38, 0.20);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 1rem;
+  background: #FFFFFF;
+  color: #1B3526;
+  line-height: 1.4;
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+}
+.ppp-review-form input:focus,
+.ppp-review-form select:focus,
+.ppp-review-form textarea:focus {
+  outline: none;
+  border-color: #61a60e;
+  box-shadow: 0 0 0 3px rgba(97, 166, 14, 0.18);
+}
+.ppp-review-form input:invalid:not(:placeholder-shown),
+.ppp-review-form select:invalid:not([data-touched="false"]) {
+  /* don't show invalid state until user touches */
+}
+.ppp-review-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+.ppp-review-form .form-field--checkbox {
+  flex-direction: row;
+}
+.ppp-review-form .checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: rgba(27, 53, 38, 0.85);
+}
+.ppp-review-form .checkbox-label input[type="checkbox"] {
+  flex: 0 0 auto;
+  margin-top: 0.2rem;
+  width: 18px;
+  height: 18px;
+  accent-color: #61a60e;
+  cursor: pointer;
+}
+.ppp-review-form .checkbox-label a {
+  color: #1B3526;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.ppp-review-form .checkbox-label a:hover {
+  color: #61a60e;
+}
+.ppp-review-form button[type="submit"] {
+  align-self: flex-start;
+  margin-top: 0.5rem;
+}
+.ppp-review-form .form-note {
+  margin: 0;
+  font-size: 0.875rem;
+  color: rgba(27, 53, 38, 0.65);
+}
+.ppp-review-form .form-error {
+  padding: 0.75rem 1rem;
+  background: rgba(199, 91, 69, 0.10);
+  border-left: 3px solid #C75B45;
+  border-radius: 4px;
+  color: #8B2F1C;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.form-success {
+  max-width: 720px;
+  margin: 2rem auto 0 auto;
+  background: rgba(97, 166, 14, 0.08);
+  border-left: 4px solid #61a60e;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  border-radius: 10px;
+}
+.form-success h3 {
+  font-family: inherit;
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  font-weight: 700;
+  margin: 0 0 0.75rem 0;
+  color: #1B3526;
+}
+.form-success p {
+  margin: 0 0 1.25rem 0;
+  color: rgba(27, 53, 38, 0.9);
+  line-height: 1.65;
+}
+.form-success__actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
