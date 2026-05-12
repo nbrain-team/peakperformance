@@ -1,23 +1,30 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Regenerate static podcast pages from Anchor RSS + YouTube uploads feed.
+Regenerate static podcast pages from Anchor RSS + optional YouTube + Drive art.
 
 - Fixes double-encoded show notes (renders real HTML from RSS description).
 - Sets episode numbers (0 = coming-soon slug; others from itunes:episode).
-- Hero + listing card art: YouTube hqdefault when matched; else RSS itunes:image.
+- Hero + listing card art (priority): Google Drive episode-folder thumbnail PNG/JPG,
+  then YouTube hqdefault when matched, then RSS itunes:image.
 - Injects optional transcripts from PPP_TRANSCRIPTS_DIR (default ./transcripts).
+
+Intro / show notes: always from RSS description (same as Apple/YouTube distributors).
 
 Usage (repo root):
   python3 scripts/regenerate-podcast.py
 
 Env:
-  RSS_URL                          default Anchor feed for this show
-  YOUTUBE_UPLOADS_PLAYLIST_ID      default UU… playlist for @PeakPropertyPerformance
-  YOUTUBE_API_KEY                  optional; when set, all playlist videos are fetched for matching
-  PPP_TRANSCRIPTS_DIR              default transcripts
+  RSS_URL                             Anchor feed URL
+  YOUTUBE_UPLOADS_PLAYLIST_ID         uploads playlist (UU…)
+  YOUTUBE_API_KEY                     optional — full YouTube title matching
+  GOOGLE_DRIVE_API_KEY                optional — list episode folders under parent & pick thumbnail
+  GOOGLE_API_KEY                      fallback if GOOGLE_DRIVE_API_KEY unset (same GCP key works if both APIs enabled)
+  DRIVE_EPISODES_PARENT_FOLDER_ID     Drive folder containing “Ep 34” subfolders (default: PPP production folder)
 
-Optional `scripts/podcast-youtube-overrides.json`: { "episode-slug": "youtubeVideoId11" }
+Files:
+  scripts/podcast-drive-thumbnails.json   optional { "31": "driveFileId", … } when API key missing or offline
+  scripts/podcast-youtube-overrides.json slug → video id
 """
 
 from __future__ import annotations
@@ -27,6 +34,8 @@ import json
 import os
 import re
 import sys
+import urllib.error
+import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
 from difflib import SequenceMatcher
@@ -41,6 +50,8 @@ YOUTUBE_UPLOADS_PLAYLIST_ID = os.environ.get(
     "YOUTUBE_UPLOADS_PLAYLIST_ID", "UUQQQx__XXu8XvCRuozX3FYA"
 )
 COMING_SOON_SLUG = "coming-soon-peak-property-performance-with-bill-douglas-drew-hall"
+# PPP podcast episode assets (shared Drive): subfolders “Ep 34”, “Ep. 8”, etc.
+DEFAULT_DRIVE_EPISODES_PARENT_ID = "1mhA8fDK9uPIn-1IzM-eG_yd5VOfnpWHO"
 
 NS = {
     "atom": "http://www.w3.org/2005/Atom",
