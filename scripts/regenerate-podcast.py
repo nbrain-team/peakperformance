@@ -414,6 +414,7 @@ def patch_podcast_index(index_path: Path, card_meta: dict[str, dict]) -> None:
             return full
         thumb = meta.get("thumb") or ""
         ep = meta["episode_num"]
+        lbl = meta.get("episode_label") or (str(ep) if ep >= 0 else "—")
         dur = meta["duration_pretty"]
         full = re.sub(
             r'(<div class="episode-card__art"><img src=")([^"]+)(" alt=")',
@@ -423,7 +424,7 @@ def patch_podcast_index(index_path: Path, card_meta: dict[str, dict]) -> None:
         )
         full = re.sub(
             r'(<div class="episode-card__meta">)([^<]+)(</div>)',
-            rf"\1Episode {ep} · {h_esc.escape(dur)}\3",
+            rf"\1Episode {lbl} · {h_esc.escape(dur)}\3",
             full,
             count=1,
         )
