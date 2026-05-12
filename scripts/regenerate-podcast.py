@@ -197,16 +197,15 @@ def match_youtube(rss_title: str, yt: list[dict], min_ratio: float = 0.72) -> di
     n = norm_title(rss_title)
     if len(n) < 8:
         return None
-    watch = [row for row in yt if row.get("is_watch")]
-    pool = watch if watch else yt
-    best = None
-    best_r = 0.0
-    for row in pool:
+    scored = []
+    for row in yt:
         r = SequenceMatcher(None, n, row["norm"]).ratio()
-        if r > best_r:
-            best_r = r
-            best = row
-    if best is not None and best_r >= min_ratio:
+        scored.append((r, row))
+    if not scored:
+        return None
+    scored.sort(key=lambda x: (x[0], x[1].get("is_watch", False)), reverse=True)
+    best_r, best = scored[0]
+    if best_r >= min_ratio:
         return best
     return None
 
@@ -452,7 +451,7 @@ def main() -> int:
     print("Fetching YouTube playlist…", file=sys.stderr)
     yt_url = f"https://www.youtube.com/feeds/videos.xml?playlist_id={YOUTUBE_UPLOADS_PLAYLIST_ID}"
     yt_entries = parse_youtube_playlist(fetch(yt_url))
-    print(f"  {len(yt_entries)} watch URLs", file=sys.stderr)
+    print(f"  {len(yt_entries)} YouTube uploads in feed (max ~15)", file=sys.stderr)
 
     card_meta: dict[str, dict] = {}
     missing_rss: list[str] = []
