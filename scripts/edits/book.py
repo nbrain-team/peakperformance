@@ -216,6 +216,7 @@ EDITS = [
         "optional": True,
     },
     # ---- Audiobook (listen) strip + Flight hydration -----------------------
+    # Expects the same post-export baseline as book/index.html at HEAD (prior EDITS above applied).
     {
         "label": "Audiobook retailer section (visible)",
         "html": (
