@@ -167,7 +167,7 @@ def synthetic_footer_section(uuid: str) -> str:
 def morph_footer_payload_fragment(frag: str) -> str:
     """Normalize footer Flight fragment to the standard three-blocks layout."""
     frag = re.sub(
-        r'\\"className\\":\\"cta-section cta-section--(?:dark|paper)\\"',
+        r'\\"className\\":\\"cta-section cta-section--(?:dark|paper)(?: three-ways-blocks)?\\"',
         '\\"className\\":\\"cta-section cta-section--dark three-ways-blocks\\"',
         frag,
         count=1,
@@ -186,9 +186,18 @@ def rel_prefix(path: Path) -> str:
 
 
 def patch_payload(html: str, *, paper_ok: bool) -> tuple[str, bool]:
-    classes = ['\\"className\\":\\"cta-section cta-section--dark\\"']
+    # Match footer Flight nodes after first run already added three-ways-blocks.
+    classes = [
+        '\\"className\\":\\"cta-section cta-section--dark three-ways-blocks\\"',
+        '\\"className\\":\\"cta-section cta-section--dark\\"',
+    ]
     if paper_ok:
-        classes.append('\\"className\\":\\"cta-section cta-section--paper\\"')
+        classes.extend(
+            (
+                '\\"className\\":\\"cta-section cta-section--paper three-ways-blocks\\"',
+                '\\"className\\":\\"cta-section cta-section--paper\\"',
+            )
+        )
     for cls_esc in classes:
         p = html.rfind(cls_esc)
         if p < 0:
