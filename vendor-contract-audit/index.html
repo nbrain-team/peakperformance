@@ -1,0 +1,294 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>The Vendor Contract Audit | Peak Property Performance®</title><meta name="description" content="12 questions. 10 minutes. A free, no-email-required diagnostic that scores your vendor lock-in risk and names the specific clauses to fix in your next CRE contract cycle. From Peak Property Performance®, the Amazon Best Seller."/><meta property="og:title" content="The Vendor Contract Audit — Peak Property Performance®"/><meta property="og:description" content="12 questions. 10 minutes. A heatmap of your vendor lock-in risk — and the specific clauses to fix in your next CRE contract cycle."/><meta property="og:type" content="website"/><meta property="og:url" content="https://peakpropertyperformance.com/vendor-contract-audit"/><meta property="og:image" content="https://peakpropertyperformance.com/public/images/og-image.png"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:image" content="https://peakpropertyperformance.com/public/images/og-image.png"/><link rel="stylesheet" href="../_next/static/css/f3145fbd800cc712.css" data-precedence="next"/><link rel="stylesheet" href="../public/css/ppp-additions.css"/><link rel="stylesheet" href="https://use.typekit.net/REPLACE_WITH_KIT_ID.css"/><link rel="icon" type="image/x-icon" href="../public/favicon.ico"/><link rel="icon" type="image/png" sizes="32x32" href="../public/favicon-32x32.png"/><link rel="icon" type="image/png" sizes="16x16" href="../public/favicon-16x16.png"/><link rel="apple-touch-icon" sizes="180x180" href="../public/apple-touch-icon.png"/><link rel="manifest" href="../public/site.webmanifest"/><meta name="theme-color" content="#1B3526"/><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"The Vendor Contract Audit","description":"A free, no-email-required interactive diagnostic that scores a CRE owner's vendor lock-in risk across 12 contract clauses and recommends specific clauses to negotiate. From Peak Property Performance, the Amazon Best Seller.","url":"https://peakpropertyperformance.com/vendor-contract-audit","applicationCategory":"BusinessApplication","operatingSystem":"Any (browser-based)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"isAccessibleForFree":true,"creator":{"@type":"Organization","name":"OpticWise","url":"https://opticwise.com"},"publisher":{"@type":"Organization","name":"Peak Property Performance","url":"https://peakpropertyperformance.com"}}</script></head><body><nav class="nav"><div class="container nav__inner"><a class="nav__brand" href="../index.html"><span class="nav__brandmark">PPP</span>Peak Property Performance®</a><div class="nav__links"><a class="nav__link" href="../book/index.html">Book</a><a class="nav__link" href="../podcast/index.html">Podcast</a><a class="nav__link" href="../5c-framework/index.html">5C™ Framework</a><a class="nav__link" href="../about/index.html">About</a><div class="nav__dropdown"><span class="nav__link nav__dropdown-trigger" role="button" tabindex="0" aria-haspopup="true">By Role</span><div class="nav__dropdown-menu"><a class="nav__link" href="../for-owners/index.html">For Owners</a><a class="nav__link" href="../for-asset-managers/index.html">For Asset Managers</a><a class="nav__link" href="../for-property-managers/index.html">For Property Managers</a><a class="nav__link" href="../for-it-managers/index.html">For IT Managers</a></div></div><a class="nav__link" href="../resources/index.html">Resources</a><a class="btn btn-primary btn-sm" href="../book/index.html">Get the Book</a></div></div></nav><main><section class="hero hero--dark"><div class="container"><span class="eyebrow eyebrow--bestseller">Free Diagnostic · No Email Required</span><h1 class="hero__heading mt-4">The Vendor Contract Audit.</h1><p class="hero__hook">If you don&#x27;t own your data &amp; digital infrastructure, your vendors do.</p><p class="hero__lede mt-3">12 questions. 10 minutes. A heatmap of your vendor lock-in risk — and the specific clauses to fix in your next contract cycle.</p><div class="hero__cta-row mt-5"><a href="#start" class="btn btn-primary btn-lg">Start the Audit →</a></div></div></section><section class="audit-intro card-grid-section card-grid-section--paper"><div class="container"><span class="eyebrow">What you&#x27;ll learn</span><h2 class="mt-4 mb-4">Three things this audit shows you.</h2><div class="card-grid card-grid--3"><div class="card"><h3 class="card__heading">Your data ownership posture</h3><p class="card__body">Do your vendor contracts say you own the data their platforms generate from your buildings? Or are you renting access to your own operational reality?</p></div><div class="card"><h3 class="card__heading">Your termination leverage</h3><p class="card__body">Can you actually leave a vendor in 90 days without losing operational continuity? Or are you trapped by contractual penalties and data-portability gaps?</p></div><div class="card"><h3 class="card__heading">Your AI exposure</h3><p class="card__body">Have you given vendors the right to train AI models on your data — including derivative datasets they can sell to competitors?</p></div></div></div></section><section id="start" class="audit-questions"><div class="container"><div class="audit-shell"><div class="audit-header"><span class="audit-progress">Question <span id="audit-q-current">1</span> of <span id="audit-q-total">12</span></span><div class="audit-progress-bar"><div class="audit-progress-fill" id="audit-progress-fill" style="width:8.33%"></div></div></div><div id="audit-questions-container"></div><div class="audit-nav"><button type="button" id="audit-back" class="btn btn-secondary" disabled>← Back</button><button type="button" id="audit-restart" class="audit-restart-link" hidden>Restart the audit</button></div></div><div class="audit-results" id="audit-results" hidden><div class="result-card"><span class="eyebrow">Your result</span><h2 class="result-score">Your score: <span class="score-number" id="result-score">0</span>/12</h2><p class="result-tier" id="result-tier"></p><p class="result-summary" id="result-summary"></p></div><div class="heatmap"><h3 class="heatmap-title">Where you stand by category.</h3><div class="heatmap-rows" id="heatmap-rows"></div></div><div class="recommendations" id="recommendations"></div><div class="share-block"><h3>Share your result.</h3><p>Pass it to your General Counsel, your IT lead, or your asset manager. Whoever owns the next contract negotiation.</p><textarea readonly id="share-text" aria-label="Shareable result summary"></textarea><div class="share-buttons"><button type="button" class="btn btn-secondary" id="share-copy">Copy to Clipboard</button><span class="share-feedback" id="share-feedback" hidden>Copied.</span></div></div><section class="cta-section cta-section--dark" style="margin-top:3rem"><div class="container"><span class="eyebrow no-rule" style="justify-content:center;display:flex">Beyond the diagnostic</span><h2 class="mt-4 mb-4">Want a real review on one of your buildings?</h2><p class="lede" style="max-width:60ch;margin-inline:auto">A PPP Review walks through one of your properties with you, identifies the actual vendor lock-in risk on the ground, and delivers a one-pager you can act on Monday. 45 minutes. No software pitch. No rip-and-replace.</p><div class="cta__buttons"><a href="../ppp-review/index.html" class="btn btn-primary btn-lg">Request a Complimentary PPP Review →</a></div></div></section></div></div></section></main><footer class="footer"><div class="container"><div class="footer__grid"><div><a class="footer__brand" href="../index.html"><span class="nav__brandmark">PPP</span>Peak Property Performance®</a><p class="footer__tagline">Amazon Best Seller. The CRE strategy playbook for owners, operators, and the leaders building the future of the industry.</p></div><div><div class="footer__col-heading">Read &amp; Listen</div><a class="footer__link" href="../book/index.html">The PPP Book</a><a class="footer__link" href="../podcast/index.html">The PPP Podcast</a><a class="footer__link" href="../be-on-the-show/index.html">Be on the Show</a></div><div><div class="footer__col-heading">By Role</div><a class="footer__link" href="../for-owners/index.html">For CRE Owners</a><a class="footer__link" href="../for-asset-managers/index.html">For Asset Managers</a><a class="footer__link" href="../for-it-managers/index.html">For IT Managers</a><a class="footer__link" href="../for-property-managers/index.html">For Property Managers</a></div><div><div class="footer__col-heading">Get Started</div><a class="footer__link" href="../5c-framework/index.html">5C™ Framework</a><a class="footer__link" href="../resources/index.html">Free Resources</a><a class="footer__link" href="../ppp-review/index.html">Request a PPP Review</a><a class="footer__link" href="../about/index.html">About</a></div></div><div class="footer__publisher"><img src="../api/media/file/fast-company-press.webp" alt="Fast Company Press"/><div class="footer__publisher-text"><strong>Published by Fast Company Press</strong><span>An imprint dedicated to ideas that move business forward.</span></div></div><div class="footer__bottom"><span>© 2026 Peak Property Performance®. All rights reserved.</span><span>A program of <a href="https://opticwise.com/" target="_blank" rel="noopener" style="color:rgba(245,240,228,0.7)">OpticWise</a></span></div></div></footer><script>
+/*
+  Vendor Contract Audit — client-side scoring engine.
+  No backend. No persistence. No network calls. Answers live only in memory
+  on this page. Refreshing wipes them. Per the v3 spec, that's intentional —
+  the whole point is shareability and zero friction.
+*/
+(function () {
+  "use strict";
+
+  var QUESTIONS = [
+    { id: 1, cat: 1, text: "Do your vendor contracts explicitly state that all operational, telemetry, and tenant data generated through the vendor\u2019s platform is the property of the property owner — including derivative datasets and aggregated analytics?" },
+    { id: 2, cat: 1, text: "Are you entitled to a complete data export, in commonly readable formats (CSV, JSON), within 10 business days of written request, at no additional cost?" },
+    { id: 3, cat: 1, text: "Is all data the vendor stores on your behalf maintained in formats that allow migration to any third-party system without proprietary transformation, encoding, or licensing fees?" },
+    { id: 4, cat: 2, text: "Do you (the property owner) hold root-level administrative credentials to all systems deployed at your properties — with vendors operating under credentials you grant them, not the inverse?" },
+    { id: 5, cat: 2, text: "Do you have the right to audit, inspect, and review all systems, configurations, and data flows associated with the vendor\u2019s services, with no more than 10 business days\u2019 advance notice?" },
+    { id: 6, cat: 2, text: "Are vendors contractually prohibited from granting third-party access — including their own partners, contractors, and AI service providers — without your prior written consent?" },
+    { id: 7, cat: 3, text: "Can you terminate the agreement at any time, for any reason or no reason, with 90 days\u2019 written notice — and without early-termination penalties beyond pro-rated payment for services rendered?" },
+    { id: 8, cat: 3, text: "Upon termination, will the vendor provide migration assistance — including data exports, credential transfers, and integration documentation — for at least 180 days at no additional cost?" },
+    { id: 9, cat: 3, text: "Within 30 days of termination or your request, will the vendor provide written certification that all your data has been destroyed from their systems, including backups, archival storage, and AI training datasets?" },
+    { id: 10, cat: 4, text: "Are vendors contractually prohibited from using your data — in raw, aggregated, anonymized, or derivative form — to train AI models, develop competitive products, or generate datasets sold to third parties, without your explicit written consent?" },
+    { id: 11, cat: 4, text: "Are vendors contractually prohibited from publicly disclosing you as a customer, referencing your properties in case studies, marketing materials, or sales conversations, without your prior written consent?" },
+    { id: 12, cat: 4, text: "Will vendors provide you with 60 days\u2019 written notice of any acquisition, merger, or change-of-control event — and do you reserve the right to terminate immediately without penalty upon such an event?" }
+  ];
+
+  var CATEGORIES = {
+    1: {
+      name: "Data ownership",
+      recommendation: "Your weakest area is data ownership. The clauses you need to negotiate into your next contract: (1) explicit data ownership transferring to the property owner, (2) on-demand export rights in standard formats, (3) format portability without proprietary licensing."
+    },
+    2: {
+      name: "Access and credentials",
+      recommendation: "Your weakest area is access control. The clauses to negotiate: (1) owner-held root credentials with vendors operating under your grants, (2) audit and inspection rights, (3) prohibition on third-party access without your consent."
+    },
+    3: {
+      name: "Termination and continuity",
+      recommendation: "Your weakest area is termination leverage. The clauses to negotiate: (1) termination for any reason with reasonable notice, (2) migration assistance period, (3) certified data destruction on termination."
+    },
+    4: {
+      name: "Usage rights and change of control",
+      recommendation: "Your weakest area is usage rights. The clauses to negotiate: (1) prohibition on AI training using your data, (2) marketing/disclosure consent requirements, (3) change-of-control termination rights."
+    }
+  };
+
+  // Tier thresholds use floor() of score so half-points (Unsure) round down.
+  var TIERS = [
+    { min: 10, name: "Owner-Controlled", summary: "You\u2019re operating the playbook. Most CRE owners aren\u2019t here. The gaps that remain are worth surfacing — but you\u2019ve already done the hard work of structuring contracts around ownership." },
+    { min: 7, name: "Mostly Owner-Controlled", summary: "Good foundations with specific gaps to close. The categories scored below 3 are your roadmap for the next renewal cycle. A PPP Review can name them by clause." },
+    { min: 4, name: "Mixed Lock-In", summary: "Your vendors hold significant leverage. Your next renewal cycle is critical — going into it without renegotiating these clauses locks the leverage in for another term. The good news: each clause has a known playbook." },
+    { min: 0, name: "Vendor-Controlled", summary: "Your vendors are operating the asset. You\u2019re paying them for the privilege. Start with the category that scored lowest — that\u2019s where the leverage compounds against you fastest." }
+  ];
+
+  var ANSWER_VALUE = { yes: 1, no: 0, unsure: 0.5 };
+  var ANSWER_LABEL = { yes: "Yes", no: "No", unsure: "Unsure" };
+
+  var state = {
+    answers: new Array(QUESTIONS.length).fill(null),
+    current: 0
+  };
+
+  function $(id) { return document.getElementById(id); }
+
+  function renderQuestions() {
+    var container = $("audit-questions-container");
+    var parts = [];
+    for (var i = 0; i < QUESTIONS.length; i++) {
+      var q = QUESTIONS[i];
+      parts.push(
+        '<div class="audit-question" data-idx="' + i + '" ' + (i === 0 ? "" : 'hidden') + '>' +
+          '<p class="audit-question__cat">Category ' + q.cat + ' · ' + CATEGORIES[q.cat].name + '</p>' +
+          '<p class="audit-question__text">' + escapeHtml(q.text) + '</p>' +
+          '<div class="audit-answer-buttons" role="group" aria-label="Answer">' +
+            '<button type="button" class="audit-answer-btn audit-answer-btn--yes" data-value="yes">Yes</button>' +
+            '<button type="button" class="audit-answer-btn audit-answer-btn--no" data-value="no">No</button>' +
+            '<button type="button" class="audit-answer-btn audit-answer-btn--unsure" data-value="unsure">Unsure</button>' +
+          '</div>' +
+        '</div>'
+      );
+    }
+    container.innerHTML = parts.join("");
+    $("audit-q-total").textContent = QUESTIONS.length;
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (ch) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#x27;" }[ch];
+    });
+  }
+
+  function showQuestion(idx) {
+    var nodes = document.querySelectorAll(".audit-question");
+    for (var i = 0; i < nodes.length; i++) {
+      if (parseInt(nodes[i].getAttribute("data-idx"), 10) === idx) {
+        nodes[i].removeAttribute("hidden");
+        // re-mark previously selected answer if any
+        var stored = state.answers[idx];
+        var btns = nodes[i].querySelectorAll(".audit-answer-btn");
+        for (var j = 0; j < btns.length; j++) {
+          if (stored !== null && btns[j].getAttribute("data-value") === stored) {
+            btns[j].classList.add("audit-answer-btn--selected");
+          } else {
+            btns[j].classList.remove("audit-answer-btn--selected");
+          }
+        }
+      } else {
+        nodes[i].setAttribute("hidden", "");
+      }
+    }
+    state.current = idx;
+    $("audit-q-current").textContent = (idx + 1);
+    var pct = ((idx + 1) / QUESTIONS.length) * 100;
+    $("audit-progress-fill").style.width = pct + "%";
+    $("audit-back").disabled = idx === 0;
+    // smooth scroll to top of audit shell on every question change
+    var shell = document.querySelector(".audit-shell");
+    if (shell && shell.scrollIntoView) {
+      shell.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+
+  function recordAnswer(idx, value) {
+    state.answers[idx] = value;
+    if (idx < QUESTIONS.length - 1) {
+      // brief visual delay so the selection registers before advancing
+      setTimeout(function () { showQuestion(idx + 1); }, 220);
+    } else {
+      setTimeout(showResults, 260);
+    }
+  }
+
+  function computeScore() {
+    var total = 0;
+    var perCat = { 1: 0, 2: 0, 3: 0, 4: 0 };
+    for (var i = 0; i < QUESTIONS.length; i++) {
+      var ans = state.answers[i];
+      if (ans === null) continue;
+      var v = ANSWER_VALUE[ans];
+      total += v;
+      perCat[QUESTIONS[i].cat] += v;
+    }
+    return { total: total, perCat: perCat };
+  }
+
+  function tierFor(score) {
+    var floor = Math.floor(score);
+    for (var i = 0; i < TIERS.length; i++) {
+      if (floor >= TIERS[i].min) return TIERS[i];
+    }
+    return TIERS[TIERS.length - 1];
+  }
+
+  function heatmapClass(catScore) {
+    // catScore is out of 3 (3 questions per category, max 1 point each)
+    var floor = Math.floor(catScore);
+    if (floor >= 3) return "heatmap-bar--green";
+    if (floor === 2) return "heatmap-bar--yellow";
+    if (floor === 1) return "heatmap-bar--orange";
+    return "heatmap-bar--red";
+  }
+
+  function showResults() {
+    var result = computeScore();
+    var tier = tierFor(result.total);
+
+    // Hide questions, show results
+    document.querySelector(".audit-shell").classList.add("audit-shell--done");
+    $("audit-results").removeAttribute("hidden");
+    $("audit-restart").removeAttribute("hidden");
+
+    // Score card
+    var scoreDisplay = result.total % 1 === 0 ? String(result.total) : result.total.toFixed(1);
+    $("result-score").textContent = scoreDisplay;
+    $("result-tier").textContent = tier.name;
+    $("result-summary").textContent = tier.summary;
+
+    // Heatmap
+    var rows = [];
+    for (var c = 1; c <= 4; c++) {
+      var s = result.perCat[c];
+      var pct = (s / 3) * 100;
+      var displayScore = s % 1 === 0 ? String(s) : s.toFixed(1);
+      rows.push(
+        '<div class="heatmap-row">' +
+          '<div class="heatmap-label">' + escapeHtml(CATEGORIES[c].name) + '</div>' +
+          '<div class="heatmap-track">' +
+            '<div class="heatmap-bar ' + heatmapClass(s) + '" style="width:' + pct + '%"></div>' +
+          '</div>' +
+          '<div class="heatmap-value">' + displayScore + '/3</div>' +
+        '</div>'
+      );
+    }
+    $("heatmap-rows").innerHTML = rows.join("");
+
+    // Per-category recommendations (only for categories where floor < 3)
+    var recs = [];
+    for (var rc = 1; rc <= 4; rc++) {
+      if (Math.floor(result.perCat[rc]) < 3) {
+        recs.push(
+          '<div class="recommendation">' +
+            '<h4 class="recommendation__cat">Category ' + rc + ' — ' + escapeHtml(CATEGORIES[rc].name) + '</h4>' +
+            '<p>' + escapeHtml(CATEGORIES[rc].recommendation) + '</p>' +
+          '</div>'
+        );
+      }
+    }
+    if (recs.length === 0) {
+      $("recommendations").innerHTML = '<div class="recommendation recommendation--full">' +
+        '<h4 class="recommendation__cat">All four categories scored 3/3.</h4>' +
+        '<p>That\u2019s rare. Your remaining work is portfolio-wide consistency and renewal-cycle vigilance. A PPP Review can stress-test against newer clause patterns (AI training rights, change-of-control, AI-generated derivative datasets) that may not have been on your radar when the current contracts were signed.</p>' +
+        '</div>';
+    } else {
+      $("recommendations").innerHTML = '<h3 class="recommendations-title">The clauses to negotiate next.</h3>' + recs.join("");
+    }
+
+    // Shareable summary text
+    var shareText = "I scored " + scoreDisplay + "/12 on the PPP Vendor Contract Audit — I\u2019m " + tier.name + ". Run it yourself: peakpropertyperformance.com/vendor-contract-audit";
+    $("share-text").value = shareText;
+
+    // Scroll results into view
+    setTimeout(function () {
+      $("audit-results").scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
+  }
+
+  function restartAudit() {
+    state.answers = new Array(QUESTIONS.length).fill(null);
+    state.current = 0;
+    document.querySelector(".audit-shell").classList.remove("audit-shell--done");
+    $("audit-results").setAttribute("hidden", "");
+    $("audit-restart").setAttribute("hidden", "");
+    // clear selected styling
+    var btns = document.querySelectorAll(".audit-answer-btn--selected");
+    for (var i = 0; i < btns.length; i++) btns[i].classList.remove("audit-answer-btn--selected");
+    showQuestion(0);
+  }
+
+  function copyShareText() {
+    var ta = $("share-text");
+    var feedback = $("share-feedback");
+    try {
+      ta.select();
+      ta.setSelectionRange(0, ta.value.length);
+      var ok = false;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(ta.value).then(function () {
+          feedback.removeAttribute("hidden");
+          setTimeout(function () { feedback.setAttribute("hidden", ""); }, 2400);
+        });
+        ok = true;
+      } else if (document.execCommand) {
+        ok = document.execCommand("copy");
+      }
+      if (ok) {
+        feedback.removeAttribute("hidden");
+        setTimeout(function () { feedback.setAttribute("hidden", ""); }, 2400);
+      }
+    } catch (e) {
+      // silently fail — user can copy manually
+    }
+  }
+
+  function init() {
+    renderQuestions();
+
+    // Event delegation for answer buttons
+    document.getElementById("audit-questions-container").addEventListener("click", function (e) {
+      var btn = e.target.closest && e.target.closest(".audit-answer-btn");
+      if (!btn) return;
+      var qNode = btn.closest(".audit-question");
+      if (!qNode) return;
+      var idx = parseInt(qNode.getAttribute("data-idx"), 10);
+      var value = btn.getAttribute("data-value");
+      // visual feedback
+      var siblings = qNode.querySelectorAll(".audit-answer-btn");
+      for (var i = 0; i < siblings.length; i++) siblings[i].classList.remove("audit-answer-btn--selected");
+      btn.classList.add("audit-answer-btn--selected");
+      recordAnswer(idx, value);
+    });
+
+    $("audit-back").addEventListener("click", function () {
+      if (state.current > 0) showQuestion(state.current - 1);
+    });
+
+    $("audit-restart").addEventListener("click", restartAudit);
+    $("share-copy").addEventListener("click", copyShareText);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+</script></body></html>
