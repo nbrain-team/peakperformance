@@ -14,7 +14,10 @@ Usage (repo root):
 Env:
   RSS_URL                          default Anchor feed for this show
   YOUTUBE_UPLOADS_PLAYLIST_ID      default UU… playlist for @PeakPropertyPerformance
+  YOUTUBE_API_KEY                  optional; when set, all playlist videos are fetched for matching
   PPP_TRANSCRIPTS_DIR              default transcripts
+
+Optional `scripts/podcast-youtube-overrides.json`: { "episode-slug": "youtubeVideoId11" }
 """
 
 from __future__ import annotations
@@ -190,6 +193,68 @@ def parse_youtube_playlist(xml_text: str) -> list[dict]:
                 "is_watch": is_watch,
             }
         )
+    return out
+
+
+def fetch_youtube_playlist_via_api(api_key: str, playlist_id: str) -> list[dict]:
+    """All items in the uploads playlist (paginated). Requires YouTube Data API v3 key."""
+    import urllib.parse
+
+    out: list[dict] = []
+    page_token: str | None = None
+    while True:
+        q = {
+            "part": "snippet",
+            "playlistId": playlist_id,
+            "maxResults": "50",
+            "key": api_key,
+        }
+        if page_token:
+            q["pageToken"] = page_token
+        url = "https://www.googleapis.com/youtube/v3/playlistItems?" + urllib.parse.urlencode(
+            q
+        )
+        raw = fetch(url)
+        payload = json.loads(raw)
+        for it in payload.get("items") or []:
+            sn = it.get("snippet") or {}
+            resource = sn.get("resourceId") or {}
+            video_id = resource.get("videoId")
+            title = (sn.get("title") or "").strip()
+            if not video_id:
+                continue
+            thumbs = sn.get("thumbnails") or {}
+            th = (
+                (thumbs.get("high") or {}).get("url")
+                or (thumbs.get("medium") or {}).get("url")
+                or f"https://i.ytimg.com/vi/{video_id}/hqdefault.jpg"
+            )
+            out.append(
+                {
+                    "video_id": video_id,
+                    "title": title,
+                    "thumb": th,
+                    "norm": norm_title(title),
+                    "is_watch": True,
+                }
+            )
+        page_token = payload.get("nextPageToken")
+        if not page_token:
+            break
+    return out
+
+
+def load_youtube_overrides(root: Path) -> dict[str, str]:
+    p = root / "scripts" / "podcast-youtube-overrides.json"
+    if not p.is_file():
+        return {}
+    data = json.loads(p.read_text(encoding="utf-8"))
+    out: dict[str, str] = {}
+    if not isinstance(data, dict):
+        return out
+    for k, v in data.items():
+        if isinstance(k, str) and isinstance(v, str) and len(v) == 11:
+            out[k] = v
     return out
 
 
@@ -448,10 +513,20 @@ def main() -> int:
     rss_xml = fetch(RSS_URL)
     by_play = parse_rss(rss_xml)
 
-    print("Fetching YouTube playlist…", file=sys.stderr)
-    yt_url = f"https://www.youtube.com/feeds/videos.xml?playlist_id={YOUTUBE_UPLOADS_PLAYLIST_ID}"
-    yt_entries = parse_youtube_playlist(fetch(yt_url))
-    print(f"  {len(yt_entries)} YouTube uploads in feed (max ~15)", file=sys.stderr)
+    yt_overrides = load_youtube_overrides(root)
+
+    print("Fetching YouTube…", file=sys.stderr)
+    api_key = os.environ.get("YOUTUBE_API_KEY", "").strip()
+    if api_key:
+        yt_entries = fetch_youtube_playlist_via_api(api_key, YOUTUBE_UPLOADS_PLAYLIST_ID)
+        print(f"  {len(yt_entries)} videos via Data API", file=sys.stderr)
+    else:
+        yt_url = f"https://www.youtube.com/feeds/videos.xml?playlist_id={YOUTUBE_UPLOADS_PLAYLIST_ID}"
+        yt_entries = parse_youtube_playlist(fetch(yt_url))
+        print(
+            f"  {len(yt_entries)} videos from playlist RSS (~15 max; set YOUTUBE_API_KEY for full catalog)",
+            file=sys.stderr,
+        )
 
     card_meta: dict[str, dict] = {}
     missing_rss: list[str] = []
@@ -472,7 +547,18 @@ def main() -> int:
         rss_row = by_play[pid]
         item = rss_row["_item"]
         rss_title = rss_row["title"]
-        yt_m = match_youtube(rss_title, yt_entries)
+        yt_m = None
+        if slug in yt_overrides:
+            vid = yt_overrides[slug]
+            yt_m = {
+                "video_id": vid,
+                "title": "",
+                "thumb": f"https://i.ytimg.com/vi/{vid}/hqdefault.jpg",
+                "norm": "",
+                "is_watch": True,
+            }
+        else:
+            yt_m = match_youtube(rss_title, yt_entries)
         if not yt_m:
             missing_yt.append(slug)
 
