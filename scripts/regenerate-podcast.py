@@ -372,7 +372,7 @@ def patch_episode_page(
         count=1,
     )
 
-    tr = load_transcript(transcripts_dir, ep_num, slug)
+    tr = load_transcript(transcripts_dir, ep_num, slug) if ep_num >= 0 else None
     html = inject_or_replace_transcript(html, tr)
 
     iso_dur = iso_duration_from_itunes(rss_row["duration_raw"])
@@ -395,6 +395,7 @@ def patch_episode_page(
     return {
         "slug": slug,
         "episode_num": ep_num,
+        "episode_label": ep_label,
         "duration_pretty": dur_p,
         "thumb": thumb,
     }
