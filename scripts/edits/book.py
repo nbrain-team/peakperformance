@@ -69,14 +69,14 @@ EDITS = [
         "label": "#11 CTA buttons (visible)",
         "html": (
             '<a class="btn btn-primary btn-lg" href="#retailers">View Retailers</a>',
-            '<a class="btn btn-primary btn-lg" href="https://www.amazon.com/Peak-Property-Performance-Game-Changing-Strategies/dp/1639081283/" target="_blank" rel="noopener">Get the Book on Amazon</a><a class="btn btn-secondary btn-lg" href="#retailers">All Retailers</a>',
+            '<a class="btn btn-primary btn-lg" href="https://www.amazon.com/Peak-Property-Performance-Game-Changing-Strategies/dp/1639081283/" target="_blank" rel="noopener">Get the Book on Amazon</a><a class="btn btn-secondary btn-lg" href="#retailers">All Retailers</a><a class="btn btn-secondary btn-lg" href="#audiobook-retailers">Listen to the book</a>',
         ),
     },
     {
         "label": "#11 CTA buttons (payload)",
         "payload": (
             '"href":"#retailers","className":"btn btn-primary btn-lg","children":"View Retailers"',
-            '"href":"https://www.amazon.com/Peak-Property-Performance-Game-Changing-Strategies/dp/1639081283/","target":"_blank","rel":"noopener","className":"btn btn-primary btn-lg","children":"Get the Book on Amazon"}],["$","a",null,{"href":"#retailers","className":"btn btn-secondary btn-lg","children":"All Retailers"',
+            '"href":"https://www.amazon.com/Peak-Property-Performance-Game-Changing-Strategies/dp/1639081283/","target":"_blank","rel":"noopener","className":"btn btn-primary btn-lg","children":"Get the Book on Amazon"}],["$","a",null,{"href":"#retailers","className":"btn btn-secondary btn-lg","children":"All Retailers"}],["$","a",null,{"href":"#audiobook-retailers","className":"btn btn-secondary btn-lg","children":"Listen to the book"',
         ),
     },
     # ---- A2. Book covers — swap cover.png for composite (hero + retailer) ----

@@ -1,0 +1,32 @@
+    # ---- Audiobook (listen) strip + Flight hydration -------------------
+    {
+        "label": "Audiobook retailer section (visible)",
+        "html": (
+            '<a href="https://www.porchlightbooks.com/products/peak-property-performance-bill-douglas-9781639081288" target="_blank" rel="noopener" class="retailer-link">Bulk at Porchlight</a></div></div></div></div></section><section class="publisher-band publisher-band--dark dark-section">',
+            '<a href="https://www.porchlightbooks.com/products/peak-property-performance-bill-douglas-9781639081288" target="_blank" rel="noopener" class="retailer-link">Bulk at Porchlight</a></div></div></div></div></section><section class="retailer-section"><div class="container"><div class="retailer-section__inner"><div class="book-cover-image"><img src="../public/images/book-cover-with-bestseller.png" alt="Peak Property Performance® — audiobook from Fast Company Press."/></div><div><span class="eyebrow">Listen to the Book</span><h2 class="mt-4 mb-4">Available on leading audiobook platforms.</h2><p class="lede">Stream or download wherever you listen.</p><div class="retailer-list" id="audiobook-retailers"><a href="https://www.audible.com/pd/Peak-Property-Performance-Audiobook/B0FLYMCKMT" target="_blank" rel="noopener" class="retailer-link">Audible</a><a href="https://play.google.com/store/audiobooks/details/Peak_Property_Performance_Game_Changing_AI_and_Dig?id=AQAAAEDKViUW_M&amp;hl=en_US" target="_blank" rel="noopener" class="retailer-link">Google Play Audiobooks</a><a href="https://open.spotify.com/show/5R1dHz7Hdk8WO2X9VNGIfy" target="_blank" rel="noopener" class="retailer-link">Spotify</a></div></div></div></div></section><section class="publisher-band publisher-band--dark dark-section">',
+        ),
+    },
+    {
+        "label": "Flight: insert $L14 between print retailers and publisher band",
+        "payload": (
+            '\\"$L12\\",\\"$L13\\",[\\"$\\",\\"section\\",\\"69efb8125996bea084142e3a\\",{\\"className\\":\\"card',
+            '\\"$L12\\",\\"$L14\\",\\"$L13\\",[\\"$\\",\\"section\\",\\"69efb8125996bea084142e3a\\",{\\"className\\":\\"card',
+        ),
+        "payload_raw": True,
+    },
+    {
+        "label": "Flight: hero Listen to the book CTA",
+        "payload": (
+            ',[\\"$\\",\\"a\\",null,{\\"href\\":\\"#retailers\\",\\"className\\":\\"btn btn-secondary btn-lg\\",\\"children\\":\\"All Retailers\\"}],\\"\\"]',
+            ',[\\"$\\",\\"a\\",null,{\\"href\\":\\"#retailers\\",\\"className\\":\\"btn btn-secondary btn-lg\\",\\"children\\":\\"All Retailers\\"}],[\\"$\\",\\"a\\",null,{\\"href\\":\\"#audiobook-retailers\\",\\"className\\":\\"btn btn-secondary btn-lg\\",\\"children\\":\\"Listen to the book\\"}],\\"\\"]',
+        ),
+        "payload_raw": True,
+    },
+    {
+        "label": "Flight: audiobook retailer-section chunk + footer push split",
+        "payload": (
+            'Bulk at Porchlight\\"}]]}]]}]]}]}]}]\\n"])</script><script>self.__next_f.push([1,"6:[\\"$\\",\\"footer\\",null,{\\"className\\":',
+            'Bulk at Porchlight\\"}]]}]]}]]}]}]}]\\n"])</script><script>self.__next_f.push([1,"14:[\\"$\\",\\"section\\",\\"69efb8125996bea084142e35\\",{\\"className\\":\\"retailer-section\\",\\"children\\":[\\"$\\",\\"div\\",null,{\\"className\\":\\"container\\",\\"children\\":[\\"$\\",\\"div\\",null,{\\"className\\":\\"retailer-section__inner\\",\\"children\\":[[\\"$\\",\\"div\\",null,{\\"className\\":\\"book-cover-image\\",\\"children\\":[\\"$\\",\\"img\\",null,{\\"src\\":\\"/public/images/book-cover-with-bestseller.png\\",\\"alt\\":\\"Peak Property Performance® — Amazon Best Seller — book cover from Fast Company Press.\\"}]}],[\\"$\\",\\"div\\",null,{\\"children\\":[[\\"$\\",\\"span\\",null,{\\"className\\":\\"eyebrow\\",\\"children\\":\\"Listen to the Book\\"}],[\\"$\\",\\"h2\\",null,{\\"className\\":\\"mt-4 mb-4\\",\\"children\\":\\"Available on leading audiobook platforms.\\"}],[\\"$\\",\\"p\\",null,{\\"className\\":\\"lede\\",\\"children\\":\\"Stream or download wherever you listen.\\"}],[\\"$\\",\\"div\\",null,{\\"className\\":\\"retailer-list\\",\\"id\\":\\"audiobook-retailers\\",\\"children\\":[[\\"$\\",\\"a\\",\\"audible\\",{\\"href\\":\\"https://www.audible.com/pd/Peak-Property-Performance-Audiobook/B0FLYMCKMT\\",\\"target\\":\\"_blank\\",\\"rel\\":\\"noopener\\",\\"className\\":\\"retailer-link\\",\\"children\\":\\"Audible\\"}],[\\"$\\",\\"a\\",\\"googlePlayAudiobooks\\",{\\"href\\":\\"https://play.google.com/store/audiobooks/details/Peak_Property_Performance_Game_Changing_AI_and_Dig?id=AQAAAEDKViUW_M\\u0026hl=en_US\\",\\"target\\":\\"_blank\\",\\"rel\\":\\"noopener\\",\\"className\\":\\"retailer-link\\",\\"children\\":\\"Google Play Audiobooks\\"}],[\\"$\\",\\"a\\",\\"spotify\\",{\\"href\\":\\"https://open.spotify.com/show/5R1dHz7Hdk8WO2X9VNGIfy\\",\\"target\\":\\"_blank\\",\\"rel\\":\\"noopener\\",\\"className\\":\\"retailer-link\\",\\"children\\":\\"Spotify\\"}]]}]]}]]}]}]}]\\n""])</script><script>self.__next_f.push([1,"6:[\\"$\\",\\"footer\\",null,{\\"className\\":',
+        ),
+        "payload_raw": True,
+    },
