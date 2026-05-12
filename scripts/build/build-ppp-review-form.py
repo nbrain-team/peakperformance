@@ -195,6 +195,12 @@ def main():
     payload_done = False
     script_done = False
 
+    # Single source of truth: the lookup pattern is whatever the encoder
+    # produces for the original mount markup. Removes any chance of drift
+    # between the regex and the actual file content.
+    global OLD_PAYLOAD
+    OLD_PAYLOAD = encode_for_payload_innerhtml(OLD_VISIBLE)
+
     # Idempotency check: if the form id is already present, skip.
     if 'id="ppp-review-form"' in content:
         print("Form already present in visible HTML — skipping visible patch.")
