@@ -91,6 +91,16 @@ NEW_GRID_TUPLE = (
 )
 
 
+# Everything after \"className\":\"container\",\"children\": inside the footer Flight fragment
+FOOTER_AFTER_CONTAINER_MARKER = (
+    '[[\\"$\\",\\"span\\",null,{\\"className\\":\\"eyebrow no-rule\\",\\"style\\":{\\"justifyContent\\":\\"center\\",\\"display\\":\\"flex\\"},\\"children\\":\\"Get Started\\"}],'
+    '[\\"$\\",\\"h2\\",null,{\\"className\\":\\"mt-4 mb-4\\",\\"children\\":\\"Three ways in.\\"}],'
+    '[\\"$\\",\\"p\\",null,{\\"className\\":\\"lede three-ways-blocks__lede\\",\\"style\\":{\\"maxWidth\\":\\"52ch\\",\\"marginInline\\":\\"auto\\"},\\"children\\":\\"Whether you\'re scouting, training camp, or game time — there\'s a way to start today.\\"}],'
+    + NEW_GRID_TUPLE
+    + "]]}]}]}]"
+)
+
+
 def extract_last_visible_section_before_main(html: str, class_prefix: str):
     """Find last section with given class before </main>."""
     main_end = html.find("</main>")
@@ -155,7 +165,7 @@ def synthetic_footer_section(uuid: str) -> str:
 
 
 def morph_footer_payload_fragment(frag: str) -> str:
-    """Mutate a [$section,… Flight fragment (single footer section)."""
+    """Normalize footer Flight fragment to the standard three-blocks layout."""
     frag = re.sub(
         r'\\"className\\":\\"cta-section cta-section--(?:dark|paper)\\"',
         '\\"className\\":\\"cta-section cta-section--dark three-ways-blocks\\"',
@@ -166,19 +176,7 @@ def morph_footer_payload_fragment(frag: str) -> str:
     mi = frag.find(marker)
     if mi < 0:
         raise ValueError("container children marker not found in Flight fragment")
-    inner_all = frag[mi + len(marker) :]
-    inner_all = inner_all.replace(
-        '\\"className\\":\\"lede\\"',
-        '\\"className\\":\\"lede three-ways-blocks__lede\\"',
-        1,
-    )
-    tuple_needle = '[\\"$\\",\\"div\\",null,{\\"className\\":\\"cta__buttons\\"'
-    ts = inner_all.find(tuple_needle)
-    if ts < 0:
-        raise ValueError("cta__buttons tuple not found")
-    te = flight_array_end(inner_all, ts)
-    new_inner = inner_all[:ts] + NEW_GRID_TUPLE + inner_all[te + 1 :]
-    return frag[: mi + len(marker)] + new_inner
+    return frag[: mi + len(marker)] + FOOTER_AFTER_CONTAINER_MARKER
 
 
 def rel_prefix(path: Path) -> str:
@@ -234,8 +232,15 @@ JOBS: list[tuple[str, str | None, bool]] = [
 
 
 def main() -> int:
-    # Validate NEW_GRID_TUPLE once
+    # Validate Flight tuples once
     flight_array_end(NEW_GRID_TUPLE, 0)
+    test_frag = (
+        '[\\"$\\",\\"section\\",\\"x\\",{\\"className\\":\\"cta-section cta-section--dark\\",\\"children\\":'
+        '[\\"$\\",\\"div\\",null,{\\"className\\":\\"container\\",\\"children\\":'
+        + FOOTER_AFTER_CONTAINER_MARKER
+        + "}]"
+    )
+    flight_array_end(test_frag, 0)
 
     changed: list[str] = []
 
