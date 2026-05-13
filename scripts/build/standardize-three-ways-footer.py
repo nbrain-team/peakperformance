@@ -75,6 +75,10 @@ def visible_three_ways_section(prefix: str) -> str:
     )
 
 
+# Canonical Flight tail after `\"children\":\"Request PPP Review\"` (legacy yellow-grid row 8).
+FLIGHT_PPP_REVIEW_CHILDREN_TAIL = "}]]}]]]}]]]}]}]}]]]"
+
+
 # Flight mirror of visible_three_ways_section (absolute paths on $L5 for hydration).
 NEW_CTA_ROWS_TUPLE = (
     '[\\"$\\",\\"div\\",null,{\\"className\\":\\"three-ways-blocks__cta-rows\\",\\"children\\":['
@@ -85,8 +89,8 @@ NEW_CTA_ROWS_TUPLE = (
     ']}],'
     '[\\"$\\",\\"div\\",null,{\\"className\\":\\"three-ways-blocks__cta-row three-ways-blocks__cta-row--secondary\\",\\"children\\":['
     '[\\"$\\",\\"$L5\\",\\"ppp-cta-review\\",{\\"href\\":\\"/ppp-review\\",\\"className\\":\\"btn btn-lg three-ways-blocks__cta-review\\",\\"children\\":\\"Request PPP Review\\"}]'
-    # Exact tail copied from working yellow-grid row 8 after `\"children\":\"…review\"`.
-    ']}]]]}]]]}]}]}]]]'
+    # First two chars of FLIGHT_PPP_REVIEW_CHILDREN_TAIL come from the link line’s `\"}]`.
+    + FLIGHT_PPP_REVIEW_CHILDREN_TAIL[2:]
 )
 
 
@@ -242,6 +246,32 @@ JOBS: list[tuple[str, str | None, bool]] = [
 ]
 
 
+def normalize_ppp_review_flight_tail(html: str) -> str:
+    """Strip duplicated `}]` runs left outside `flight_array_end` section bounds.
+
+    Row-level Flight payloads must JSON-parse; stray closers after the canonical
+    review-link tail break hydration on static slug pages.
+    """
+    needle = '\\"children\\":\\"Request PPP Review\\"'
+    correct = FLIGHT_PPP_REVIEW_CHILDREN_TAIL
+    pos = 0
+    chunks: list[str] = []
+    while True:
+        i = html.find(needle, pos)
+        if i < 0:
+            chunks.append(html[pos:])
+            break
+        nl = html.find("\\n", i)
+        if nl < 0:
+            chunks.append(html[pos:])
+            break
+        chunk_after = i + len(needle)
+        chunks.append(html[pos:chunk_after])
+        chunks.append(correct)
+        pos = nl
+    return "".join(chunks)
+
+
 def main() -> int:
     # Validate Flight tuples once
     flight_array_end(NEW_CTA_ROWS_TUPLE, 0)
@@ -269,6 +299,7 @@ def main() -> int:
             html, p_ok = patch_payload(html, paper_ok=paper_ok)
             if not p_ok and v_ok:
                 print(f"WARN {rel}: visible patched but Flight payload not matched")
+            html = normalize_ppp_review_flight_tail(html)
         path.write_text(html, encoding="utf-8")
         changed.append(rel)
         print(f"OK {rel}  visible={'Y' if v_ok else '-'}  payload={'Y' if flight and p_ok else ('-' if not flight else 'N')}")
@@ -278,6 +309,8 @@ def main() -> int:
         html = vpath.read_text(encoding="utf-8")
         html, v_ok = patch_visible(html, "../", paper_ok=False)
         if v_ok:
+            if "__next_f" in html:
+                html = normalize_ppp_review_flight_tail(html)
             vpath.write_text(html, encoding="utf-8")
             changed.append("vendor-contract-audit/index.html")
             print("OK vendor-contract-audit/index.html  visible=Y  payload=-")
@@ -306,6 +339,7 @@ def main() -> int:
                 + ']]\\n"])</script><script>self.__next_f.push([1,"12:[\\"$\\",\\"section\\",\\"69efb8125996bea084142e33\\"',
                 1,
             )
+        html = normalize_ppp_review_flight_tail(html)
         bpath.write_text(html, encoding="utf-8")
         changed.append("book/index.html")
         print("OK book/index.html")
