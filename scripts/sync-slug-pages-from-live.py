@@ -1,17 +1,24 @@
 #!/usr/bin/env python3
-"""Fetch fresh HTML from peakpropertyperformance.com and rewrite paths for
+"""Fetch fresh HTML from the Render-hosted site (default) and rewrite paths for
 static export folders (../_next only — preserve absolute CMS /api URLs).
+
+Default origin is peakperformance.onrender.com — the deployment this repo tracks.
+Override with env PPP_HTML_SYNC_BASE if you need to compare another host (e.g. www).
 
 Use after Flight payloads become corrupted; then re-run scripts/apply-edits.py
 and scripts/edits/roles.py per usual."""
 
 from __future__ import annotations
 
+import os
 import re
 import urllib.request
 from pathlib import Path
 
-BASE = "https://www.peakpropertyperformance.com"
+BASE = os.environ.get(
+    "PPP_HTML_SYNC_BASE",
+    "https://peakperformance.onrender.com",
+)
 
 # Repo-relative path -> site path (no trailing slash)
 PAGES: list[tuple[str, str]] = [
@@ -29,10 +36,9 @@ PAGES: list[tuple[str, str]] = [
 
 
 def rewrite_for_static_export(html: str) -> str:
-    """Production uses root-relative /_next URLs; static export pages live in subdirs.
+    """Render/export HTML uses root-relative /_next URLs; static mirror pages live in subdirs.
 
-    Do not rewrite /api/ — production uses absolute CMS URLs like
-    https://www.peakpropertyperformance.com/api/... and blind replace would corrupt them.
+    Do not rewrite /api/ — blind replace would corrupt absolute URLs embedded in HTML.
     """
     html = html.replace("/_next/", "../_next/")
     # Match local edit-script anchors and chunk filenames used offline (no dpl query).
