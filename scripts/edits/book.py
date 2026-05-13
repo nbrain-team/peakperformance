@@ -232,14 +232,7 @@ EDITS = [
         ),
         "payload_raw": True,
     },
-    {
-        "label": "Flight: hero Listen to the book CTA",
-        "payload": (
-            ',[\\"$\\",\\"a\\",null,{\\"href\\":\\"#retailers\\",\\"className\\":\\"btn btn-secondary btn-lg\\",\\"children\\":\\"All Retailers\\"}],\\"\\"]',
-            ',[\\"$\\",\\"a\\",null,{\\"href\\":\\"#retailers\\",\\"className\\":\\"btn btn-secondary btn-lg\\",\\"children\\":\\"All Retailers\\"}],[\\"$\\",\\"a\\",null,{\\"href\\":\\"#audiobook-retailers\\",\\"className\\":\\"btn btn-secondary btn-lg\\",\\"children\\":\\"Listen to the book\\"}],\\"\\"]',
-        ),
-        "payload_raw": True,
-    },
+    # Hero "Listen to the book" link is already applied via #11 CTA buttons (payload) above.
     {
         "label": "Flight: audiobook retailer-section chunk + footer push split",
         "payload": (
