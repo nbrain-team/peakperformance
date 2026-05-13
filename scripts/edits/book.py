@@ -83,7 +83,7 @@ EDITS = [
     {
         "label": "A2 book cover (visible) — composite (hero + retailer)",
         "html": (
-            '<div class="book-cover-image"><img src="../api/media/file/cover.png" alt="Peak Property Performance® — book cover"/></div>',
+            '<div class="book-cover-image"><img src="https://www.peakpropertyperformance.com/api/media/file/cover.png" alt="Peak Property Performance® — book cover"/></div>',
             '<div class="book-cover-image"><img src="../public/images/book-cover-with-bestseller.png" alt="Peak Property Performance® — Amazon Best Seller — book cover from Fast Company Press."/></div>',
         ),
         "html_count": 2,
