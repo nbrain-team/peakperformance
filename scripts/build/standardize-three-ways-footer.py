@@ -101,12 +101,16 @@ FOOTER_AFTER_CONTAINER_MARKER = (
 
 
 def extract_last_visible_section_before_main(html: str, class_prefix: str):
-    """Find last section with given class before </main>."""
+    """Find last section whose class *starts with* class_prefix before </main>.
+
+    class_prefix is e.g. 'cta-section cta-section--dark' — may be followed by
+    more tokens (three-ways-blocks) before the closing quote.
+    """
     main_end = html.find("</main>")
     if main_end < 0:
         return None
     pre = html[:main_end]
-    needle = f'<section class="{class_prefix}"'
+    needle = f'<section class="{class_prefix}'
     idx = pre.rfind(needle)
     if idx < 0:
         return None
