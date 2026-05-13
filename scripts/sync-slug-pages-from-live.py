@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Fetch fresh HTML from peakpropertyperformance.com and rewrite paths for
-static export folders (../_next, ../api).
+static export folders (../_next only — preserve absolute CMS /api URLs).
 
 Use after Flight payloads become corrupted; then re-run scripts/apply-edits.py
 and scripts/edits/roles.py per usual."""
