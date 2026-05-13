@@ -38,7 +38,7 @@ _HTML_HREF_RE = re.compile(r'href="(/[^\"]*)"')
 def _flight_href_re() -> re.Pattern[str]:
     """Match JSON fragment {\"href\":\"/path\" inside Next Flight strings."""
     pfx = "".join(["{", chr(92), '"', "href", chr(92), '"', ":", chr(92), '"'])
-    return re.compile(re.escape(pfx) + r"(/[^\\]*)\\\"")
+    return re.compile(re.escape(pfx) + r'(/[^\\]*)\\"')
 
 
 _FLIGHT_HREF_RE = _flight_href_re()
