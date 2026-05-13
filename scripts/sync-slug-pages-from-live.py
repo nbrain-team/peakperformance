@@ -7,6 +7,7 @@ and scripts/edits/roles.py per usual."""
 
 from __future__ import annotations
 
+import re
 import urllib.request
 from pathlib import Path
 
@@ -28,8 +29,15 @@ PAGES: list[tuple[str, str]] = [
 
 
 def rewrite_for_static_export(html: str) -> str:
-    """Production serves /_next and /api from root; export pages live in subdirs."""
-    return html.replace("/_next/", "../_next/").replace("/api/", "../api/")
+    """Production uses root-relative /_next URLs; static export pages live in subdirs.
+
+    Do not rewrite /api/ — production uses absolute CMS URLs like
+    https://www.peakpropertyperformance.com/api/... and blind replace would corrupt them.
+    """
+    html = html.replace("/_next/", "../_next/")
+    # Match local edit-script anchors and chunk filenames used offline (no dpl query).
+    html = re.sub(r"\?dpl=dpl_[A-Za-z0-9_-]+", "", html)
+    return html
 
 
 def fetch(url: str) -> str:
