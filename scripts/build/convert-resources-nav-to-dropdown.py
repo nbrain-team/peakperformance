@@ -67,7 +67,9 @@ def patch_visible(content: str, prefix: str) -> tuple[str, bool]:
     #   ./resources/index.html / ../resources/index.html / ../../... (static export)
     #   /resources (production-style HTML after live sync)
     patterns = [
-        re.compile(r'<a class="nav__link" href="(?:\.\./)*\.?/?resources/index\.html">Resources</a>'),
+        # Static-export relative paths (any depth: ./ ../ ../../ ...)
+        re.compile(r'<a class="nav__link" href="[^"]*resources/index\.html">Resources</a>'),
+        # Production-style root-relative path (after sync from peakpropertyperformance.com)
         re.compile(r'<a class="nav__link" href="/resources">Resources</a>'),
     ]
     for pattern in patterns:
