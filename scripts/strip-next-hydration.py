@@ -14,6 +14,16 @@ Preserves:
   - External analytics snippets not loaded exclusively via Flight (may drop GA)
 
 Run from repo root: python3 scripts/strip-next-hydration.py
+
+After stripping (one-time per export batch):
+
+  python3 scripts/build/build-ppp-review-form.py
+
+That restores the full `/ppp-review` HTML form + submit handler; without it the page
+only had an OpticWise embed placeholder that depended on React layout scripts.
+
+Google Analytics loaded via Next `<Script>` may disappear until you add a plain
+`<script>` tag for gtag yourself.
 """
 
 from __future__ import annotations
