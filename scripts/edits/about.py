@@ -38,7 +38,7 @@ EDITS = [
     {
         "label": "#19 PPP Review CTA (visible) — btn-primary",
         "html": (
-            '<a class="btn btn-primary btn-lg" href="../ppp-review/index.html">Request a PPP Review</a>',
+            '<a class="btn btn-primary btn-lg" href="/ppp-review">Request a PPP Review</a>',
             '<a class="btn btn-primary btn-lg" href="../ppp-review/index.html">Run the Play on One Building</a>',
         ),
         "html_count": 2,
