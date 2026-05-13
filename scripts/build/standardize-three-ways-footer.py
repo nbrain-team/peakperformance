@@ -96,8 +96,9 @@ FOOTER_AFTER_CONTAINER_MARKER = (
     '[\\"$\\",\\"h2\\",null,{\\"className\\":\\"mt-4 mb-4\\",\\"children\\":\\"Three ways in.\\"}],'
     '[\\"$\\",\\"p\\",null,{\\"className\\":\\"lede three-ways-blocks__lede\\",\\"style\\":{\\"maxWidth\\":\\"52ch\\",\\"marginInline\\":\\"auto\\"},\\"children\\":\\"Whether you\'re scouting, training camp, or game time — there\'s a way to start today.\\"}],'
     + NEW_CTA_ROWS_TUPLE
-    # Match yellow-grid closure sequence so `flight_array_end(section_fragment)` stays aligned.
-    + "]]}]}]}]"
+    # Yellow-grid used `]]}]}]}]` after `NEW_GRID_TUPLE`. With `NEW_CTA_ROWS_TUPLE` the extra `}]}]}`
+    # duplicates closers and breaks JSON.parse on Flight row 8 — only the first four closers still match.
+    + "]]}]"
 )
 
 
