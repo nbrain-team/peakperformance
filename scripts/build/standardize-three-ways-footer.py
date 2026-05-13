@@ -164,7 +164,7 @@ def synthetic_footer_section(uuid: str) -> str:
 
 
 def morph_footer_payload_fragment(frag: str) -> str:
-    """Normalize footer Flight fragment to the standard three-blocks layout."""
+    """Normalize footer Flight fragment to the standard four-button CTA layout."""
     frag = re.sub(
         r'\\"className\\":\\"cta-section cta-section--(?:dark|paper)(?: three-ways-blocks)?\\"',
         '\\"className\\":\\"cta-section cta-section--dark three-ways-blocks\\"',
@@ -241,7 +241,7 @@ JOBS: list[tuple[str, str | None, bool]] = [
 
 def main() -> int:
     # Validate Flight tuples once
-    flight_array_end(NEW_GRID_TUPLE, 0)
+    flight_array_end(NEW_CTA_ROWS_TUPLE, 0)
     test_frag = (
         '[\\"$\\",\\"section\\",\\"x\\",{\\"className\\":\\"cta-section cta-section--dark\\",\\"children\\":'
         '[\\"$\\",\\"div\\",null,{\\"className\\":\\"container\\",\\"children\\":'
