@@ -24,24 +24,6 @@ Run from repo root:  python3 scripts/build/convert-resources-nav-to-dropdown.py
 import re
 from pathlib import Path
 
-PAGES = [
-    "index.html",
-    "book/index.html",
-    "about/index.html",
-    "5c-framework/index.html",
-    "podcast/index.html",
-    "resources/index.html",
-    "ppp-review/index.html",
-    "for-owners/index.html",
-    "for-asset-managers/index.html",
-    "for-property-managers/index.html",
-    "for-it-managers/index.html",
-    "glossary/index.html",
-    "vendor-contract-audit/index.html",
-    "be-on-the-show/index.html",
-]
-
-
 def visible_dropdown(prefix: str) -> str:
     """Build the visible HTML dropdown markup with the right relative prefix."""
     return (
@@ -81,16 +63,18 @@ def patch_visible(content: str, prefix: str) -> tuple[str, bool]:
     if '<span class="nav__link nav__dropdown-trigger" role="button" tabindex="0" aria-haspopup="true">Resources</span>' in content:
         return content, False
 
-    # The flat link looks like:
-    #   <a class="nav__link" href="./resources/index.html">Resources</a>
-    # or
-    #   <a class="nav__link" href="../resources/index.html">Resources</a>
-    # Replace exactly one occurrence (the global nav).
-    pattern = re.compile(r'<a class="nav__link" href="[^"]*resources/index\.html">Resources</a>')
-    m = pattern.search(content)
-    if not m:
-        return content, False
-    return content[: m.start()] + visible_dropdown(prefix) + content[m.end():], True
+    # Flat link variants:
+    #   ./resources/index.html / ../resources/index.html / ../../... (static export)
+    #   /resources (production-style HTML after live sync)
+    patterns = [
+        re.compile(r'<a class="nav__link" href="(?:\.\./)*\.?/?resources/index\.html">Resources</a>'),
+        re.compile(r'<a class="nav__link" href="/resources">Resources</a>'),
+    ]
+    for pattern in patterns:
+        m = pattern.search(content)
+        if m:
+            return content[: m.start()] + visible_dropdown(prefix) + content[m.end():], True
+    return content, False
 
 
 def patch_payload(content: str) -> tuple[str, bool]:
