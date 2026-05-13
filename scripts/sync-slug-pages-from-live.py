@@ -40,6 +40,10 @@ def rewrite_for_static_export(html: str) -> str:
     return html
 
 
+# After syncing, restore the Resources ▾ dropdown (Glossary, Vendor Audit, etc.) on pages that use flat `/resources` links:
+#   python3 scripts/build/convert-resources-nav-to-dropdown.py
+
+
 def fetch(url: str) -> str:
     req = urllib.request.Request(
         url,
