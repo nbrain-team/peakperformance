@@ -98,18 +98,22 @@ def patch_payload(content: str) -> tuple[str, bool]:
 
 
 def main():
+    repo_root = Path(__file__).resolve().parent.parent.parent
     results = []
-    for fp in PAGES:
-        path = Path(fp)
-        if not path.exists():
-            results.append((fp, "missing", False, False))
-            continue
+    pages = sorted(repo_root.glob("**/index.html"))
+    pages = [
+        p
+        for p in pages
+        if "_next" not in p.parts and ".git" not in p.parts
+    ]
+
+    for path in pages:
+        fp = str(path.relative_to(repo_root))
         content = path.read_text(encoding="utf-8")
 
-        # Determine relative prefix based on file depth
-        # All files are either at root (index.html) or one level deep (subdir/index.html)
+        # Relative prefix for visible nav hrefs: ./  ../  ../../  ...
         depth = fp.count("/")
-        prefix = "./" if depth == 0 else "../"
+        prefix = "./" if depth == 0 else "../" * depth
 
         new_content, vis_changed = patch_visible(content, prefix)
         new_content, pl_changed = patch_payload(new_content)
