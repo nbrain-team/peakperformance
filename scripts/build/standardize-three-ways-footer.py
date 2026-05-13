@@ -86,6 +86,7 @@ NEW_CTA_ROWS_TUPLE = (
     '[\\"$\\",\\"div\\",null,{\\"className\\":\\"three-ways-blocks__cta-row three-ways-blocks__cta-row--secondary\\",\\"children\\":['
     '[\\"$\\",\\"$L5\\",\\"ppp-cta-review\\",{\\"href\\":\\"/ppp-review\\",\\"className\\":\\"btn btn-lg three-ways-blocks__cta-review\\",\\"children\\":\\"Request PPP Review\\"}]'
     ']}]'
+    ']}]'
 )
 
 
@@ -95,7 +96,8 @@ FOOTER_AFTER_CONTAINER_MARKER = (
     '[\\"$\\",\\"h2\\",null,{\\"className\\":\\"mt-4 mb-4\\",\\"children\\":\\"Three ways in.\\"}],'
     '[\\"$\\",\\"p\\",null,{\\"className\\":\\"lede three-ways-blocks__lede\\",\\"style\\":{\\"maxWidth\\":\\"52ch\\",\\"marginInline\\":\\"auto\\"},\\"children\\":\\"Whether you\'re scouting, training camp, or game time — there\'s a way to start today.\\"}],'
     + NEW_CTA_ROWS_TUPLE
-    + "]]}]}]}]"
+    # One fewer `}]` than yellow-grid template: cta-rows uses children:[ not children:[[
+    + "]]}]}]}"
 )
 
 
