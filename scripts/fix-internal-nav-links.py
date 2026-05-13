@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
 """Rewrite root-absolute internal hrefs (/book, …) to relative URLs for static export.
 
-Includes Next.js Flight JSON segments like {\\"href\\":\\"/book\\"}
+Includes Next.js Flight JSON segments like {\\"href\\":\\"/book\\"} and book-cover
+image payloads like {\\"src\\":\\"/public/images/…"}.
 
 Also fixes role-page episode stubs that pointed at non-exported slug paths (/podcast/ep-XX-…).
+
+Prefer running **before** `scripts/strip-next-hydration.py` so payloads exist to rewrite;
+stripping removes Flight blobs entirely (navigation then relies on visible `<a href>` only).
 
 Run from repo root: python3 scripts/fix-internal-nav-links.py
 """
