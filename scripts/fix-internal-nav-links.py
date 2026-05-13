@@ -44,6 +44,24 @@ def _flight_href_re() -> re.Pattern[str]:
 _FLIGHT_HREF_RE = _flight_href_re()
 
 
+def _flight_src_re() -> re.Pattern[str]:
+    pfx = "".join(["{", chr(92), '"', "src", chr(92), '"', ":", chr(92), '"'])
+    return re.compile(re.escape(pfx) + r'(/[^\\]*)\\"')
+
+
+_FLIGHT_SRC_RE = _flight_src_re()
+
+
+def _public_src_to_relative(site_rel: Path, src_path: str) -> str | None:
+    """Only handles /public/... static assets embedded in Flight JSON."""
+    if not src_path.startswith("/public/"):
+        return None
+    depth = _depth_from_site_relative(site_rel)
+    prefix = _prefix_at_depth(depth)
+    tail = src_path.lstrip("/")  # public/...
+    return f"{prefix}{tail}"
+
+
 def _depth_from_site_relative(html_path: Path) -> int:
     """Segments above index.html inside site root."""
     parts = html_path.parts
@@ -121,6 +139,20 @@ def _repl_flight(site_rel: Path):
     return _cb
 
 
+def _repl_flight_src(site_rel: Path):
+    pfx = "".join(["{", chr(92), '"', "src", chr(92), '"', ":", chr(92), '"'])
+
+    def _cb(m: re.Match[str]) -> str:
+        inner = m.group(1)
+        mapped = _public_src_to_relative(site_rel, inner)
+        if mapped is None:
+            return m.group(0)
+        esc = mapped.replace("\\", "\\\\").replace('"', '\\"')
+        return f'{pfx}{esc}\\"'
+
+    return _cb
+
+
 def patch_file(repo_root: Path, rel: Path) -> bool:
     path = repo_root / rel
     src = path.read_text(encoding="utf-8")
@@ -128,6 +160,7 @@ def patch_file(repo_root: Path, rel: Path) -> bool:
 
     new = _HTML_HREF_RE.sub(_repl_html(rel), s)
     new = _FLIGHT_HREF_RE.sub(_repl_flight(rel), new)
+    new = _FLIGHT_SRC_RE.sub(_repl_flight_src(rel), new)
 
     if new != src:
         path.write_text(new, encoding="utf-8")
