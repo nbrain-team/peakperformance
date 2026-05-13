@@ -365,6 +365,7 @@ def main() -> int:
                 + "]]\\n\"]</script><style>",
                 1,
             )
+        html = normalize_ppp_review_flight_tail(html)
         ppath.write_text(html, encoding="utf-8")
         changed.append("podcast/index.html")
         print("OK podcast/index.html")
