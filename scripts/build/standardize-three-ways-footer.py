@@ -85,8 +85,8 @@ NEW_CTA_ROWS_TUPLE = (
     ']}],'
     '[\\"$\\",\\"div\\",null,{\\"className\\":\\"three-ways-blocks__cta-row three-ways-blocks__cta-row--secondary\\",\\"children\\":['
     '[\\"$\\",\\"$L5\\",\\"ppp-cta-review\\",{\\"href\\":\\"/ppp-review\\",\\"className\\":\\"btn btn-lg three-ways-blocks__cta-review\\",\\"children\\":\\"Request PPP Review\\"}]'
-    # Closing bracket run matches legacy yellow-grid Flight row 8 (same depth as three `]}]` blocks + outer row closes).
-    ']]}]]]}]]]}]}]}]]]'
+    # Closing bracket run matches legacy yellow-grid Flight row 8 (starts with `]}…` after the link tuple’s `]`).
+    ']}]]]}]]]}]}]}]}]]]'
 )
 
 
