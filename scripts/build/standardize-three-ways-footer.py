@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Standardize bottom-of-page CTAs to “Three ways in” + three yellow blocks.
+"""Standardize bottom-of-page CTAs to “Three ways in” + standard four-button layout.
+
+Row 1 (primary): Get the book (#retailers), Listen to the book (#audiobook-retailers),
+Listen to the podcast. Row 2: Request PPP Review (outlined / different size on dark).
 
 Visible HTML + React Flight payload are both updated so hydration does not revert.
 
@@ -51,6 +54,7 @@ def flight_array_end(s: str, start: int) -> int:
 
 
 def visible_three_ways_section(prefix: str) -> str:
+    """Standard closing CTA: two rows — three primary buttons, then PPP Review."""
     return (
         '<section class="cta-section cta-section--dark three-ways-blocks"><div class="container">'
         '<span class="eyebrow no-rule" style="justify-content:center;display:flex">Get Started</span>'
@@ -58,36 +62,31 @@ def visible_three_ways_section(prefix: str) -> str:
         '<p class="lede three-ways-blocks__lede" style="max-width:52ch;margin-inline:auto">'
         "Whether you&#x27;re scouting, training camp, or game time — there&#x27;s a way to start today."
         "</p>"
-        '<div class="three-ways-blocks__grid">'
-        '<div class="three-ways-blocks__block">'
-        '<h3 class="three-ways-blocks__heading">Listen to the podcast</h3>'
+        '<div class="three-ways-blocks__cta-rows">'
+        '<div class="three-ways-blocks__cta-row three-ways-blocks__cta-row--primary">'
+        f'<a class="btn btn-primary btn-lg" href="{prefix}book/index.html#retailers">Get the book</a>'
+        f'<a class="btn btn-primary btn-lg" href="{prefix}book/index.html#audiobook-retailers">Listen to the book</a>'
         f'<a class="btn btn-primary btn-lg" href="{prefix}podcast/index.html">Listen to the podcast</a>'
         "</div>"
-        '<div class="three-ways-blocks__block">'
-        '<h3 class="three-ways-blocks__heading">Get the book</h3>'
-        f'<a class="btn btn-primary btn-lg" href="{prefix}book/index.html">Get the book</a>'
-        "</div>"
-        '<div class="three-ways-blocks__block">'
-        '<h3 class="three-ways-blocks__heading">Request the review</h3>'
-        f'<a class="btn btn-primary btn-lg" href="{prefix}ppp-review/index.html">Request the review</a>'
+        '<div class="three-ways-blocks__cta-row three-ways-blocks__cta-row--secondary">'
+        f'<a class="btn btn-lg three-ways-blocks__cta-review" href="{prefix}ppp-review/index.html">Request PPP Review</a>'
         "</div>"
         "</div></div></section>"
     )
 
 
-# Fourth container column — mirrors cta__buttons tuple shape (…children:[[…]]]}])
-NEW_GRID_TUPLE = (
-    '[\\"$\\",\\"div\\",null,{\\"className\\":\\"three-ways-blocks__grid\\",\\"children\\":[['
-    '[\\"$\\",\\"div\\",\\"ppp-tw0\\",{\\"className\\":\\"three-ways-blocks__block\\",\\"children\\":'
-    '[[\\"$\\",\\"h3\\",null,{\\"className\\":\\"three-ways-blocks__heading\\",\\"children\\":\\"Listen to the podcast\\"}],'
-    '[\\"$\\",\\"$L5\\",\\"ppp-tw0b\\",{\\"href\\":\\"/podcast\\",\\"className\\":\\"btn btn-primary btn-lg\\",\\"children\\":\\"Listen to the podcast\\"}]]}],'
-    '[\\"$\\",\\"div\\",\\"ppp-tw1\\",{\\"className\\":\\"three-ways-blocks__block\\",\\"children\\":'
-    '[[\\"$\\",\\"h3\\",null,{\\"className\\":\\"three-ways-blocks__heading\\",\\"children\\":\\"Get the book\\"}],'
-    '[\\"$\\",\\"$L5\\",\\"ppp-tw1b\\",{\\"href\\":\\"/book\\",\\"className\\":\\"btn btn-primary btn-lg\\",\\"children\\":\\"Get the book\\"}]]}],'
-    '[\\"$\\",\\"div\\",\\"ppp-tw2\\",{\\"className\\":\\"three-ways-blocks__block\\",\\"children\\":'
-    '[[\\"$\\",\\"h3\\",null,{\\"className\\":\\"three-ways-blocks__heading\\",\\"children\\":\\"Request the review\\"}],'
-    '[\\"$\\",\\"$L5\\",\\"ppp-tw2b\\",{\\"href\\":\\"/ppp-review\\",\\"className\\":\\"btn btn-primary btn-lg\\",\\"children\\":\\"Request the review\\"}]]}]'
-    "]]}]"
+# Flight mirror of visible_three_ways_section (absolute paths on $L5 for hydration).
+NEW_CTA_ROWS_TUPLE = (
+    '[\\"$\\",\\"div\\",null,{\\"className\\":\\"three-ways-blocks__cta-rows\\",\\"children\\":['
+    '[\\"$\\",\\"div\\",null,{\\"className\\":\\"three-ways-blocks__cta-row three-ways-blocks__cta-row--primary\\",\\"children\\":['
+    '[\\"$\\",\\"$L5\\",\\"ppp-cta-retailers\\",{\\"href\\":\\"/book#retailers\\",\\"className\\":\\"btn btn-primary btn-lg\\",\\"children\\":\\"Get the book\\"}],'
+    '[\\"$\\",\\"$L5\\",\\"ppp-cta-audiobook\\",{\\"href\\":\\"/book#audiobook-retailers\\",\\"className\\":\\"btn btn-primary btn-lg\\",\\"children\\":\\"Listen to the book\\"}],'
+    '[\\"$\\",\\"$L5\\",\\"ppp-cta-podcast\\",{\\"href\\":\\"/podcast\\",\\"className\\":\\"btn btn-primary btn-lg\\",\\"children\\":\\"Listen to the podcast\\"}]'
+    ']}],'
+    '[\\"$\\",\\"div\\",null,{\\"className\\":\\"three-ways-blocks__cta-row three-ways-blocks__cta-row--secondary\\",\\"children\\":['
+    '[\\"$\\",\\"$L5\\",\\"ppp-cta-review\\",{\\"href\\":\\"/ppp-review\\",\\"className\\":\\"btn btn-lg three-ways-blocks__cta-review\\",\\"children\\":\\"Request PPP Review\\"}]'
+    ']}]'
+    ']}]'
 )
 
 
@@ -96,7 +95,7 @@ FOOTER_AFTER_CONTAINER_MARKER = (
     '[[\\"$\\",\\"span\\",null,{\\"className\\":\\"eyebrow no-rule\\",\\"style\\":{\\"justifyContent\\":\\"center\\",\\"display\\":\\"flex\\"},\\"children\\":\\"Get Started\\"}],'
     '[\\"$\\",\\"h2\\",null,{\\"className\\":\\"mt-4 mb-4\\",\\"children\\":\\"Three ways in.\\"}],'
     '[\\"$\\",\\"p\\",null,{\\"className\\":\\"lede three-ways-blocks__lede\\",\\"style\\":{\\"maxWidth\\":\\"52ch\\",\\"marginInline\\":\\"auto\\"},\\"children\\":\\"Whether you\'re scouting, training camp, or game time — there\'s a way to start today.\\"}],'
-    + NEW_GRID_TUPLE
+    + NEW_CTA_ROWS_TUPLE
     + "]]}]}]}]"
 )
 
