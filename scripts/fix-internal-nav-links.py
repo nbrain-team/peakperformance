@@ -34,8 +34,14 @@ _EPISODE_ALIASES: tuple[tuple[str, str], ...] = (
 # Visible HTML attributes: href="/…"
 _HTML_HREF_RE = re.compile(r'href="(/[^\"]*)"')
 
-# Flight / RSC payloads embed JSON with backslash-escaped quotes
-_FLIGHT_HREF_RE = re.compile(r'(\{\\"href\\":\\")(/)((?:[^\\]|\\.)*?)((?:\\\\)?")')
+
+def _flight_href_re() -> re.Pattern[str]:
+    """Match JSON fragment {\"href\":\"/path\" inside Next Flight strings."""
+    pfx = "".join(["{", chr(92), '"', "href", chr(92), '"', ":", chr(92), '"'])
+    return re.compile(re.escape(pfx) + r"(/[^\\]*)\\\"")
+
+
+_FLIGHT_HREF_RE = _flight_href_re()
 
 
 def _depth_from_site_relative(html_path: Path) -> int:
@@ -91,7 +97,7 @@ def _apply_episode_aliases(s: str) -> str:
 
 
 def _repl_html(site_rel: Path):
-    def _cb(m: re.Match) -> str:
+    def _cb(m: re.Match[str]) -> str:
         raw = m.group(1)
         if raw.startswith("//") or raw.startswith("/http"):
             return m.group(0)
@@ -102,22 +108,15 @@ def _repl_html(site_rel: Path):
 
 
 def _repl_flight(site_rel: Path):
-    def _cb(m: re.Match) -> str:
-        raw = "/" + m.group(3).replace('\\"', '"').replace("\\/", "/")  # type: ignore[union-attr]
-        # Reconstruct from inner path only (group 3 is path without slashes from leading /)
-        # Actually group layout: grp1 `{\"href\":\"`, grp2 `/`, grp3 path body, grp4 closing quote
-        path_body = m.group(3)
-        # Undo minimal escapes seen in payloads
-        inner = "/" + path_body.replace('\\"', "").replace("\\/", "/")
+    pfx = "".join(["{", chr(92), '"', "href", chr(92), '"', ":", chr(92), '"'])
+
+    def _cb(m: re.Match[str]) -> str:
+        inner = m.group(1)
         if inner.startswith("//") or inner.startswith("/http"):
             return m.group(0)
         rel = _to_relative(site_rel, inner)
-        # Escape for Flight string: `"` rarely in path; `\` normalize
-        esc = (
-            rel.replace("\\", "\\\\")
-            .replace('"', '\\"')
-        )
-        return f'{m.group(1)}{esc}{m.group(4)}'
+        esc = rel.replace("\\", "\\\\").replace('"', '\\"')
+        return f'{pfx}{esc}\\"'
 
     return _cb
 
