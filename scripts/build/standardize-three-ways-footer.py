@@ -96,10 +96,8 @@ FOOTER_AFTER_CONTAINER_MARKER = (
     '[\\"$\\",\\"h2\\",null,{\\"className\\":\\"mt-4 mb-4\\",\\"children\\":\\"Three ways in.\\"}],'
     '[\\"$\\",\\"p\\",null,{\\"className\\":\\"lede three-ways-blocks__lede\\",\\"style\\":{\\"maxWidth\\":\\"52ch\\",\\"marginInline\\":\\"auto\\"},\\"children\\":\\"Whether you\'re scouting, training camp, or game time — there\'s a way to start today.\\"}],'
     + NEW_CTA_ROWS_TUPLE
-    # Close only the container `children` array opened by the leading `[` on the span line (`[[...`).
-    # Yellow-grid FOOTER used `]]}]}]}]` because `NEW_GRID_TUPLE` ended one nesting level short; `NEW_CTA_ROWS_TUPLE`
-    # already closes the cta-rows branch — extra `}]` runs duplicate closers and breaks JSON.parse on Flight row 8.
-    + "]"
+    # Match yellow-grid closure sequence so `flight_array_end(section_fragment)` stays aligned.
+    + "]]}]}]}]"
 )
 
 
