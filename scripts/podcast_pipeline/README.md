@@ -30,14 +30,11 @@ source .venv/bin/activate
 pip install -r scripts/podcast_pipeline/requirements.txt
 ```
 
-### 2. ffmpeg (for episodes > ~24 MB MP3)
+### 2. ffmpeg
 
-Whisper's API caps uploads at 25 MB; longer episodes are auto-chunked with
-ffmpeg. Most episodes in this catalog need it.
-
-```bash
-brew install ffmpeg
-```
+Bundled automatically via `imageio-ffmpeg` in `requirements.txt` — no system
+install needed. The transcribe step prefers a system `ffmpeg` if present,
+otherwise it uses the static binary that ships with that package.
 
 ### 3. OpenAI API key (Whisper + show notes drafting)
 
