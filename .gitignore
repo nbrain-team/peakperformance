@@ -19,3 +19,7 @@ node_modules/
 .venv/
 __pycache__/
 *.pyc
+
+# Local secrets (OPENAI_API_KEY, GOOGLE_APPLICATION_CREDENTIALS path, etc.)
+.env.local
+.env.*.local
