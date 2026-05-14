@@ -35,7 +35,7 @@ FILE = Path("ppp-review/index.html")
 # ---- Form markup ---------------------------------------------------------
 # Single source of truth. We render this directly into the visible HTML and
 # encode it for the payload's dangerouslySetInnerHTML.__html value.
-FORM_HTML = '''<form id="ppp-review-form" class="ppp-review-form" novalidate>
+FORM_HTML = '''<div data-opticwise-form="ppp-review" id="ppp-review-embed-mount"></div><div class="ppp-review-fallback" id="ppp-review-fallback" hidden><p class="ppp-review-fallback__note" role="status">Our secure form loader is taking longer than expected. You can submit directly below — your details will open in your mail client and reach us within 1 business day.</p><form id="ppp-review-form" class="ppp-review-form" novalidate>
 <input type="hidden" name="source" value="ppp"/>
 <input type="hidden" name="type" value="ppp-review"/>
 <div class="form-field"><label for="ppp-review-name">Full Name <span class="form-req" aria-hidden="true">*</span></label><input type="text" id="ppp-review-name" name="name" required autocomplete="name"/></div>
