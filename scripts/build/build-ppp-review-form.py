@@ -100,7 +100,8 @@ def encode_for_payload_innerhtml(html: str) -> str:
 #      OWnet embed doesn't render within 6 seconds, or if the loader errors
 #   3. Fallback submit handler — handles the mailto: path for the hand-built
 #      form when the embed is unavailable
-SUBMIT_HANDLER_SCRIPT = r'''<script src="https://ownet.opticwise.com/forms/embed.js" defer onerror="window.__pppOwnetFail&&window.__pppOwnetFail('script-error')"></script>
+SUBMIT_HANDLER_SCRIPT = r'''<!-- ppp-review:scripts:start -->
+<script src="https://ownet.opticwise.com/forms/embed.js" defer onerror="window.__pppOwnetFail&&window.__pppOwnetFail('script-error')"></script>
 <script>
 /*
   PPP Review form — OWnet embed fallback detector.
