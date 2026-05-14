@@ -607,6 +607,24 @@
 }
 
 /* ---- /ppp-review form ---- */
+#ppp-review-embed-mount {
+  max-width: 720px;
+  margin: 2rem auto 0 auto;
+}
+.ppp-review-fallback {
+  max-width: 720px;
+  margin: 2rem auto 0 auto;
+}
+.ppp-review-fallback__note {
+  margin: 0 0 1.25rem 0;
+  padding: 0.85rem 1rem;
+  background: rgba(199, 91, 69, 0.10);
+  border-left: 4px solid #C75B45;
+  border-radius: 6px;
+  font-size: 0.92rem;
+  color: #1B3526;
+  line-height: 1.5;
+}
 .ppp-review-form-mount {
   max-width: 720px;
   margin: 2rem auto 0 auto;
