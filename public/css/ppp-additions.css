@@ -734,10 +734,53 @@
   color: rgba(27, 53, 38, 0.9);
   line-height: 1.65;
 }
+.form-success__intro {
+  margin: 0 0 1rem 0;
+  color: rgba(27, 53, 38, 0.9);
+  line-height: 1.65;
+}
+.form-success__steps {
+  margin: 0 0 1.5rem 0;
+  padding-left: 1.25rem;
+  color: rgba(27, 53, 38, 0.92);
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.form-success__steps li {
+  padding-left: 0.25rem;
+}
+.form-success__steps li strong {
+  color: #1B3526;
+  font-weight: 700;
+}
+.form-success__cta-lede {
+  margin: 0 0 0.75rem 0;
+  font-weight: 600;
+  color: #1B3526;
+}
 .form-success__actions {
   display: flex;
   gap: 0.75rem;
   flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+.form-success__attribution {
+  margin: 1.25rem 0 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(27, 53, 38, 0.12);
+  font-size: 0.85rem;
+  color: rgba(27, 53, 38, 0.7);
+  line-height: 1.55;
+}
+.form-success__attribution a {
+  color: #1B3526;
+  text-decoration: underline;
+  font-weight: 600;
+}
+.form-success__attribution a:hover {
+  color: #61a60e;
 }
 
 /* ---- Podcast episode transcript (injected by scripts/regenerate-podcast.py) ---- */
