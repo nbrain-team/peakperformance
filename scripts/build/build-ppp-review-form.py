@@ -297,9 +297,14 @@ def main():
     global OLD_PAYLOAD
     OLD_PAYLOAD = encode_for_payload_innerhtml(OLD_VISIBLE)
 
-    # Idempotency check: if the form id is already present, skip.
-    if 'id="ppp-review-form"' in content:
-        print("Form already present in visible HTML — skipping visible patch.")
+    # Idempotency check: if the embed mount + fallback form are already
+    # present (the post-upgrade shape), skip the visible patch.
+    has_new_shape = (
+        'id="ppp-review-embed-mount"' in content
+        and 'id="ppp-review-form"' in content
+    )
+    if has_new_shape:
+        print("Form already present in visible HTML (embed+fallback shape) — skipping visible patch.")
     elif OLD_VISIBLE in content:
         content = content.replace(OLD_VISIBLE, FORM_BLOCK_VISIBLE, 1)
         visible_done = True
