@@ -103,6 +103,34 @@
   color: #1B3526;
 }
 
+/* ---- Resources page closing CTA ("Past the resources? Run a real review.") ---- */
+.resources-closing-cta {
+  padding: clamp(3rem, 7vw, 5rem) 0;
+  background: #F5F0E4;
+  border-top: 1px solid rgba(27, 53, 38, 0.08);
+  border-bottom: 1px solid rgba(27, 53, 38, 0.08);
+}
+.resources-closing-cta .container-narrow {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+.resources-closing-cta__heading {
+  font-family: var(--font-display, inherit);
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 700;
+  margin: 0 0 1.25rem 0;
+  color: #1B3526;
+  line-height: 1.2;
+}
+.resources-closing-cta__lede {
+  font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+  line-height: 1.6;
+  color: rgba(27, 53, 38, 0.88);
+  margin: 0 0 1.75rem 0;
+}
+
 /* ---- Glossary page (/glossary) ---- */
 .glossary-section {
   padding-block: clamp(2rem, 5vw, 4rem);
