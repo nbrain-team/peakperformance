@@ -41,15 +41,28 @@ WHISPER_CHUNK_SECONDS = int(os.environ.get("WHISPER_CHUNK_SECONDS", "1200"))
 WHISPER_MODEL = os.environ.get("WHISPER_MODEL", "whisper-1")
 
 
-def _ffmpeg_available() -> bool:
-    return shutil.which("ffmpeg") is not None
+def _ffmpeg_path() -> str | None:
+    """Prefer system ffmpeg; fall back to the static binary bundled with
+    imageio-ffmpeg so the user doesn't have to install Homebrew."""
+    sys_ff = shutil.which("ffmpeg")
+    if sys_ff:
+        return sys_ff
+    try:
+        import imageio_ffmpeg  # type: ignore
+
+        return imageio_ffmpeg.get_ffmpeg_exe()
+    except Exception:
+        return None
 
 
 def _split_audio(src: Path, chunk_seconds: int, dest_dir: Path) -> list[Path]:
     dest_dir.mkdir(parents=True, exist_ok=True)
     pattern = dest_dir / "chunk_%03d.mp3"
+    ff = _ffmpeg_path()
+    if not ff:
+        raise RuntimeError("ffmpeg not available (install imageio-ffmpeg or system ffmpeg)")
     cmd = [
-        "ffmpeg",
+        ff,
         "-y",
         "-i",
         str(src),
@@ -92,10 +105,10 @@ def transcribe_file(client: OpenAI, mp3: Path) -> str:
     size_mb = mp3.stat().st_size / 1_000_000
     if size_mb < 24:
         return _strip_timestamps(_transcribe_one(client, mp3))
-    if not _ffmpeg_available():
+    if not _ffmpeg_path():
         raise RuntimeError(
-            f"{mp3.name} is {size_mb:.1f} MB and ffmpeg is not on PATH. "
-            "Install ffmpeg (brew install ffmpeg) so chunks can be created."
+            f"{mp3.name} is {size_mb:.1f} MB and no ffmpeg binary was found. "
+            "Reinstall requirements.txt so imageio-ffmpeg is present."
         )
     with tempfile.TemporaryDirectory() as td:
         chunks = _split_audio(mp3, WHISPER_CHUNK_SECONDS, Path(td))
