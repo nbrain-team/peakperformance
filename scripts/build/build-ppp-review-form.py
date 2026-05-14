@@ -259,7 +259,8 @@ SUBMIT_HANDLER_SCRIPT = r'''<!-- ppp-review:scripts:start -->
 
   document.addEventListener("submit", onSubmitCapture, true);
 })();
-</script>'''
+</script>
+<!-- ppp-review:scripts:end -->'''
 
 
 # ---- Patch logic ---------------------------------------------------------
@@ -270,8 +271,13 @@ OLD_VISIBLE = '<div class="ppp-review-form-mount"><div data-opticwise-form="ppp-
 # pattern can never drift from the encoder's output format.
 OLD_PAYLOAD = None  # computed in main() after encode_for_payload_innerhtml is defined
 
+# Match the entire body-end script block between the sentinel HTML comments
+# emitted at the top and bottom of SUBMIT_HANDLER_SCRIPT. Also matches the
+# legacy single-handler block by its old comment header so an upgrade run
+# from an earlier output is idempotent.
 SUBMIT_SCRIPT_RE = re.compile(
-    r"<script>\s*/\*\s*\n\s*PPP Review form — submit handler\.[\s\S]*?</script>",
+    r"(?:<!-- ppp-review:scripts:start -->[\s\S]*?<!-- ppp-review:scripts:end -->"
+    r"|<script>\s*/\*\s*\n\s*PPP Review form — submit handler\.[\s\S]*?</script>)",
     re.MULTILINE,
 )
 
