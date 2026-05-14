@@ -12,6 +12,12 @@ if [ -d "$REPO_ROOT/.venv" ]; then
   . "$REPO_ROOT/.venv/bin/activate"
 fi
 
+# Local secrets (gitignored): OPENAI_API_KEY etc.
+if [ -f "$REPO_ROOT/.env.local" ]; then
+  # shellcheck source=/dev/null
+  . "$REPO_ROOT/.env.local"
+fi
+
 # uv-installed Python 3.12 for gcloud
 if [ -x "$HOME/.local/bin/uv" ]; then
   export PATH="$HOME/.local/bin:$PATH"
