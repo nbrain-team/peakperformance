@@ -1,15 +1,23 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Item #1 [P0] from PPP_Sandbox_Content_Review_v3.md:
-Replace the empty `<div data-opticwise-form="ppp-review">` mount on
-/ppp-review/index.html with a fully working form per spec:
+"""Item #1 [P0] from PPP_Sandbox_Content_Review_v3.md / Punch List P0-1:
 
-  - 7 required fields + optional textarea + ToS checkbox
-  - Client-side validation (HTML5 + JS)
-  - Inline success state (don't redirect)
-  - Mailto: fallback submit handler so leads don't get dropped before
-    the real CRM endpoint is wired
-  - Clear TODO comments marking the swap point
+Wire up the /ppp-review form on a static mirror of the Render-hosted site.
+
+Strategy (post Bill's clarification 2026-05-14):
+  - PRIMARY: the OWnet form embed
+        <div data-opticwise-form="ppp-review"></div>
+        <script src="https://ownet.opticwise.com/forms/embed.js" defer></script>
+    This is the same loader pattern used everywhere else on production.
+    OWnet's embed.js injects the form and handles its own submit + success.
+
+  - FALLBACK: a hand-built HTML form, hidden by default, revealed by a
+    small detector script if the OWnet loader fails (script 404, host
+    unreachable, CSP block, or embed simply doesn't render within 6s).
+    Fallback submits via mailto:bill@opticwise.com so leads don't get
+    dropped during an OWnet outage. The fallback also renders a custom
+    inline success state (heading + What-happens-next steps + 3 CTAs +
+    OpticWise attribution).
 
 Patches BOTH visible HTML and the React Flight payload's
 `dangerouslySetInnerHTML.__html` field so hydration doesn't strip it.
