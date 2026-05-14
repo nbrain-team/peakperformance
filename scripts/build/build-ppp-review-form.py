@@ -89,22 +89,75 @@ def encode_for_payload_innerhtml(html: str) -> str:
     return s
 
 
-# ---- Submit handler ------------------------------------------------------
-# Lives in a separate <script> at body-end so it survives React hydration
-# of the dangerouslySetInnerHTML block (script tags inside dSIH do not run).
-SUBMIT_HANDLER_SCRIPT = r'''<script>
+# ---- Body-end scripts ---------------------------------------------------
+# These live in separate <script> tags at body-end so they survive React
+# hydration of the dangerouslySetInnerHTML block (script tags inside dSIH
+# do not run).
+#
+# Three scripts emitted, in order:
+#   1. OWnet embed loader (primary form) — external script with `defer`
+#   2. Embed fallback detector — reveals the hidden fallback form if the
+#      OWnet embed doesn't render within 6 seconds, or if the loader errors
+#   3. Fallback submit handler — handles the mailto: path for the hand-built
+#      form when the embed is unavailable
+SUBMIT_HANDLER_SCRIPT = r'''<script src="https://ownet.opticwise.com/forms/embed.js" defer onerror="window.__pppOwnetFail&&window.__pppOwnetFail('script-error')"></script>
+<script>
 /*
-  PPP Review form — submit handler.
+  PPP Review form — OWnet embed fallback detector.
 
-  TODO(WIRE_CRM_ENDPOINT): replace the mailto fallback in mailtoUrlForFields() with
-  a fetch() POST to the real CRM endpoint. The form already collects all
-  fields the OpticWise CRM expects (source=ppp, type=ppp-review, etc.).
+  Strategy:
+    - Primary form is the OWnet embed (<div data-opticwise-form="ppp-review">),
+      loaded by https://ownet.opticwise.com/forms/embed.js above.
+    - If the script 404s, the host is unreachable, or the embed simply
+      doesn't inject anything into its mount within EMBED_TIMEOUT_MS,
+      reveal the hidden hand-built fallback form below so leads aren't dropped.
+    - The detector is idempotent — calling it after a successful embed is a no-op.
+*/
+(function () {
+  "use strict";
+  var EMBED_TIMEOUT_MS = 6000;
+  var revealed = false;
 
-  Until that endpoint is wired, submissions open the user's mail client
-  with a pre-filled message to bill@opticwise.com so leads aren't dropped.
+  function embedRendered(mount) {
+    if (!mount) return false;
+    if (mount.children.length > 0) return true;
+    return !!mount.querySelector("form, iframe, input, [data-ow-form]");
+  }
 
-  Uses capture-phase submit delegation on document so the handler survives
-  React hydration replacing the form subtree.
+  function revealFallback(reason) {
+    if (revealed) return;
+    var mount = document.getElementById("ppp-review-embed-mount");
+    var fallback = document.getElementById("ppp-review-fallback");
+    if (!mount || !fallback) return;
+    if (embedRendered(mount)) return;
+    revealed = true;
+    mount.style.display = "none";
+    fallback.hidden = false;
+    try { console.warn("[ppp-review] OWnet embed not detected; revealing fallback form. Reason:", reason); } catch (e) {}
+  }
+  window.__pppOwnetFail = revealFallback;
+
+  function scheduleBackstop() {
+    setTimeout(function () { revealFallback("timeout"); }, EMBED_TIMEOUT_MS);
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", scheduleBackstop);
+  } else {
+    scheduleBackstop();
+  }
+})();
+</script>
+<script>
+/*
+  PPP Review form — fallback submit handler.
+
+  Only fires if the OWnet embed (ownet.opticwise.com/forms/embed.js) failed
+  to load or render and the hidden #ppp-review-fallback form was revealed
+  by the detector above. The hand-built form posts via mailto: to
+  bill@opticwise.com so a lead is never dropped when the embed host is down.
+
+  Capture-phase submit delegation is used so the handler binds before any
+  default form behaviour or future framework hydration intervenes.
 
   Long mailto URLs fail silently in many clients; the detailed-request field
   is truncated iteratively until the URL fits MAILTO_MAX_LEN.
