@@ -165,10 +165,10 @@ def patch_meta(html: str, spec: dict) -> tuple[str, list[str]]:
     return new, actions
 
 
-def patch_cta(html: str, role_key: str, cta: dict) -> tuple[str, list[str]]:
+def patch_cta(html: str, role_key: str, spec: dict) -> tuple[str, list[str]]:
     """Insert (or replace) the role-specific transitional CTA block above the global Three-ways block."""
     actions: list[str] = []
-    block = build_cta_block(role_key, cta)
+    block = build_cta_block(role_key, spec["cta"])
     new = html
 
     # If a sentinel-wrapped block already exists, replace it for idempotency.
