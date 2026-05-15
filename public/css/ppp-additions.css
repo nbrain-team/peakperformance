@@ -167,13 +167,11 @@
   box-shadow: 0 2px 12px rgba(27, 53, 38, 0.06);
 }
 .faq-item__q {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
+  display: block;
+  position: relative;
   cursor: pointer;
   list-style: none;
-  padding: 1rem 1.25rem;
+  padding: 1rem 2.75rem 1rem 1.25rem;
   font-size: clamp(1rem, 1.3vw, 1.1rem);
   font-weight: 600;
   color: #1B3526;
@@ -184,7 +182,10 @@
 }
 .faq-item__q::after {
   content: "+";
-  flex: 0 0 auto;
+  position: absolute;
+  right: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
   font-size: 1.5rem;
   font-weight: 400;
   line-height: 1;
