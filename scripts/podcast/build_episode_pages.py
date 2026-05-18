@@ -102,10 +102,17 @@ def load_index() -> list[dict]:
 
 
 def load_master_csv() -> dict[int, dict]:
+    """Read master-episodes.csv. Returns {} if the file doesn't exist
+    (on Render the YouTube IDs come from the index instead)."""
     out: dict[int, dict] = {}
+    if not MASTER_CSV or not MASTER_CSV.exists():
+        return out
     with MASTER_CSV.open() as f:
         for row in csv.DictReader(f):
-            n = int(row['ep_num'])
+            try:
+                n = int(row['ep_num'])
+            except (KeyError, ValueError):
+                continue
             out[n] = row
     return out
 
