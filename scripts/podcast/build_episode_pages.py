@@ -763,6 +763,7 @@ def main():
 
     all_eps = load_index()
     master = load_master_csv()
+    drive_thumb_overrides = load_drive_thumb_overrides()
 
     # Filter
     targets = []
@@ -783,7 +784,7 @@ def main():
             print(f'! ep {ep_num}: no local slug (needs new page). Skipping.')
             continue
         try:
-            doc = render_episode(ep, all_eps, master)
+            doc = render_episode(ep, all_eps, master, drive_thumb_overrides)
         except Exception as e:
             print(f'! ep {ep_num} ({ep["slug"]}): render failed → {e!r}')
             continue
