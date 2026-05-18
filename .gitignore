@@ -23,3 +23,9 @@ __pycache__/
 # Local secrets (OPENAI_API_KEY, GOOGLE_APPLICATION_CREDENTIALS path, etc.)
 .env.local
 .env.*.local
+
+# Drive asset cache (populated by scripts/podcast/refresh_assets.py).
+# These are big binaries pulled fresh on every cron run; we never want
+# them in git. _drive_master_listing.json and _drive_thumbnails.json
+# DO get committed because they drive page generation downstream.
+scripts/podcast/_drive_cache/
