@@ -1,0 +1,65 @@
+# Render Blueprint — peakperformance.onrender.com
+#
+# Declares the always-on services for the PPP site:
+#   - The static site (existing) that serves the HTML from main.
+#   - A cron job that runs every 30 minutes to check RSS + refresh Drive
+#     assets + rebuild any changed episode pages + push to main.
+#
+# To use:
+#   1. In the Render dashboard, hit "New +" → "Blueprint" and point at
+#      this repo. Render reads this file and creates the services.
+#   2. After the blueprint applies, open the cron service settings and
+#      set the secret environment variables (sync: false) — GITHUB_TOKEN
+#      and GOOGLE_DRIVE_SA_JSON.
+#   3. Hit "Trigger Run" once on the cron service to verify it works.
+#
+# Pricing: the cron service runs ~1-2 minutes per invocation. At every
+# 30 minutes that's ~60-120 min/day. Render charges $0.00X per minute
+# for cron services on the Starter plan. See https://render.com/pricing.
+
+services:
+  # ---- Static site (existing) ---------------------------------------------
+  - type: web
+    name: peakperformance
+    runtime: static
+    repo: https://github.com/nbrain-team/peakperformance
+    branch: main
+    buildCommand: ""              # repo already contains the built HTML
+    staticPublishPath: .
+    pullRequestPreviewsEnabled: false
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*.html
+        name: Cache-Control
+        value: public, max-age=300, must-revalidate
+
+  # ---- Podcast updater cron -----------------------------------------------
+  - type: cron
+    name: ppp-podcast-updater
+    runtime: python
+    repo: https://github.com/nbrain-team/peakperformance
+    branch: main
+    schedule: "*/30 * * * *"     # every 30 minutes
+    buildCommand: pip install --no-cache-dir -r scripts/podcast/requirements.txt
+    startCommand: bash scripts/podcast/cron_run.sh
+    envVars:
+      - key: GITHUB_REPO
+        value: nbrain-team/peakperformance
+      - key: GIT_BRANCH
+        value: main
+      - key: GIT_USER_NAME
+        value: PPP Podcast Bot
+      - key: GIT_USER_EMAIL
+        value: ppp-bot@peakpropertyperformance.com
+      - key: PYTHONUNBUFFERED
+        value: "1"
+      # ↓ Secrets — set in the Render dashboard, NOT here.
+      - key: GITHUB_TOKEN
+        sync: false
+      - key: GOOGLE_DRIVE_SA_JSON
+        sync: false
