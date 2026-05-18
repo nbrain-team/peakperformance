@@ -150,7 +150,7 @@ def refresh_rss(verbose: bool = True) -> None:
 
 def rebuild_index(verbose: bool = True) -> None:
     if verbose:
-        print(f'[2/4] Rebuilding {INDEX_PATH.relative_to(ROOT)}')
+        print(f'[2/5] Rebuilding {INDEX_PATH.relative_to(ROOT)}')
     out = subprocess.run(
         [sys.executable, str(SCRIPTS / 'build_episode_index.py')],
         check=True, capture_output=True, text=True,
