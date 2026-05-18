@@ -770,11 +770,11 @@
       "rss_duration_hhmmss": "00:32:28",
       "rss_image": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/43770405/43770405-1748464209147-b434d1f531588.jpg",
       "rss_guid": "4b3d6713-4b0a-4015-8281-613bb2c9b538",
-      "slug": null,
-      "local_old_ep_num": null,
-      "local_title": null,
-      "local_date": null,
-      "local_duration": null,
+      "slug": "changing-the-game-property-managers-as-asset-stewards-in-complex-digital",
+      "local_old_ep_num": 34,
+      "local_title": "Changing the Game: Property Managers as Asset Stewards in Complex Digital Environments",
+      "local_date": "2026-05-07",
+      "local_duration": "",
       "drive_folder_id": "1TsOgZF0l_9zhHtDFBv5aDtkEh6tHoS0m",
       "drive_folder_url": "https://drive.google.com/drive/folders/1TsOgZF0l_9zhHtDFBv5aDtkEh6tHoS0m",
       "youtube_video_id": "tbVMBP7Jzfc",
@@ -793,11 +793,11 @@
       "rss_duration_hhmmss": "00:18:40",
       "rss_image": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/43770405/43770405-1778746722678-e5b07fed73eb3.jpg",
       "rss_guid": "5f9c7352-dd2a-406c-92ba-ff291a520978",
-      "slug": null,
-      "local_old_ep_num": null,
-      "local_title": null,
-      "local_date": null,
-      "local_duration": null,
+      "slug": "adaptive-design-and-flex-spaces-what-landlords-and-cre-should-learn",
+      "local_old_ep_num": 35,
+      "local_title": "Adaptive Design and Flex Spaces: What Landlords and CRE Should Learn",
+      "local_date": "2026-05-14",
+      "local_duration": "",
       "drive_folder_id": "1ycircTNtrk1hpqsI7E8Ug0nmn7PukZfF",
       "drive_folder_url": "https://drive.google.com/drive/folders/1ycircTNtrk1hpqsI7E8Ug0nmn7PukZfF",
       "youtube_video_id": "7b2BNYnkNj8",
@@ -823,23 +823,6 @@
       "local_duration": "PT40S"
     }
   ],
-  "local_orphans": [
-    {
-      "slug": "adaptive-design-and-flex-spaces-what-landlords-and-cre-should-learn",
-      "local_old_ep_num": "",
-      "local_title": "",
-      "local_date": "",
-      "local_duration": "",
-      "local_mp3_url": ""
-    },
-    {
-      "slug": "changing-the-game-property-managers-as-asset-stewards-in-complex-digital",
-      "local_old_ep_num": "",
-      "local_title": "",
-      "local_date": "",
-      "local_duration": "",
-      "local_mp3_url": ""
-    }
-  ],
-  "generated_at": "2026-05-18T20:09:44.570549Z"
+  "local_orphans": [],
+  "generated_at": "2026-05-18T20:10:47.367058Z"
 }
