@@ -1,0 +1,14 @@
+# Python deps for the podcast build pipeline.
+# Used by both the local laptop runs and the Render cron service.
+
+# Document parsing
+python-docx==1.1.2
+pdfminer.six==20240706
+
+# Image processing
+Pillow==10.4.0
+
+# Google Drive API (service-account auth)
+google-api-python-client==2.143.0
+google-auth==2.34.0
+google-auth-httplib2==0.2.0
