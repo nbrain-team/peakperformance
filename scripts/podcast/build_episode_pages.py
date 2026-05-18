@@ -51,8 +51,24 @@ ROOT = SCRIPTS.parent.parent
 PODCAST_DIR = ROOT / 'podcast'
 RSS_PATH = SCRIPTS / '_anchor_rss.xml'
 INDEX_PATH = SCRIPTS / '_episode_index.json'
-DELIV = Path('/Users/billdouglas/My Drive/AA DOWNLOADS - WD rev 2025-Apr/PPP-Podcast-Deliverables')
-MASTER_CSV = DELIV / 'master-episodes.csv'
+DELIV_LAPTOP = Path('/Users/billdouglas/My Drive/AA DOWNLOADS - WD rev 2025-Apr/PPP-Podcast-Deliverables')
+DELIV_CACHE = SCRIPTS / '_drive_cache'
+
+# Search both paths for transcripts/show notes/master CSV. The laptop
+# mirror is preferred (faster + always available locally) when present,
+# but on Render / any non-laptop host only DELIV_CACHE will exist.
+DELIV_SEARCH_PATHS = [DELIV_LAPTOP, DELIV_CACHE]
+
+# master-episodes.csv: prefer the laptop mirror copy if present, else
+# fall back to a copy that lives alongside the cache.
+MASTER_CSV = None
+for base in DELIV_SEARCH_PATHS:
+    candidate = base / 'master-episodes.csv'
+    if candidate.exists():
+        MASTER_CSV = candidate
+        break
+if MASTER_CSV is None:
+    MASTER_CSV = DELIV_CACHE / 'master-episodes.csv'  # may not exist; load_master_csv handles missing
 DRIVE_THUMBS_PATH = SCRIPTS / '_drive_thumbnails.json'
 
 DRIVE_ROOT_FOLDER_ID = '1mhA8fDK9uPIn-1IzM-eG_yd5VOfnpWHO'
