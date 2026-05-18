@@ -71,6 +71,7 @@ INDEX_PATH = SCRIPTS / '_episode_index.json'
 DELIV = Path('/Users/billdouglas/My Drive/AA DOWNLOADS - WD rev 2025-Apr/PPP-Podcast-Deliverables')
 MASTER_CSV = DELIV / 'master-episodes.csv'
 BATCH_CSV = DELIV / 'batch-deliverables-summary.csv'
+DRIVE_LISTING_PATH = SCRIPTS / '_drive_master_listing.json'
 
 RSS_URL = 'https://anchor.fm/s/1057cecf4/podcast/rss'
 DRIVE_ROOT_FOLDER_ID = '1mhA8fDK9uPIn-1IzM-eG_yd5VOfnpWHO'
