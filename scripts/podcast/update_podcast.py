@@ -455,9 +455,13 @@ def print_gated(gated: list[dict], verbose: bool = True) -> None:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--no-refresh', action='store_true', help='Skip RSS fetch (use cache)')
+    ap.add_argument('--no-drive', action='store_true', help='Skip Drive asset refresh (use what is on disk)')
     ap.add_argument('--report-only', action='store_true', help="Don't build anything, just report")
     ap.add_argument('--force', action='store_true', help='Re-render every ready page')
     args = ap.parse_args()
+
+    if not args.no_drive and not args.report_only:
+        refresh_drive_assets()
 
     if not args.no_refresh and not args.report_only:
         refresh_rss()
