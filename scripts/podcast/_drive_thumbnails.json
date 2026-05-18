@@ -1,0 +1,16 @@
+{
+  "_comment": "Per-episode override map for thumbnail sources. When an episode has a properly branded thumbnail in its Drive folder (FEAT. guest overlay, etc.), record the file IDs here. build_episode_pages.py will prefer Drive-hosted URLs over local YouTube-derived crops. Older episodes (1-33) inherit the branded thumbnail directly from YouTube's CDN because the channel uploads the branded version as the YouTube cover image, so they don't need entries here. New episodes get added here whenever the user uploads branded variants to Drive ahead of (or instead of) updating the YouTube cover image.",
+  "_url_template": "https://drive.google.com/thumbnail?id={id}&sz={size}",
+  "episodes": {
+    "34": {
+      "id_1x1": "1d3A_GnpUeOoJe5oDlXR_RpdUskFW74PF",
+      "id_16x9": "1_h0t-7nG2q006xXze1xkstFH-Dng3E3o",
+      "source_files": ["Thumbnail ep 34.png", "PPP Ep 34 - YouTube Thumbnail.jpg"]
+    },
+    "35": {
+      "id_1x1": "1rCxP8w1TZUpQ8geoV91-4wwKE67kRatY",
+      "id_16x9": "1RoWwYCVGBEwKd_TJTPIwjg8RYtw88Ta1",
+      "source_files": ["1 by 1.png", "16 by 9.png"]
+    }
+  }
+}
