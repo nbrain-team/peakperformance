@@ -53,9 +53,28 @@ RSS_PATH = SCRIPTS / '_anchor_rss.xml'
 INDEX_PATH = SCRIPTS / '_episode_index.json'
 DELIV = Path('/Users/billdouglas/My Drive/AA DOWNLOADS - WD rev 2025-Apr/PPP-Podcast-Deliverables')
 MASTER_CSV = DELIV / 'master-episodes.csv'
+DRIVE_THUMBS_PATH = SCRIPTS / '_drive_thumbnails.json'
 
 DRIVE_ROOT_FOLDER_ID = '1mhA8fDK9uPIn-1IzM-eG_yd5VOfnpWHO'
 SITE_BASE = 'https://peakpropertyperformance.com'
+
+
+def load_drive_thumb_overrides() -> dict[int, dict]:
+    """Per-episode Drive thumbnail overrides.
+
+    Some episodes (notably newer ones) have FEAT.-branded thumbnails uploaded
+    to the per-ep Drive folder but the YouTube channel still shows the generic
+    template, so img.youtube.com would serve the wrong art. This map lets us
+    point those episodes at the Drive-hosted branded file IDs directly.
+    """
+    if not DRIVE_THUMBS_PATH.exists():
+        return {}
+    raw = json.loads(DRIVE_THUMBS_PATH.read_text())
+    return {int(k): v for k, v in raw.get('episodes', {}).items()}
+
+
+def drive_thumb_url(file_id: str, size: str = 'w1280') -> str:
+    return f'https://drive.google.com/thumbnail?id={file_id}&sz={size}'
 
 
 # ---------------------------------------------------------------------------
