@@ -508,7 +508,8 @@ def guest_linkedin_from_desc(html_desc: str) -> str:
     return m.group(0) if m else ''
 
 
-def render_episode(ep: dict, all_eps: list[dict], master: dict[int, dict]) -> str:
+def render_episode(ep: dict, all_eps: list[dict], master: dict[int, dict], drive_thumb_overrides: dict[int, dict] | None = None) -> str:
+    drive_thumb_overrides = drive_thumb_overrides or {}
     ep_num = ep['rss_ep_num']
     slug = ep['slug']
     title = ep['rss_title']
