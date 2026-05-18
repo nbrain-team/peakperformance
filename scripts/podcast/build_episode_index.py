@@ -197,10 +197,13 @@ def main():
     print(f'\n{"ep":>3}  {"date":<10}  {"slug":<70}  {"oldEp":<5}  drive_folder_id')
     print('-' * 130)
     for r in rows:
+        ep_display = str(r["rss_ep_num"]) if r["rss_ep_num"] is not None else 'TRL'
+        old_display = str(r["local_old_ep_num"]) if r["local_old_ep_num"] is not None else '-'
+        slug_display = r["slug"] or '(NO LOCAL PAGE)'
         print(
-            f'{r["rss_ep_num"]:>3}  {r["rss_pub_date"]:<10}  '
-            f'{(r["slug"] or "(NO LOCAL PAGE)"):<70}  '
-            f'{str(r["local_old_ep_num"]):<5}  '
+            f'{ep_display:>3}  {r["rss_pub_date"]:<10}  '
+            f'{slug_display:<70}  '
+            f'{old_display:<5}  '
             f'{r.get("drive_folder_id", "")}'
         )
 
