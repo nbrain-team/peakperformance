@@ -36,6 +36,8 @@ def parse_rss() -> list[dict]:
     eps = []
     for item in channel.findall('item'):
         title_raw = (item.findtext('title') or '').strip()
+        # Prefer the title-parsed episode number — Anchor's <itunes:episode> tag has
+        # known bugs (Ep 3 → 4, Ep 17 → 19) that we don't want to propagate.
         m = re.match(r'^Ep[\.\s]*\s*(\d+)\s*[:\-]?\s*(.*)$', title_raw, re.I)
         if m:
             ep_num = int(m.group(1))
@@ -43,9 +45,10 @@ def parse_rss() -> list[dict]:
         else:
             ep_num = None
             clean_title = title_raw
-        ep_num_itunes = item.findtext('itunes:episode', namespaces=NS)
-        if ep_num_itunes and ep_num_itunes.strip().isdigit():
-            ep_num = int(ep_num_itunes)
+        if ep_num is None:
+            ep_num_itunes = item.findtext('itunes:episode', namespaces=NS)
+            if ep_num_itunes and ep_num_itunes.strip().isdigit():
+                ep_num = int(ep_num_itunes)
         desc = (item.findtext('description') or '').strip()
         pub = item.findtext('pubDate') or ''
         try:
