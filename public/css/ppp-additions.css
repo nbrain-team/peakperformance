@@ -1143,6 +1143,16 @@
   line-height: 1.4;
 }
 
+/* ---- Episode listing cards: force art to square, center-crop 16:9 sources ---- */
+.episode-card__art-img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
 /* ---- YouTube facade (click-to-play poster) ---- */
 .episode-video {
   margin: 0 0 1.5rem 0;
