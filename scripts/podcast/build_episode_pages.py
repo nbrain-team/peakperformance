@@ -115,15 +115,21 @@ def load_master_csv() -> dict[int, dict]:
 # ---------------------------------------------------------------------------
 
 def find_transcript(ep_num: int) -> Path | None:
-    """Locate the transcript .docx for an episode. Flat mirror is the path
-    we can read directly; per-ep Drive folder version is identical content."""
-    matches = list((DELIV / 'transcripts').glob(f'PPP Ep {ep_num} - Transcript - *.docx'))
-    return matches[0] if matches else None
+    """Locate the transcript .docx for an episode. Searches both the
+    laptop's Drive Desktop sync mirror and the cron-job-populated cache."""
+    for base in DELIV_SEARCH_PATHS:
+        matches = list((base / 'transcripts').glob(f'PPP Ep {ep_num} - Transcript - *.docx'))
+        if matches:
+            return matches[0]
+    return None
 
 
 def find_show_notes(ep_num: int) -> Path | None:
-    matches = list((DELIV / 'show_notes').glob(f'PPP Ep {ep_num} - Show Notes - *.pdf'))
-    return matches[0] if matches else None
+    for base in DELIV_SEARCH_PATHS:
+        matches = list((base / 'show_notes').glob(f'PPP Ep {ep_num} - Show Notes - *.pdf'))
+        if matches:
+            return matches[0]
+    return None
 
 
 def fetch_thumbnail(youtube_id: str, dest_dir: Path) -> tuple[Path, Path]:
