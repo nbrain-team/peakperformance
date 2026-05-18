@@ -294,4 +294,16 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://peakpropertyperformance.com/podcast/changing-the-game-property-managers-as-asset-stewards-in-complex-digital</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://peakpropertyperformance.com/podcast/adaptive-design-and-flex-spaces-what-landlords-and-cre-should-learn</loc>
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
