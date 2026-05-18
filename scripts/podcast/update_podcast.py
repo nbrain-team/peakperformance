@@ -229,16 +229,34 @@ def ensure_page_dir(slug: str) -> Path:
 
 
 def re_register_new_slugs(new_slugs: list[dict]) -> None:
-    """Create the empty page directories so the next index rebuild picks them up,
-    then rebuild the index to attach those slugs to the episodes."""
+    """Create page directories with a minimal PodcastEpisode JSON-LD placeholder
+    so the index rebuild can join them to the RSS feed by mp3 URL."""
     if not new_slugs:
         return
+    # Need the RSS data to look up the mp3 URL for the placeholder
+    data = json.loads(INDEX_PATH.read_text())
+    by_ep = {e['rss_ep_num']: e for e in data['episodes'] if e.get('rss_ep_num') is not None}
     for entry in new_slugs:
         d = ensure_page_dir(entry['slug'])
-        # Touch a placeholder so the dir is non-empty (so the builder finds the slug)
-        placeholder = d / 'index.html'
-        if not placeholder.exists():
-            placeholder.write_text(f'<!DOCTYPE html><html><head><title>Ep {entry["ep_num"]} placeholder</title></head><body><p>Building&hellip;</p></body></html>')
+        page = d / 'index.html'
+        if page.exists() and page.stat().st_size > 5000:
+            continue  # real page already there
+        rss = by_ep.get(entry['ep_num'], {})
+        # Minimal placeholder with the JSON-LD the index-builder reads
+        ld = {
+            '@type': 'PodcastEpisode',
+            'name': rss.get('rss_title', entry['title']),
+            'episodeNumber': entry['ep_num'],
+            'datePublished': rss.get('rss_pub_iso', ''),
+            'duration': rss.get('rss_duration_iso', ''),
+            'associatedMedia': {'contentUrl': rss.get('rss_mp3_url', '')},
+        }
+        page.write_text(
+            '<!DOCTYPE html><html><head>'
+            f'<title>Ep {entry["ep_num"]} placeholder</title>'
+            f'<script type="application/ld+json">{json.dumps(ld)}</script>'
+            '</head><body><p>Building&hellip;</p></body></html>'
+        )
     rebuild_index(verbose=False)
 
 

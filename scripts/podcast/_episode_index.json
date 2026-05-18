@@ -58,7 +58,7 @@
       "rss_image": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/43770405/43770405-1748464209147-b434d1f531588.jpg",
       "rss_guid": "6f4a9a38-c2c2-4c9b-a4c3-cb39a40c0a6e",
       "slug": "unlocking-the-power-of-connect-flowing-data-in-commercial-real-estate",
-      "local_old_ep_num": 4,
+      "local_old_ep_num": 3,
       "local_title": "Unlocking the Power of Connect: Flowing Data in Commercial Real Estate",
       "local_date": "2025-08-27",
       "local_duration": "PT15M53S",
@@ -380,7 +380,7 @@
       "rss_image": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/43770405/43770405-1748464209147-b434d1f531588.jpg",
       "rss_guid": "9430acdf-9660-45bc-9d10-cd2c6638f62b",
       "slug": "how-tokenization-is-transforming-liquidity-and-ownership-in-commercial-real",
-      "local_old_ep_num": 19,
+      "local_old_ep_num": 17,
       "local_title": "How Tokenization is Transforming Liquidity and Ownership in Commercial Real Estate",
       "local_date": "2026-01-08",
       "local_duration": "PT37M20S",
@@ -823,6 +823,23 @@
       "local_duration": "PT40S"
     }
   ],
-  "local_orphans": [],
-  "generated_at": "2026-05-18T18:59:25.458004Z"
+  "local_orphans": [
+    {
+      "slug": "adaptive-design-and-flex-spaces-what-landlords-and-cre-should-learn",
+      "local_old_ep_num": "",
+      "local_title": "",
+      "local_date": "",
+      "local_duration": "",
+      "local_mp3_url": ""
+    },
+    {
+      "slug": "changing-the-game-property-managers-as-asset-stewards-in-complex-digital",
+      "local_old_ep_num": "",
+      "local_title": "",
+      "local_date": "",
+      "local_duration": "",
+      "local_mp3_url": ""
+    }
+  ],
+  "generated_at": "2026-05-18T20:09:44.570549Z"
 }
