@@ -1061,3 +1061,256 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ============================================================
+   Episode page enhancements (show notes + transcript + video facade)
+   Added 2026-05-18 when the per-episode pages were rebuilt
+   to surface full transcripts and structured show notes.
+   ============================================================ */
+
+/* ---- Section heads within the rich-content column ---- */
+.rich-content__h2 {
+  font-family: var(--font-display, inherit);
+  font-size: clamp(1.35rem, 2vw, 1.65rem);
+  font-weight: 700;
+  color: #1B3526;
+  margin: 2.5rem 0 1rem 0;
+  line-height: 1.25;
+}
+.rich-content__h2:first-child {
+  margin-top: 0;
+}
+.rich-content__list {
+  margin: 0.5rem 0 1.5rem 1.25rem;
+  padding: 0;
+}
+.rich-content__list li {
+  margin-bottom: 0.6rem;
+  line-height: 1.55;
+}
+
+/* ---- Pull quote ---- */
+.episode-quote {
+  margin: 2rem 0;
+  padding: 1.5rem 1.75rem 1.5rem 2rem;
+  background: rgba(97, 166, 14, 0.06);
+  border-left: 4px solid #61a60e;
+  border-radius: 0 8px 8px 0;
+}
+.episode-quote p {
+  font-family: var(--font-display, inherit);
+  font-size: clamp(1.1rem, 1.7vw, 1.3rem);
+  font-style: italic;
+  font-weight: 500;
+  color: #1B3526;
+  line-height: 1.5;
+  margin: 0 0 0.75rem 0;
+}
+.episode-quote cite {
+  display: block;
+  font-style: normal;
+  font-size: 0.95rem;
+  color: rgba(27, 53, 38, 0.7);
+  font-weight: 600;
+}
+
+/* ---- Key moments / chapters ---- */
+.episode-chapters {
+  list-style: none;
+  margin: 0.75rem 0 1.5rem 0;
+  padding: 0;
+  border-top: 1px solid rgba(27, 53, 38, 0.12);
+}
+.episode-chapters li {
+  display: flex;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid rgba(27, 53, 38, 0.08);
+}
+.episode-chapters__time {
+  flex: 0 0 auto;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #61a60e;
+  min-width: 4.5em;
+}
+.episode-chapters__label {
+  flex: 1 1 auto;
+  font-size: 1rem;
+  color: #1B3526;
+  line-height: 1.4;
+}
+
+/* ---- YouTube facade (click-to-play poster) ---- */
+.episode-video {
+  margin: 0 0 1.5rem 0;
+}
+.episode-video__poster {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(20, 33, 26, 0.18);
+  background: #000;
+  text-decoration: none;
+}
+.episode-video__poster img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  transition: transform 200ms ease;
+}
+.episode-video__poster:hover img,
+.episode-video__poster:focus-visible img {
+  transform: scale(1.02);
+}
+.episode-video__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: #c40015;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  transition: transform 200ms ease, background 200ms ease;
+}
+.episode-video__poster:hover .episode-video__play,
+.episode-video__poster:focus-visible .episode-video__play {
+  transform: translate(-50%, -50%) scale(1.08);
+  background: #fff;
+}
+.episode-video__label {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  backdrop-filter: blur(4px);
+}
+
+/* ---- Transcript expander ---- */
+.episode-transcript {
+  margin: 2rem 0 1.5rem 0;
+  border: 1px solid rgba(27, 53, 38, 0.15);
+  border-radius: 10px;
+  background: #fff;
+  overflow: hidden;
+}
+.episode-transcript[open] {
+  background: #fdfdfb;
+}
+.episode-transcript__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem 1.25rem 1rem 3rem;
+  cursor: pointer;
+  list-style: none;
+  position: relative;
+  background: linear-gradient(180deg, #fafaf6, #f4f1ea);
+  border-bottom: 1px solid transparent;
+  transition: background 150ms ease;
+}
+.episode-transcript[open] .episode-transcript__toggle {
+  border-bottom-color: rgba(27, 53, 38, 0.1);
+  background: linear-gradient(180deg, #f6f4ee, #efeae0);
+}
+.episode-transcript__toggle::-webkit-details-marker {
+  display: none;
+}
+.episode-transcript__toggle::before {
+  content: "+";
+  position: absolute;
+  left: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #61a60e;
+  transition: transform 200ms ease;
+}
+.episode-transcript[open] .episode-transcript__toggle::before {
+  content: "−";
+}
+.episode-transcript__label {
+  font-family: var(--font-display, inherit);
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  font-weight: 600;
+  color: #1B3526;
+}
+.episode-transcript__meta {
+  font-size: 0.8rem;
+  color: rgba(27, 53, 38, 0.55);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.episode-transcript__body {
+  padding: 1.5rem 1.5rem 1.75rem 1.5rem;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+.episode-transcript__section {
+  font-family: var(--font-display, inherit);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1B3526;
+  margin: 1.5rem 0 0.75rem 0;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(27, 53, 38, 0.1);
+  letter-spacing: 0.01em;
+}
+.episode-transcript__section:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+.episode-transcript__turn {
+  margin: 0 0 0.85rem 0;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #2a3d31;
+}
+.episode-transcript__speaker {
+  color: #1B3526;
+  font-weight: 700;
+}
+
+/* Smaller screens: tighten meta + body padding */
+@media (max-width: 640px) {
+  .episode-transcript__toggle {
+    padding-left: 2.5rem;
+  }
+  .episode-transcript__body {
+    padding: 1.25rem 1rem 1.5rem 1rem;
+    max-height: 60vh;
+  }
+  .episode-chapters li {
+    flex-direction: column;
+    gap: 0.15rem;
+    align-items: flex-start;
+  }
+  .episode-video__play {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+  }
+}
