@@ -289,7 +289,7 @@ def audit(verbose: bool = True):
             })
 
     if verbose:
-        print(f'[3/4] Audit:')
+        print(f'[3/5] Audit:')
         print(f'      RSS episodes:       {len(rss_eps)}')
         print(f'      Ready to build:     {len(ready)}')
         print(f'      Need new local page:{len(new_slugs)}')
