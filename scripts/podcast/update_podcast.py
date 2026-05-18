@@ -68,9 +68,26 @@ ROOT = SCRIPTS.parent.parent
 PODCAST_DIR = ROOT / 'podcast'
 RSS_PATH = SCRIPTS / '_anchor_rss.xml'
 INDEX_PATH = SCRIPTS / '_episode_index.json'
-DELIV = Path('/Users/billdouglas/My Drive/AA DOWNLOADS - WD rev 2025-Apr/PPP-Podcast-Deliverables')
-MASTER_CSV = DELIV / 'master-episodes.csv'
-BATCH_CSV = DELIV / 'batch-deliverables-summary.csv'
+
+# Two possible Drive-asset roots: the laptop's Google Drive desktop sync
+# mirror (preferred locally), and the Render-side cache populated by
+# refresh_assets.py. Either or both may exist; functions below try them
+# in order.
+DELIV_LAPTOP = Path('/Users/billdouglas/My Drive/AA DOWNLOADS - WD rev 2025-Apr/PPP-Podcast-Deliverables')
+DELIV_CACHE = SCRIPTS / '_drive_cache'
+DELIV_SEARCH_PATHS = [DELIV_LAPTOP, DELIV_CACHE]
+
+
+def _first_existing(rel_path: str) -> Path | None:
+    for base in DELIV_SEARCH_PATHS:
+        p = base / rel_path
+        if p.exists():
+            return p
+    return None
+
+
+MASTER_CSV = _first_existing('master-episodes.csv')
+BATCH_CSV = _first_existing('batch-deliverables-summary.csv')
 DRIVE_LISTING_PATH = SCRIPTS / '_drive_master_listing.json'
 
 RSS_URL = 'https://anchor.fm/s/1057cecf4/podcast/rss'
