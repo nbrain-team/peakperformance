@@ -203,11 +203,27 @@ def audit(verbose: bool = True):
         else:
             ready.append(info)
 
-    # Gated: in master, not in RSS
-    for n, row in master.items():
+    # Gated: episode subfolder exists in the master Drive folder, but the
+    # episode isn't in RSS yet. Source of truth is the cached Drive listing
+    # (refreshed via the gdrive MCP — see _drive_master_listing.json).
+    drive_listing = {}
+    if DRIVE_LISTING_PATH.exists():
+        try:
+            drive_listing = json.loads(DRIVE_LISTING_PATH.read_text()).get('episodes', {})
+        except Exception:
+            drive_listing = {}
+    for ep_str, info in drive_listing.items():
+        try:
+            n = int(ep_str)
+        except ValueError:
+            continue
         if n not in rss_ep_nums:
-            gated.append({'ep_num': n, 'title': row.get('title', '?'),
-                          'drive_folder_id': row.get('drive_folder_url', '').rsplit('/', 1)[-1]})
+            title = master.get(n, {}).get('title', '(title unknown — not in master CSV yet)')
+            gated.append({
+                'ep_num': n,
+                'title': title,
+                'drive_folder_id': info.get('folder_id', ''),
+            })
 
     if verbose:
         print(f'[3/4] Audit:')
