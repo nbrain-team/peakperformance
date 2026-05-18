@@ -1,16 +1,41 @@
 {
-  "_comment": "Per-episode override map for thumbnail sources. When an episode has a properly branded thumbnail in its Drive folder (FEAT. guest overlay, etc.), record the file IDs here. build_episode_pages.py will prefer Drive-hosted URLs over local YouTube-derived crops. Older episodes (1-33) inherit the branded thumbnail directly from YouTube's CDN because the channel uploads the branded version as the YouTube cover image, so they don't need entries here. New episodes get added here whenever the user uploads branded variants to Drive ahead of (or instead of) updating the YouTube cover image.",
+  "_comment": "Per-episode thumbnail overrides sourced directly from each episode's Drive folder. The per-episode branded thumbnail (often a ~1.4MB PNG named 'Thumbnail.png', 'PPP EP N.png', or similar) is the canonical visual for that episode and lives alongside the transcript + show notes in the same folder. We always use the same Drive file for both 1:1 listing cards and 16:9 social-share/og:image contexts — Drive's thumbnail proxy serves the asset at any requested size and search engines/social platforms handle the aspect ratio gracefully. This map is read by build_episode_pages.py (per-page hero, og:image, JSON-LD) and the listing-page injector. Episodes are keyed by ep_num as a string.",
   "_url_template": "https://drive.google.com/thumbnail?id={id}&sz={size}",
   "episodes": {
-    "34": {
-      "id_1x1": "1d3A_GnpUeOoJe5oDlXR_RpdUskFW74PF",
-      "id_16x9": "1_h0t-7nG2q006xXze1xkstFH-Dng3E3o",
-      "source_files": ["Thumbnail ep 34.png", "PPP Ep 34 - YouTube Thumbnail.jpg"]
-    },
-    "35": {
-      "id_1x1": "1rCxP8w1TZUpQ8geoV91-4wwKE67kRatY",
-      "id_16x9": "1RoWwYCVGBEwKd_TJTPIwjg8RYtw88Ta1",
-      "source_files": ["1 by 1.png", "16 by 9.png"]
-    }
+    "1":  {"id_1x1": "13bgfexJB8XBiMWLYEpX8pP_qD-vB7-Ji", "id_16x9": "13bgfexJB8XBiMWLYEpX8pP_qD-vB7-Ji", "source_file": "thumnail.png"},
+    "2":  {"id_1x1": "1rsObf_ZQ6ebVCMyzzbOch6J30Ddttovh", "id_16x9": "1rsObf_ZQ6ebVCMyzzbOch6J30Ddttovh", "source_file": "Clarify.png"},
+    "3":  {"id_1x1": "1ZCxQXNdcMnJ676V1sO2V3oGxBFBtCKbU", "id_16x9": "1ZCxQXNdcMnJ676V1sO2V3oGxBFBtCKbU", "source_file": "Connect thumbnail.png"},
+    "4":  {"id_1x1": "1sIGHPWgwou36IYWp4A9DGcpBG2eoq8yp", "id_16x9": "1sIGHPWgwou36IYWp4A9DGcpBG2eoq8yp", "source_file": "Collect.png"},
+    "5":  {"id_1x1": "1OG5XhsNb9shqqWfQ6eSeNnruHsiHHzgu", "id_16x9": "1OG5XhsNb9shqqWfQ6eSeNnruHsiHHzgu", "source_file": "Coordinate Thumbnail.png"},
+    "6":  {"id_1x1": "1sz_Eqc15cdRlY32R1QjORtPqUPwAaaH3", "id_16x9": "1sz_Eqc15cdRlY32R1QjORtPqUPwAaaH3", "source_file": "Ep Control (1).png"},
+    "7":  {"id_1x1": "1lrMXiNGqjApDe5O13hc_NvQlf18FDys0", "id_16x9": "1lrMXiNGqjApDe5O13hc_NvQlf18FDys0", "source_file": "Thumbnail V2png.png"},
+    "8":  {"id_1x1": "1bT75-ZssxnWqJrO4T-HoJTyPLRLeOIdq", "id_16x9": "1bT75-ZssxnWqJrO4T-HoJTyPLRLeOIdq", "source_file": "PPP EP 08.png"},
+    "9":  {"id_1x1": "1ciS6jj_DY0Tjn4vcwIpluyOtWeGkTSFy", "id_16x9": "1ciS6jj_DY0Tjn4vcwIpluyOtWeGkTSFy", "source_file": "PPP EP 09.png"},
+    "10": {"id_1x1": "1Hc0M-AZ97J-PeGHO9XvKOXDMkrYG2HKv", "id_16x9": "1Hc0M-AZ97J-PeGHO9XvKOXDMkrYG2HKv", "source_file": "Thumbnail.png"},
+    "11": {"id_1x1": "1csID46xgCWCBsshoqw_tPiwDgHjLIPjD", "id_16x9": "1csID46xgCWCBsshoqw_tPiwDgHjLIPjD", "source_file": "PPP EP 11 (1).png"},
+    "12": {"id_1x1": "14E1Mq5yBI4piT_rWLQ_v-GrqZta04HxB", "id_16x9": "14E1Mq5yBI4piT_rWLQ_v-GrqZta04HxB", "source_file": "thumbnail ep 12.jpeg"},
+    "13": {"id_1x1": "1H3NHQthFmQBPk-KlsUhj-84mSf4za7RW", "id_16x9": "1H3NHQthFmQBPk-KlsUhj-84mSf4za7RW", "source_file": "Thumbnail ep 13.jpeg"},
+    "14": {"id_1x1": "1f-w1WYnnxT6_5nJn7C-fexAK2o8Voidp", "id_16x9": "1f-w1WYnnxT6_5nJn7C-fexAK2o8Voidp", "source_file": "PPP EP 14 thumbnail.png"},
+    "15": {"id_1x1": "1xlhxlGQSdL_6UQ3sM1w5gHCrHZENmtTg", "id_16x9": "1xlhxlGQSdL_6UQ3sM1w5gHCrHZENmtTg", "source_file": "PPP EP 15.png"},
+    "16": {"id_1x1": "12WVFt3Vdm0bxi5VjosW5-wcOhv_8V_Bt", "id_16x9": "12WVFt3Vdm0bxi5VjosW5-wcOhv_8V_Bt", "source_file": "PPP EP 16.png"},
+    "17": {"id_1x1": "1EiZS7yj6QiI-D4WmrkfFav8pt6M1j0ev", "id_16x9": "1EiZS7yj6QiI-D4WmrkfFav8pt6M1j0ev", "source_file": "PPP EP 17 (1).png"},
+    "18": {"id_1x1": "1Vi15YC8Yv4yJ_mlxWZcYjVnZQSkgBB5p", "id_16x9": "1Vi15YC8Yv4yJ_mlxWZcYjVnZQSkgBB5p", "source_file": "PPP EP 18.png"},
+    "19": {"id_1x1": "1EAWGDSlQXWyABY_ar4-T9Qeo8i_SwrU8", "id_16x9": "1EAWGDSlQXWyABY_ar4-T9Qeo8i_SwrU8", "source_file": "PPP EP 19.png"},
+    "20": {"id_1x1": "13DbK48qgMSVgO7WbZqPoqxSCRpGNttSo", "id_16x9": "13DbK48qgMSVgO7WbZqPoqxSCRpGNttSo", "source_file": "PPP EP 20 thumbnail.png"},
+    "21": {"id_1x1": "1gMB0g9zS-xjJdSNAsaqvK1HTmuHlMF0E", "id_16x9": "1gMB0g9zS-xjJdSNAsaqvK1HTmuHlMF0E", "source_file": "PPP EP 21.png"},
+    "22": {"id_1x1": "1EY6Sqxnu3CzNMPH9DugIez95W5uE8AMt", "id_16x9": "1EY6Sqxnu3CzNMPH9DugIez95W5uE8AMt", "source_file": "PPP EP 22.png"},
+    "23": {"id_1x1": "1ys-LZo34ngGH3rJjoq1byXZ3dobclJqa", "id_16x9": "1ys-LZo34ngGH3rJjoq1byXZ3dobclJqa", "source_file": "PPP EP 23.png"},
+    "24": {"id_1x1": "1KLqe3O_Hg1f3ZijdP1zPWQvFZnDtczuq", "id_16x9": "1KLqe3O_Hg1f3ZijdP1zPWQvFZnDtczuq", "source_file": "building illustration GreenLime thumbnail Podcast cover (1).png"},
+    "25": {"id_1x1": "1MIW2SfaU7hvy-6takGS55L8Qxie0jeqG", "id_16x9": "1MIW2SfaU7hvy-6takGS55L8Qxie0jeqG", "source_file": "Tadros Abdelmalek Thumbnail .png"},
+    "26": {"id_1x1": "1k2vwkouLu1FiUTtHCn24aRWF8beKFj33", "id_16x9": "1k2vwkouLu1FiUTtHCn24aRWF8beKFj33", "source_file": "Thumbnail.png"},
+    "27": {"id_1x1": "18-OFraa8x5Zj97egKt96Qilg6rVQowj1", "id_16x9": "18-OFraa8x5Zj97egKt96Qilg6rVQowj1", "source_file": "Thumbnail.png"},
+    "28": {"id_1x1": "1P5UHqYmGBs3UfsfLKmEuAfGi_lglGlxb", "id_16x9": "1P5UHqYmGBs3UfsfLKmEuAfGi_lglGlxb", "source_file": "Thumbnail.jpg"},
+    "29": {"id_1x1": "1GG1YBNI091Tb4nfx6CjNDV8Me7qFd-5B", "id_16x9": "1GG1YBNI091Tb4nfx6CjNDV8Me7qFd-5B", "source_file": "Thumbnail ep 29.png"},
+    "30": {"id_1x1": "1GYMDeTb8Xe1bzONQs-H4mak1Kh_jkdII", "id_16x9": "1GYMDeTb8Xe1bzONQs-H4mak1Kh_jkdII", "source_file": "Thumbnail ep 30.png"},
+    "31": {"id_1x1": "1GAu6I5z24eSsTF7q5F-m7Vzc5PjUYT8e", "id_16x9": "1GAu6I5z24eSsTF7q5F-m7Vzc5PjUYT8e", "source_file": "(existing CMS export)"},
+    "32": {"id_1x1": "1nzRM4PzY1JNMKtsjpNSG-5LGTNFx1uo4", "id_16x9": "1nzRM4PzY1JNMKtsjpNSG-5LGTNFx1uo4", "source_file": "(existing CMS export)"},
+    "33": {"id_1x1": "1OrRIf-36JodnwfswK22GhJqEc5LLhoXr", "id_16x9": "1OrRIf-36JodnwfswK22GhJqEc5LLhoXr", "source_file": "Thumbnail ep 33.png"},
+    "34": {"id_1x1": "1d3A_GnpUeOoJe5oDlXR_RpdUskFW74PF", "id_16x9": "1_h0t-7nG2q006xXze1xkstFH-Dng3E3o", "source_file": "Thumbnail ep 34.png"},
+    "35": {"id_1x1": "1rCxP8w1TZUpQ8geoV91-4wwKE67kRatY", "id_16x9": "1RoWwYCVGBEwKd_TJTPIwjg8RYtw88Ta1", "source_file": "1 by 1.png"}
   }
 }
