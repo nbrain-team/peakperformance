@@ -95,12 +95,47 @@ DRIVE_ROOT_FOLDER_ID = '1mhA8fDK9uPIn-1IzM-eG_yd5VOfnpWHO'
 
 
 # ---------------------------------------------------------------------------
+# Step 0: refresh Drive assets (transcripts, show notes, thumbnail metadata)
+# ---------------------------------------------------------------------------
+
+def refresh_drive_assets(verbose: bool = True) -> bool:
+    """Run refresh_assets.py if a Drive service account is available.
+    Returns True if the refresh ran, False if no credentials (we then
+    fall back to whatever's already in DELIV_LAPTOP / DELIV_CACHE)."""
+    import os
+    has_creds = (
+        os.environ.get('GOOGLE_DRIVE_SA_JSON')
+        or os.environ.get('GOOGLE_DRIVE_SA_FILE')
+        or (Path.home() / '.config' / 'ppp' / 'drive-sa.json').exists()
+    )
+    if not has_creds:
+        if verbose:
+            print('[0/5] No Drive service account configured — skipping Drive refresh.')
+            print('      (Will use whatever is already in the local mirror / cache.)')
+        return False
+    if verbose:
+        print('[0/5] Refreshing Drive assets (transcripts, show notes, thumbnails)…')
+    out = subprocess.run(
+        [sys.executable, str(SCRIPTS / 'refresh_assets.py')],
+        capture_output=True, text=True,
+    )
+    if verbose:
+        for line in out.stdout.splitlines():
+            if line.strip():
+                print(f'      {line.strip()}')
+        if out.returncode != 0:
+            print(f'      ! exit {out.returncode}')
+            print(out.stderr)
+    return out.returncode == 0
+
+
+# ---------------------------------------------------------------------------
 # Step 1: refresh RSS feed
 # ---------------------------------------------------------------------------
 
 def refresh_rss(verbose: bool = True) -> None:
     if verbose:
-        print(f'[1/4] Fetching {RSS_URL} → {RSS_PATH.relative_to(ROOT)}')
+        print(f'[1/5] Fetching {RSS_URL} → {RSS_PATH.relative_to(ROOT)}')
     req = urllib.request.Request(RSS_URL, headers={'User-Agent': 'Mozilla/5.0'})
     with urllib.request.urlopen(req, timeout=30) as resp:
         data = resp.read()
