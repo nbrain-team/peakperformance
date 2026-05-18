@@ -345,7 +345,10 @@ def main():
             to_build = []
             for info in ready:
                 page = PODCAST_DIR / info['slug'] / 'index.html'
-                if not page.exists() or page.stat().st_size < 5000:
+                # Heuristic: real episode pages are ≥ 40KB (hero + show notes
+                # + transcript). Anything smaller is a stub or an earlier
+                # render that ran before the assets were available.
+                if not page.exists() or page.stat().st_size < 40000:
                     to_build.append(info['ep_num'])
                     continue
                 page_mt = page.stat().st_mtime
