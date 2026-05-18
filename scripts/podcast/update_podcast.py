@@ -147,16 +147,21 @@ def slugify(title: str, max_len: int = 80) -> str:
 
 def load_master() -> dict[int, dict]:
     out: dict[int, dict] = {}
+    if not MASTER_CSV:
+        return out
     with MASTER_CSV.open() as f:
         for row in csv.DictReader(f):
-            out[int(row['ep_num'])] = row
+            try:
+                out[int(row['ep_num'])] = row
+            except (KeyError, ValueError):
+                continue
     return out
 
 
 def load_batch() -> dict[int, dict]:
     """Map ep_num → {guest, drive_folder_id, transcript_drive_file_id, ...}.
     The batch deliverables CSV records the actual Drive file IDs for assets."""
-    if not BATCH_CSV.exists():
+    if not BATCH_CSV or not BATCH_CSV.exists():
         return {}
     out: dict[int, dict] = {}
     with BATCH_CSV.open() as f:
@@ -171,13 +176,19 @@ def load_batch() -> dict[int, dict]:
 
 
 def find_transcript(ep_num: int) -> Path | None:
-    matches = list((DELIV / 'transcripts').glob(f'PPP Ep {ep_num} - Transcript - *.docx'))
-    return matches[0] if matches else None
+    for base in DELIV_SEARCH_PATHS:
+        matches = list((base / 'transcripts').glob(f'PPP Ep {ep_num} - Transcript - *.docx'))
+        if matches:
+            return matches[0]
+    return None
 
 
 def find_show_notes(ep_num: int) -> Path | None:
-    matches = list((DELIV / 'show_notes').glob(f'PPP Ep {ep_num} - Show Notes - *.pdf'))
-    return matches[0] if matches else None
+    for base in DELIV_SEARCH_PATHS:
+        matches = list((base / 'show_notes').glob(f'PPP Ep {ep_num} - Show Notes - *.pdf'))
+        if matches:
+            return matches[0]
+    return None
 
 
 def audit(verbose: bool = True):
