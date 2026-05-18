@@ -343,10 +343,10 @@ def re_register_new_slugs(new_slugs: list[dict]) -> None:
 def build_pages(ep_nums: list[int], verbose: bool = True) -> None:
     if not ep_nums:
         if verbose:
-            print('[4/4] Nothing to build.')
+            print('[4/5] Nothing to build.')
         return
     if verbose:
-        print(f'[4/4] Building {len(ep_nums)} pages: {ep_nums}')
+        print(f'[4/5] Building {len(ep_nums)} pages: {ep_nums}')
     eps_arg = ','.join(str(n) for n in ep_nums)
     out = subprocess.run(
         [sys.executable, str(SCRIPTS / 'build_episode_pages.py'), '--eps', eps_arg],
