@@ -540,12 +540,17 @@ def render_episode(ep: dict, all_eps: list[dict], master: dict[int, dict]) -> st
         'quote_text': '', 'quote_attr': '', 'resources': [], 'tags': [],
     }
 
-    # Thumbnail (downloaded once, cached in the local page folder)
+    # Thumbnail (Drive-hosted override → local YouTube crop → RSS image)
     page_dir = PODCAST_DIR / slug
-    if youtube_id:
-        thumb_16x9, thumb_1x1 = fetch_thumbnail(youtube_id, page_dir)
-        thumb_local_1x1 = f'./thumbnail.jpg'
-        thumb_local_16x9 = f'./thumbnail-16x9.jpg'
+    drive_override = drive_thumb_overrides.get(ep_num)
+    if drive_override:
+        thumb_local_1x1 = drive_thumb_url(drive_override['id_1x1'], 'w800')
+        thumb_local_16x9 = drive_thumb_url(drive_override['id_16x9'], 'w1280')
+        thumb_abs_16x9 = thumb_local_16x9
+    elif youtube_id:
+        fetch_thumbnail(youtube_id, page_dir)
+        thumb_local_1x1 = './thumbnail.jpg'
+        thumb_local_16x9 = './thumbnail-16x9.jpg'
         thumb_abs_16x9 = f'{SITE_BASE}/podcast/{slug}/thumbnail-16x9.jpg'
     else:
         thumb_local_1x1 = ep.get('rss_image') or ''
