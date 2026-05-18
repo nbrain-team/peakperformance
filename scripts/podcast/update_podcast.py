@@ -362,14 +362,16 @@ def build_pages(ep_nums: list[int], verbose: bool = True) -> None:
 
 
 def print_drive_instructions(needs_assets: list[dict], verbose: bool = True) -> None:
-    """Print the MCP fetch instructions for assets the agent needs to pull
-    from Drive."""
+    """Print the agent-fetch instructions for assets missing from the local
+    mirror AND not yet downloaded via refresh_assets.py."""
     if not needs_assets:
         return
     print()
     print('=== Episodes with assets missing from the local Drive mirror ===')
-    print('Run: agent fetches each file via gdrive MCP read_file, then saves')
-    print('via scripts/podcast/save_drive_asset.py.')
+    print('When running with Drive credentials, refresh_assets.py should')
+    print('have already pulled these. Without credentials, run:')
+    print('  agent fetches each file via gdrive MCP read_file, then saves')
+    print('  via scripts/podcast/save_drive_asset.py.')
     print()
     for info in needs_assets:
         n = info['ep_num']
@@ -379,6 +381,60 @@ def print_drive_instructions(needs_assets: list[dict], verbose: bool = True) -> 
         print(f'    Drive folder: {folder_url}')
         print(f'    Missing:      {", ".join(info["missing"])}')
         print()
+
+
+# ---------------------------------------------------------------------------
+# Step 5: rewrite listing-page episode cards from current _drive_thumbnails.json
+# ---------------------------------------------------------------------------
+
+def refresh_listing_cards(verbose: bool = True) -> int:
+    """Rewrite every <img src> in podcast/index.html episode cards so they
+    point at the current per-episode Drive thumbnail. Idempotent."""
+    listing = PODCAST_DIR / 'index.html'
+    if not listing.exists():
+        return 0
+    thumbs_path = SCRIPTS / '_drive_thumbnails.json'
+    if not thumbs_path.exists():
+        return 0
+    idx_data = json.loads(INDEX_PATH.read_text())
+    thumbs = json.loads(thumbs_path.read_text()).get('episodes', {})
+
+    slug_to_ep: dict[str, int] = {}
+    for e in idx_data['episodes']:
+        if e.get('slug') and e.get('rss_ep_num') is not None:
+            slug_to_ep[e['slug']] = int(e['rss_ep_num'])
+
+    s = listing.read_text()
+    pattern = re.compile(
+        r'(<a class="episode-card" href="\./([a-z0-9\-]+)[^"]*"[^>]*>\s*'
+        r'<div class="episode-card__art">\s*<img src=")[^"]+(")',
+        re.DOTALL,
+    )
+    changed = 0
+
+    def replace(m):
+        nonlocal changed
+        prefix, slug, suffix = m.group(1), m.group(2), m.group(3)
+        ep = slug_to_ep.get(slug)
+        if ep is None:
+            return m.group(0)
+        th = thumbs.get(str(ep))
+        if not th:
+            return m.group(0)
+        new_src = f'https://drive.google.com/thumbnail?id={th["id_1x1"]}&amp;sz=w1280'
+        if new_src in m.group(0):
+            return m.group(0)
+        changed += 1
+        return f'{prefix}{new_src}{suffix}'
+
+    s2 = pattern.sub(replace, s)
+    if s2 != s:
+        listing.write_text(s2)
+        if verbose:
+            print(f'[5/5] Refreshed {changed} listing-page card thumbnails')
+    elif verbose:
+        print('[5/5] Listing-page card thumbnails already up to date')
+    return changed
 
 
 def print_gated(gated: list[dict], verbose: bool = True) -> None:
