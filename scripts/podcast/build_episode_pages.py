@@ -532,6 +532,17 @@ def description_meta(html_desc: str, max_len: int = 158) -> str:
     return text[: max_len - 1].rsplit(' ', 1)[0] + '…'
 
 
+def description_meta_aeo(title: str, sn_overview: list[str], html_desc: str, max_len: int = 160) -> str:
+    """AI-citable meta description: prefer show notes overview, then title-derived."""
+    if sn_overview:
+        text = sn_overview[0]
+        text = re.sub(r'\s+', ' ', text).strip()
+        if len(text) <= max_len:
+            return text
+        return text[: max_len - 1].rsplit(' ', 1)[0] + '…'
+    return f'Bill Douglas and Drew Hall discuss {title.lower()} on the Peak Property Performance® Podcast.'[: max_len]
+
+
 def guest_linkedin_from_desc(html_desc: str) -> str:
     m = re.search(r'https?://(?:www\.)?linkedin\.com/in/[^\s"<]+', html_desc or '')
     return m.group(0) if m else ''
@@ -550,7 +561,7 @@ def render_episode(ep: dict, all_eps: list[dict], master: dict[int, dict], drive
     mp3_url = ep['rss_mp3_url']
     desc_html = ep['rss_description_html']
     desc_plain = description_first_para(desc_html)
-    meta_desc = description_meta(desc_html)
+    meta_desc_legacy = description_meta(desc_html)
     page_url = f'{SITE_BASE}/podcast/{slug}'
     canonical_title = f'{title} | Peak Property Performance® Podcast'
 
