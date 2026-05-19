@@ -597,6 +597,7 @@ def main():
 
     if not args.report_only:
         refresh_listing_cards()
+        refresh_homepage_cards()
 
     print_drive_instructions(needs_assets)
     print_gated(gated)
