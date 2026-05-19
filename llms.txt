@@ -1,0 +1,71 @@
+# Peak Property Performance
+
+> Peak Property Performance® is a 2026 Amazon Best Seller published by Fast Company Press, authored by Bill Douglas (CEO, OpticWise), Drew Hall, and Ryan R. Goble. It introduces the 5C™ Framework (Clarify, Connect, Collect, Coordinate, Control) — a vendor-agnostic strategy for CRE owners, asset managers, and operators to own their data and digital infrastructure, grow NOI, and build AI readiness without vendor lock-in. The site also hosts a weekly podcast and free operator resources.
+
+Peak Property Performance® is a program of [OpticWise](https://opticwise.com), headquartered in Golden, Colorado.
+
+## Core Pages
+
+- [The Book](https://peakpropertyperformance.com/book): 2026 Amazon Best Seller from Fast Company Press. Authors: Bill Douglas, Drew Hall, Ryan R. Goble. Covers data ownership, AI readiness, and NOI growth for commercial real estate.
+- [The 5C™ Framework](https://peakpropertyperformance.com/5c-framework): The five-play strategy — Clarify, Connect, Collect, Coordinate, Control — that turns fragmented property data into compounding portfolio intelligence.
+- [The Podcast](https://peakpropertyperformance.com/podcast): Weekly conversations with CRE owners, operators, and industry leaders. Hosted by Bill Douglas and Drew Hall. Available on Spotify, Apple Podcasts, YouTube, iHeart, and RSS.
+- [About the Authors](https://peakpropertyperformance.com/about): Bill Douglas (CEO, OpticWise), Drew Hall, and Ryan R. Goble — combined decades of CRE technology operations across multifamily, office, mixed-use, and hospitality.
+- [FAQ](https://peakpropertyperformance.com/faq): 20 questions and answers about the book, podcast, 5C™ Framework, PPP Review, and resources.
+
+## By Role
+
+- [For CRE Owners](https://peakpropertyperformance.com/for-owners): How the 5C™ Framework applies to owners — data ownership, vendor control gaps, and recoverable NOI.
+- [For Asset Managers](https://peakpropertyperformance.com/for-asset-managers): Investor-grade data insights for capital allocation, refinance timing, and portfolio-wide reporting.
+- [For Property Managers](https://peakpropertyperformance.com/for-property-managers): Replacing reactive vendor coordination with a systemic, owner-controlled view of building operations.
+- [For IT Managers](https://peakpropertyperformance.com/for-it-managers): One owner-controlled connectivity standard with real governance, eliminating shadow networks across portfolios.
+
+## Resources & Tools
+
+- [Free Downloads](https://peakpropertyperformance.com/resources): 5C™ Quick-Start Worksheet, Vendor Contract Audit, PPP Glossary, and more.
+- [PPP Glossary](https://peakpropertyperformance.com/glossary): 42 CRE data and digital infrastructure terms defined in plain language.
+- [Vendor Contract Audit](https://peakpropertyperformance.com/vendor-contract-audit): Free 12-question diagnostic scoring vendor lock-in risk in CRE contracts.
+- [Request a PPP Review](https://peakpropertyperformance.com/ppp-review): Complimentary 45-minute CRE data and digital infrastructure review for one building. Delivers a Property Data Map, Control Gap Analysis, and top 3 actionable plays.
+- [Be on the Show](https://peakpropertyperformance.com/be-on-the-show): Apply to be a guest on the PPP Podcast. Open to CRE operators, PropTech founders, capital allocators, and category experts.
+
+## Podcast Episodes
+
+- [Adaptive Design and Flex Spaces: What Landlords and CRE Should Learn](https://peakpropertyperformance.com/podcast/adaptive-design-and-flex-spaces-what-landlords-and-cre-should-learn)
+- [Auditing Your Tech Stack: Lessons for Brokers, Investors, and Property Managers](https://peakpropertyperformance.com/podcast/auditing-your-tech-stack-lessons-for-brokers-investors-and-property-managers)
+- [Beyond PropTech: Why Digital Infrastructure and Data Control Matter for Your Buildings](https://peakpropertyperformance.com/podcast/beyond-proptech-why-digital-infrastructure-and-data-control-matter-for-your)
+- [Breaking Down Data Silos: Smarter, More Profitable Properties Through Digitization](https://peakpropertyperformance.com/podcast/breaking-down-data-silos-smarter-more-profitable-properties-through-digitization)
+- [Changing the Game: Property Managers as Asset Stewards in Complex Digital Environments](https://peakpropertyperformance.com/podcast/changing-the-game-property-managers-as-asset-stewards-in-complex-digital)
+- [From Data Chaos to Control: Real Estate Scaling Without Operational Bottlenecks](https://peakpropertyperformance.com/podcast/from-data-chaos-to-control-real-estate-scaling-without-operational-bottlenecks)
+- [From Design to Operations: Why Commercial Real Estate Projects Fail Before They Open](https://peakpropertyperformance.com/podcast/from-design-to-operations-why-commercial-real-estate-projects-fail-before-they)
+- [How AI and Data Ownership Are Transforming Commercial Real Estate](https://peakpropertyperformance.com/podcast/how-ai-and-data-ownership-are-transforming-commercial-real-estate-insights-from)
+- [How AI and Energy Data Are Transforming Commercial Real Estate Performance](https://peakpropertyperformance.com/podcast/how-ai-and-energy-data-are-transforming-commercial-real-estate-performance)
+- [How Data Quality Impacts Trust and Performance in Workforce Housing](https://peakpropertyperformance.com/podcast/how-data-quality-impacts-trust-and-performance-in-workforce-housing)
+- [How Digital Transformation Drives Value for Commercial Real Estate Owners and Brokerages](https://peakpropertyperformance.com/podcast/how-digital-transformation-drives-value-for-commercial-real-estate-owners-and)
+- [How Robotics and Automation Are Transforming Hotel Operations and Commercial Real Estate](https://peakpropertyperformance.com/podcast/how-robotics-and-automation-are-transforming-hotel-operations-and-commercial)
+- [How Tokenization is Transforming Liquidity and Ownership in Commercial Real Estate](https://peakpropertyperformance.com/podcast/how-tokenization-is-transforming-liquidity-and-ownership-in-commercial-real)
+- [Leveraging Operational Data to Improve Lender Confidence in Commercial Real Estate](https://peakpropertyperformance.com/podcast/leveraging-operational-data-to-improve-lender-confidence-in-commercial-real)
+- [Mastering Control: How Data Drives Utilities, Vacancy, and Insurance Wins](https://peakpropertyperformance.com/podcast/mastering-control-how-data-drives-utilities-vacancy-and-insurance-wins-in)
+- [Mastering the Art of Coordination in Commercial Real Estate Data and Teams](https://peakpropertyperformance.com/podcast/mastering-the-art-of-coordination-in-commercial-real-estate-data-and-teams)
+- [Moving from Static Data to Decision Velocity in Commercial Real Estate](https://peakpropertyperformance.com/podcast/moving-from-static-data-to-decision-velocity-in-commercial-real-estate)
+- [Navigating Power Control, Cost Savings, and Sustainability for Building Owners](https://peakpropertyperformance.com/podcast/navigating-power-control-cost-savings-and-sustainability-for-building-owners)
+- [Ownership Blindspots: When Market Data and Asset Operations Don't Align](https://peakpropertyperformance.com/podcast/ownership-blindspots-when-market-data-and-asset-operations-don-t-align)
+- [Redefining Risk: How Outdated CRE Due Diligence Leaves Owners Exposed](https://peakpropertyperformance.com/podcast/redefining-risk-how-outdated-cre-due-diligence-leaves-owners-exposed)
+- [Reducing Risk and Friction with Better Data in Real Estate Investing](https://peakpropertyperformance.com/podcast/reducing-risk-and-friction-with-better-data-in-real-estate-investing)
+- [Rethinking Digital Infrastructure: Driving Tenant Experience and Value](https://peakpropertyperformance.com/podcast/rethinking-digital-infrastructure-driving-tenant-experience-and-value-in)
+- [Smarter Property Decisions: Lessons on Data Collaboration and AI Integration](https://peakpropertyperformance.com/podcast/smarter-property-decisions-lessons-on-data-collaboration-and-ai-integration)
+- [Student Housing's Secret Sauce: Data, Consistency, and Resident Experience](https://peakpropertyperformance.com/podcast/student-housing-s-secret-sauce-data-consistency-and-resident-experience-revealed)
+- [The Collect Phase: Building Value Through Smart Data Collection](https://peakpropertyperformance.com/podcast/the-collect-phase-in-commercial-real-estate-building-value-through-smart-data)
+- [The Future of Facilities Management: Turning Data into Actionable ROI](https://peakpropertyperformance.com/podcast/the-future-of-facilities-management-turning-data-into-actionable-roi-in)
+- [The New Era of Multifamily Living: Integrating Energy and Digital Solutions](https://peakpropertyperformance.com/podcast/the-new-era-of-multifamily-living-integrating-energy-and-digital-solutions)
+- [Unlocking the Power of Connect: Flowing Data in Commercial Real Estate](https://peakpropertyperformance.com/podcast/unlocking-the-power-of-connect-flowing-data-in-commercial-real-estate)
+- [Unlocking Value: The First C for Clarify — Know Your Systems, Know Your Value](https://peakpropertyperformance.com/podcast/unlocking-value-in-commercial-real-estate-the-first-c-for-clarify-know-your)
+- [Visibility Breakdowns and Solutions for Real Estate Owners](https://peakpropertyperformance.com/podcast/visibility-breakdowns-and-solutions-for-real-estate-owners)
+- [When Technology Sprawl Meets Real Estate: Managing Risk and Control](https://peakpropertyperformance.com/podcast/when-technology-sprawl-meets-real-estate-managing-risk-and-control-in-modern)
+- [When Underwriting Assumptions Meet On-the-Ground Challenges](https://peakpropertyperformance.com/podcast/when-underwriting-assumptions-meet-on-the-ground-challenges-in-property)
+- [Why Curiosity and Communication Matter Most as Real Estate Adopts New Tech](https://peakpropertyperformance.com/podcast/why-curiosity-and-communication-matter-most-as-real-estate-adopts-new-tech)
+- [Why Parking is the First and Last Impression in Real Estate](https://peakpropertyperformance.com/podcast/why-parking-is-the-first-and-last-impression-in-real-estate)
+- [Why Vendor-Agnostic Systems Empower Property Owners and Operators](https://peakpropertyperformance.com/podcast/why-vendor-agnostic-systems-empower-property-owners-and-operators)
+
+## Legal
+
+- [Terms of Use](https://peakpropertyperformance.com/terms)
+- [Privacy Policy](https://peakpropertyperformance.com/privacy)
