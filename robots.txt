@@ -1,11 +1,8 @@
 User-agent: *
 Allow: /
 
-# AI / answer-engine crawlers — explicitly welcomed
+# AI / answer-engine crawlers — training bots (explicitly welcomed)
 User-agent: GPTBot
-Allow: /
-
-User-agent: PerplexityBot
 Allow: /
 
 User-agent: ClaudeBot
@@ -15,6 +12,28 @@ User-agent: Google-Extended
 Allow: /
 
 User-agent: Applebot-Extended
+Allow: /
+
+# AI / answer-engine crawlers — search-product bots (power live citations)
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: YouBot
 Allow: /
 
 Sitemap: https://peakpropertyperformance.com/sitemap.xml
