@@ -670,6 +670,7 @@ def render_episode(ep: dict, all_eps: list[dict], master: dict[int, dict], drive
         except ValueError:
             pass
 
+    meta_desc = description_meta_aeo(title, sn.get('overview', []), desc_html)
     show_notes_html = render_show_notes_html(sn)
     transcript_html = _render_transcript_clean(tr) if tr['dialogue'] else ''
     recent_html = render_recent_episodes(slug, all_eps)
