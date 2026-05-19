@@ -1,0 +1,356 @@
+# Peak Property Performance
+
+> Peak Property Performance® is a 2026 Amazon Best Seller published by Fast Company Press, authored by Bill Douglas (CEO, OpticWise), Drew Hall, and Ryan R. Goble. It introduces the 5C™ Framework (Clarify, Connect, Collect, Coordinate, Control) — a vendor-agnostic strategy for CRE owners, asset managers, and operators to own their data and digital infrastructure, grow NOI, and build AI readiness without vendor lock-in. The site also hosts a weekly podcast and free operator resources.
+
+Peak Property Performance® is a program of [OpticWise](https://opticwise.com), headquartered in Golden, Colorado.
+
+## The Book
+
+**Peak Property Performance: Game-Changing AI and Digital Strategies for Commercial Real Estate** is a 2026 Amazon Best Seller published by Fast Company Press. The hardcover edition has ISBN 978-1-63908-128-8. Authors are Bill Douglas and Drew Hall, with contributing author Ryan R. Goble. Forewords are by Dorit Fischer (Partner, NAI Shames Makovsky) and Zain Jaffer (Blue Field Capital & Zain Ventures Family Office).
+
+The book is written by operators for operators — people who actually run CRE properties and have spent decades doing it. It is explicitly not a PropTech book; the thesis is that PropTech is the application layer, and the book is about the data and digital infrastructure that PropTech runs on.
+
+The book introduces the 5C™ Framework (Clarify, Connect, Collect, Coordinate, Control) and covers:
+
+- **The 5C™ Framework**: A complete strategic playbook that takes property data from fragmented to compounding.
+- **Implementation Patterns**: What works, what fails, and what changes when your portfolio scales past five buildings.
+- **Tools You Can Use**: Worksheets, audit templates, and decision frameworks an operating team will actually use.
+- **The Operator Voice**: Written by operators, for operators. Zero academic theory.
+- **AI Readiness Grounded in Reality**: What it actually takes to make a portfolio AI-ready. Governance comes before models.
+- **A Playbook, Not a Pitch**: Vendor- and platform-agnostic. The Framework outlives any one technology choice.
+
+The book is available from Amazon, Barnes & Noble, Bookshop, Hudson, and Porchlight (bulk orders). An audiobook is available on Audible, Google Play Audiobooks, and Spotify.
+
+Industry endorsements include:
+
+- "Control of data and digital directly impacts NOI — creating immediate returns and competitive advantages." — Thomas Noonan, Lead Director, Intercontinental Exchange (ICE)
+- "Digital infrastructure separates market leaders from the competition." — Fred Schreiber, Executive Vice President and COO, AMLI Residential
+- "Digital infrastructure isn't just about efficiency — it's about transforming the tenant experience." — Wyn Channer, Senior Managing Director, JLL
+- "Whether you're managing a single property or overseeing a vast portfolio, this book offers the roadmap to transform your real estate operation from average to exceptional." — Zain Jaffer, Blue Field Capital & Zain Ventures Family Office
+- "As a developer, general contractor, and operator of 4,000+ units, I know the challenges of implementing new technology across a portfolio. This book cuts through the hype to deliver a practical digital infrastructure framework that drives NOI." — Joe Fielden Jr., President, Neyland Apartment Associates
+- "One of the real estate industry's greatest arbitrages is digital infrastructure." — Kevin Choquette, Founder, Fident Capital
+
+## The 5C™ Framework
+
+The 5C™ Framework is the five-play strategy that takes property data from fragmented to compounding. Built on decades of operating CRE, it is translated into a plan any owner can run. Each step builds on the last — skip one and the next won't hold. The Framework is what separates one-off building improvements from a portfolio that compounds value year after year.
+
+### 01 — Clarify
+
+Define success metrics, map ownership, identify leakage, document what's trustworthy and portable. Clarify is the diagnostic pass that produces the artifact every later play builds on. Most owners skip it. The ones who don't, win. In OpticWise engagements, Clarify maps to the PPP Review / PPP Audit™.
+
+### 02 — Connect
+
+Establish secure, owner-controlled connectivity that repeats property-to-property. Connect is the network and infrastructure layer — the backplane that every later play depends on. The hardest play to retrofit, which is why it follows Clarify and precedes Collect.
+
+### 03 — Collect
+
+Capture and normalize high-fidelity usable data into a consistent reusable model. Collect turns raw vendor data into something an analyst, executive, or AI system can act on without bespoke per-building translation.
+
+### 04 — Coordinate
+
+Govern identity, access, privacy, lineage, retention, and rules of use. Coordinate is the legal, policy, and operational layer that lets owners enforce data sovereignty without becoming a bottleneck.
+
+### 05 — Control
+
+Enable any decision engine or LLM to act under owner permissions. Control is where AI readiness becomes operational. Without it, AI deployments either fail, leak data, or operate outside the owner's risk tolerance.
+
+### Champion (the outcome)
+
+When intelligence compounds across the portfolio — not inside any single building. Champion is the steady-state where standardization, governance, and owner control produce results that improve year over year without proportional increases in staffing or vendor spend.
+
+**Why the order matters:**
+
+- Clarify before Connect: If you don't know what you're trying to control, every connection is a guess.
+- Collect before Coordinate: You can't govern data you don't actually have.
+- Coordinate before Control: Decision engines without governance just automate chaos faster.
+
+## About the Authors
+
+### Bill Douglas — Co-Author · CEO, OpticWise
+
+Bill is co-author of the Amazon Best Seller *Peak Property Performance®* and CEO of OpticWise. For decades, he's helped organizations turn data and digital infrastructure into owner-controlled assets that drive NOI, control, and AI readiness. He's seen what works at scale and what falls apart at the second building — and he wrote this book for the owners who want plays, not platitudes. When he's not running OpticWise, he's hosting the Peak Property Performance® Podcast and coaching execs as the ResilienceGuy.
+
+### Drew Hall — Co-Author · Founder & Chief Architect, OpticWise
+
+Drew is a co-author of Peak Property Performance® and co-host of the podcast. He's spent his career in the field-level realities of digital infrastructure — the gap between what vendors promise on the slide and what owners actually receive. He writes and speaks for the operators who want clarity over complexity, and ownership over rent. Drew brings the practitioner's voice to the playbook: what actually happens when the network goes down at 2 AM and the leasing tour is at 9.
+
+### Ryan R. Goble — Contributing Author
+
+Ryan is a contributing author and collaborator with Bill and Drew. His lens sharpens the playbook on the operational and governance side of building intelligence — the parts that don't make the slideware but determine whether a strategy actually works under pressure. Ryan keeps the book honest about the structural work owners need to do before any "AI strategy" can land.
+
+## Frequently Asked Questions
+
+### Q: What is Peak Property Performance®, exactly?
+A: Peak Property Performance® is a 2026 Amazon Best Seller published by Fast Company Press, co-authored by Bill Douglas (CEO, OpticWise) and Drew Hall, with Ryan R. Goble. It's the CRE strategy playbook for data and digital infrastructure — written for owners, asset managers, and operators who want NOI growth, AI readiness, and control without vendor lock-in. The book introduces the 5C™ Framework (Clarify · Connect · Collect · Coordinate · Control) and is the foundation of the Peak Property Performance® Podcast.
+
+### Q: How is Peak Property Performance® different from other CRE tech books?
+A: Most CRE technology books are written by consultants for executives who want strategy decks. Peak Property Performance® is written by operators for operators — people who actually run CRE properties and have spent decades doing it. The book skips the strategy abstractions and delivers plays you can run on Monday morning. It's also explicitly not a PropTech book; the thesis is that PropTech is the application layer, and the book is about the data and digital infrastructure that PropTech runs on.
+
+### Q: Do I need to read the book to listen to the podcast (or vice versa)?
+A: No. The book is the playbook. The podcast is the weekly conversations — with CRE owners, operators, and industry leaders — that bring the playbook to life. They complement each other but each stands alone. Many listeners discover the podcast first and pick up the book once a specific episode lands; many readers pick up the podcast to stay current after finishing the book.
+
+### Q: What's the first step if I want to apply the playbook to my buildings?
+A: A complimentary PPP Review (also called a PPP Audit™). One building, one working session, clear deliverables, no sales pitch. You'll come out of it with a Property Data Map, a Control Gap Analysis, and a prioritized Roadmap. It typically takes 45–90 minutes of live time with your team, plus our analysis and deliverable prep. It's how we both decide if there's a fit before anyone commits to anything larger.
+
+### Q: Do I need to switch vendors to apply the playbook?
+A: No. The 5C™ Framework is vendor-agnostic and LLM-agnostic by design. You keep vendors who perform, replace vendors who don't, and swap both in the future without rewiring the building. The point of owner-controlled data and digital infrastructure is to make the owner the one choosing — not to dictate which vendors win or lose.
+
+### Q: Will this disrupt our current operations?
+A: No rip-and-replace. The Clarify step (the first C in the 5C™ Framework) happens alongside normal operations. Implementation is phased around turnover, CapEx timing, and lease-up milestones. Most retrofit deployments — when an owner chooses to act on the Clarify findings — complete in less than one quarter per building. New-construction deployments stay synchronized with the GC schedule.
+
+### Q: What if my property manager already handles tech decisions?
+A: This is the most common pattern in CRE — and it's the "Right Butt, Wrong Seat" problem described in the book. Property management and digital infrastructure are different positions. The PM runs day-to-day building operations. Picking the technology stack — network architecture, data plane, integration design, governance rules — requires a different skill set and a different timeframe. The decisions should sit with whoever owns NOI growth, debt service, refinancing terms, and exit math. That's the asset manager or owner, leading from the skybox, not the field.
+
+### Q: What kind of NOI uplift can I expect?
+A: The Locked NOI Benchmarks from the OpticWise Wins & Nightmares Library are conservative and verifiable: Multifamily $500–$600 per door per year; Multi-tenant office $0.60–$0.90 per RSF per year. These are ranges, not point estimates. Specific projects can run higher — a 299-unit Class A multifamily in our case library delivered $694/door blended NOI, driving roughly $4.88M in asset-value lift at a market cap rate. The realized number for any specific property depends on asset profile, occupancy posture, and how much of the Big Three Plays (utilities, insurance, occupancy) the owner can actually action.
+
+### Q: How does this affect my exit math?
+A: This is the Diligence Discount Thesis. When a property trades, recoverable NOI the seller wasn't capturing becomes a price negotiation lever for the buyer. Price = NOI × cap rate. If you've been operating with owner-controlled data and digital infrastructure for years, you walk into diligence with a portable, well-documented operating story that commands a diligence premium. If you've been operating with vendor-controlled infrastructure, you walk in with gaps the buyer's diligence team can price against you. The book treats this as one of the highest-leverage financial outcomes of running the playbook.
+
+### Q: Will this slow down or accelerate my AI strategy?
+A: Accelerate. AI readiness starts with governance, not with AI. Per the 2025/2026 Dealpath report 'The State of AI Readiness in Commercial Real Estate,' 98% of institutional CRE investors say improving their firm's data infrastructure is a top priority over the next 12–24 months. AI in CRE doesn't fail at the model — it fails at the data foundation. The 5C™ Framework builds the foundation any decision engine, large language model, or autonomous system can act on under owner permissions. When you swap AI models in six months, your data, your workflows, your governance, and your portfolio intelligence stay intact.
+
+### Q: What does NOI uplift look like on a real multifamily property?
+A: A 299-unit Class A multifamily property delivered $694 per door of blended NOI — $624 per door on the income stack and $70 per door on the expense stack — translating to roughly $4.88 million in asset-value lift at a market cap rate. This is on the higher end of what's possible; the conservative range OpticWise publishes is $500–$600 per door per year. The realized number depends on asset profile, occupancy posture, and how much of the Big Three Plays (utilities, insurance, occupancy) the owner can actually action.
+
+### Q: What does NOI uplift look like on a real Class A office property?
+A: A 450,000 RSF Class A office property delivered $0.62 per rentable square foot in NOI uplift on the income stack alone. The conservative range OpticWise publishes for multi-tenant office is $0.60–$0.90 per RSF per year. Same caveats apply: profile, occupancy, and the owner's ability to action the underlying plays drive where the specific property lands in the range.
+
+### Q: Can owner-controlled infrastructure protect capital outside the NOI stack?
+A: Yes — and this is one of the underappreciated outcomes. At a 300,000 SF mixed-use property, power-quality monitoring on the owner's network caught out-of-spec voltage spikes hammering the rooftop HVAC units. The owner filed a utility claim with the documented data; the utility paid for a feeder-circuit and transformer rebuild; the rooftop units got an extra three to four years of useful life. Approximately $250,000 of premature replacement CapEx avoided. Same network, different lever.
+
+### Q: What's a single-property utility-savings example?
+A: A Class A multi-tenant office property delivered $70,000 in annual utility savings — with simultaneous occupancy increase. Same property, same year. The two outcomes don't have to compete; they're produced by the same underlying capability (owner-controlled data, governed access, normalized operational reporting), applied to different decisions.
+
+### Q: Are these resources the same as the book?
+A: The resources on this page draw from the book, but they're not excerpts. The book is the full playbook — case studies, implementation patterns, and chapter-by-chapter depth. The resources are the tools you'd want at your desk while running it: the 5C™ Quick-Start Worksheet as a self-assessment, the Vendor Contract Audit as a shareable tool, the PPP Glossary as a reference for executive conversations.
+
+### Q: What's the difference between a PPP Review and these resources?
+A: The resources are self-service. A PPP Review is a complimentary 45-minute walkthrough of one of your buildings by an OpticWise operator — Bill Douglas or a member of the team — with a written one-pager delivered within five business days. The resources help you do the diagnostic yourself. A PPP Review gets you a second set of eyes from people who've done this across hundreds of properties.
+
+### Q: How long does it take to run the 5C™ Framework?
+A: For a single property, a Clarify pass takes about a week. For a portfolio, the full 5C™ cycle — done well — is a quarter for the first building and faster on every building after, because you reuse standards and tooling.
+
+### Q: Do I need to throw out my existing tech stack to run the 5C™ Framework?
+A: No. The Framework is platform-agnostic by design. Most owners keep what works and add owner-controlled connectivity and governance underneath. The point isn't to replace vendors — it's to make sure vendors plug in under your rules.
+
+### Q: What if my property manager controls our tech?
+A: Then you start with a PM-compatible owner standard: one backplane, segmented access, no shadow networks, required exports. Most third-party PMs welcome this once it's framed as making their job easier and their performance more visible — not adding work.
+
+### Q: How is the 5C™ Framework different from PropTech?
+A: PropTech is products. The 5C™ Framework is a strategy for owning and governing the layer those products plug into. Stay PropTech-agnostic and you get to keep choosing.
+
+## PPP Glossary
+
+**5C™ Framework**: The five strategic plays that take property data from fragmented to compounding: Clarify, Connect, Collect, Coordinate, Control. The framework is sequential — each stage depends on the foundation built by the one before. A trademark of OpticWise.
+
+**5S® UX**: The user experience standard every OpticWise deployment is measured against: Seamless Mobility, Security, Stability (resilience), Speed, Service. Non-negotiable. A registered trademark of OpticWise.
+
+**AI readiness**: The state in which a portfolio's data and digital infrastructure has been governed, normalized, and access-controlled to the point that any decision engine, LLM, or autonomous system can act on it under owner permissions. The outcome of running the 5C™ Framework end-to-end.
+
+**Backplane**: The owner-controlled network design that runs underneath every system in a building or portfolio. A single backplane, repeated property-to-property, is the precondition for portfolio-level intelligence.
+
+**Big Three Plays**: The three operational levers that produce the most reliable NOI uplift for CRE owners when run against an owner-controlled data plane: utilities, insurance, and occupancy. Realistic compounded effect: $500–$600 per door per year (multifamily) or $0.60–$0.90 per RSF per year (multi-tenant office).
+
+**BoT® (Building of Things®)**: OpticWise's owner-controlled approach to data and digital infrastructure that consolidates and governs building connectivity so every device or system can run on a single, secure, segmented foundation.
+
+**Champion**: The outcome state of running the 5C™ Framework across a portfolio: intelligence that compounds across buildings rather than living inside any single one.
+
+**Clarify**: The first play in the 5C™ Framework. Defining success metrics, mapping data and credential ownership, identifying operational and financial leakage, and documenting what's trustworthy and portable.
+
+**Collect**: The third play in the 5C™ Framework. Capturing and normalizing high-fidelity, usable data into a consistent, reusable model across the portfolio.
+
+**Connect**: The second play in the 5C™ Framework. Establishing secure, owner-controlled connectivity that repeats property-to-property.
+
+**Control**: The fifth and final play in the 5C™ Framework. Enabling any decision engine, workflow, or LLM to act on owner data under owner-defined permissions.
+
+**Coordinate**: The fourth play in the 5C™ Framework. Governing identity, access, privacy, lineage, retention, and rules of use across every system and every vendor.
+
+**Data and digital infrastructure**: The combined layer of networks, sensors, systems, software, and data flows that runs a commercial building. The central thesis of Peak Property Performance® is that this layer is now the determining factor in NOI, AI readiness, and asset valuation.
+
+**Data ownership**: The legal and operational state in which all data generated by or about a property is owned by the property owner, not the vendor platforms that happen to collect it.
+
+**Data plane**: The unified, governed layer where all property and portfolio data is captured, normalized, and stored under owner control.
+
+**Decision Stack Session**: An OpticWise engagement format that maps a single property's operational decisions: who's accountable, what data exists, where the leakage is, and what plays would close the gap.
+
+**Diligence Discount Thesis**: When a property trades, recoverable NOI the seller wasn't capturing becomes a price negotiation lever for the buyer. Price = NOI × cap rate.
+
+**Diligence premium**: The increase in transaction value, insurance favorability, and operational risk profile that a property or portfolio earns by being able to produce verifiable operational data on demand.
+
+**ElasticISP®**: OpticWise's ISP-agnostic connectivity model. Diverse providers, diverse paths, redundancy by design — without locking the owner into a single carrier or bulk revenue-share contract. A registered trademark of OpticWise.
+
+**Foundation**: The data and digital infrastructure layer that underlies every other operating decision at a property. Foundations precede intelligence.
+
+**Layer 1 — Managed Data & Digital Infrastructure**: The owner-controlled foundation in the OpticWise two-layer model. Design, implementation, and operations of the data and digital infrastructure across CRE facilities and portfolios.
+
+**Layer 2 — Owner-Controlled Intelligence Layer**: The intelligence layer in the OpticWise two-layer model. Property Brain to Portfolio Brain — a vendor-agnostic and LLM-agnostic data plane plus trust plane that lets any decision engine act under owner permissions.
+
+**Locked NOI Benchmarks**: Conservative NOI uplift figures: multifamily $500–$600 per door per year, multi-tenant office $0.60–$0.90 per RSF per year. Ranges, not point estimates.
+
+**Mandatory Discovery Questions**: OpticWise's canonical first-call qualification questions for a CRE owner or asset manager. Six questions covering accountability, control gaps, PM relationships, OT decision timing, asset mix, and the three decisions monthly plays would improve.
+
+**MPOE (Minimum Point of Entry)**: The physical location where carrier services enter a building. Where ElasticISP terminates ISP circuits and where owner-vs-carrier ownership becomes concrete.
+
+**NOI growth (in the PPP context)**: Net Operating Income growth driven specifically by data and digital infrastructure decisions — a fourth NOI lever most owners have left untouched.
+
+**Operator**: Anyone responsible for running CRE properties at the operational level — owners, asset managers, property managers, IT leaders, and the executives accountable for their performance.
+
+**OT (Operational Technology)**: The technology that runs the physical operations of a building — BMS, access control, elevators, surveillance, parking, energy management. Distinct from IT.
+
+**Owner-controlled**: A system, network, contract, or data layer where the property owner holds the credentials, the rights, and the ability to act. The opposite is vendor-controlled or vendor-locked.
+
+**Peak Property Performance®**: The book, the podcast, and the playbook. Published by Fast Company Press in 2026. Amazon Best Seller. Co-authored by Bill Douglas and Drew Hall, with Ryan R. Goble.
+
+**Plays**: The unit of action in the PPP playbook. A specific, executable move — not a strategy, not a philosophy, not a recommendation.
+
+**Portfolio Brain™**: The portfolio-level outcome of standardizing Property Brain™ across multiple properties. Intelligence compounds across the portfolio instead of restarting at every address. A trademark of OpticWise.
+
+**Portfolio compounding**: The outcome of running the 5C™ Framework across multiple properties rather than one. Single-building improvements are linear; portfolio compounding is geometric.
+
+**PPP Audit™ / PPP Review**: The complimentary entry-point engagement OpticWise offers to CRE owners. One building, one working session, clear deliverables. Delivers a Property Data Map, Control Gap Analysis, and prioritized Roadmap.
+
+**Property Brain™**: A vendor- and LLM-agnostic Property Intelligence Layer — a governed data plane plus trust plane that makes each property capable of autonomous activities and intelligence. A trademark of OpticWise.
+
+**Property Intelligence → Portfolio Intelligence**: The OpticWise tagline and core operating arc. Property Intelligence is what you have when one building runs the playbook well. Portfolio Intelligence is what you have when that same standard is replicated across every building in your portfolio.
+
+**Right Butt, Wrong Seat**: A canonical OpticWise framework describing the CRE pattern where the wrong role is making the technology decisions. The PM runs day-to-day building operations; picking the technology stack requires a different skill set and a different timeframe.
+
+**SIC® (Security, Infrastructure, and Connectivity)**: OpticWise's core network design philosophy and the engineering discipline behind Layer 1. Owner-controlled, vendor-agnostic, ISP-agnostic, first-tier equipment only, resilient by design. A registered trademark of OpticWise.
+
+**Skybox Principle**: The OpticWise framing of the owner/asset manager perspective: leading from the skybox, not the field. Owners and asset managers are accountable for capital allocation, hold-period economics, and exit math.
+
+**Trust plane**: The governance layer in Property Brain™ and Portfolio Brain™ that determines who and what can act on the data plane, under what permissions, with what audit trail.
+
+**Vendor-agnostic**: A system, design, or contract structured so that vendors are interchangeable. A design choice — most CRE technology becomes vendor-locked by accident; vendor-agnostic happens on purpose.
+
+**Vendor lock-in**: The condition in which a CRE owner cannot reasonably switch vendors without significant operational disruption, contractual penalty, or data loss. The single largest hidden tax on CRE portfolios.
+
+## For CRE Owners
+
+**Pain points addressed:**
+
+- You can't see across buildings the same way twice — every property has its own way of reporting.
+- Vendors quietly own the data your KPIs depend on.
+- Every new platform feels like another rental — not an asset on your balance sheet.
+- AI feels like noise because there's no foundation underneath it.
+
+**How the 5C™ Framework applies:** The Framework gives owners control of the foundation that determines NOI, AI readiness, and how much of the asset's intelligence they actually own. Each step provides a specific play: Clarify maps ownership and leakage; Connect establishes the owner-controlled backplane; Collect normalizes data into a reusable model; Coordinate governs identity, access, and rules of use; Control enables decision engines and LLMs to act under owner permissions. The approach requires no rip-and-replace — it phases around turnover, CapEx timing, and lease-up milestones.
+
+## For Asset Managers
+
+**Pain points addressed:**
+
+- Reporting eats the time you should spend on capital allocation.
+- Half the data you'd want for an investor read-out lives behind a vendor login.
+- ROI plays stall because operational data doesn't roll up cleanly.
+- AI initiatives lose momentum without a governed data foundation.
+
+**How the 5C™ Framework applies:** The Framework delivers portfolio-grade insights for capital allocation, refinance timing, and exit math — not building-by-building rollups. It makes every property data-fluent enough to compound across the portfolio. The Clarify step maps where control gaps exist; Connect standardizes infrastructure so reporting works cross-property; Collect creates investor-grade normalized data; Coordinate governs access for LP and IC reporting; Control lets any decision engine act on portfolio-wide data under owner permissions.
+
+## For Property Managers
+
+**Pain points addressed:**
+
+- On-site engineers spend hours coordinating vendors who should coordinate themselves.
+- Tenant complaints surface from three platforms — none of which talk to each other.
+- Capital approvals stall because the data to back them up isn't trustworthy.
+- Every new system means another login, another report, another translation pass.
+
+**How the 5C™ Framework applies:** The Framework replaces reactive vendor coordination and manual reporting with a systemic, owner-controlled view of building operations. It gives property managers a way to prove the work they're already doing in operational language ownership understands. The approach trades firefighting for signal — owner-controlled connectivity that converts chaos into systemic visibility without adding work to the PM's plate.
+
+## For IT Managers
+
+**Pain points addressed:**
+
+- You inherit shadow networks with every new acquisition.
+- Vendor agreements lock data behind credentials your team doesn't hold.
+- Compliance and AI readiness compete for the same scarce ops time.
+- Every property treats segmentation, identity, and exports differently.
+
+**How the 5C™ Framework applies:** The Framework gives CRE IT one owner-controlled connectivity standard with real governance, eliminating shadow networks across portfolios. Vendors plug in under your rules — not the other way around. It consolidates connectivity, governs access, and proves operational outcomes without ripping out what already works. The approach maps the existing stack against the 5C™ Framework and identifies the shadow networks to retire first.
+
+## Vendor Contract Audit
+
+The Vendor Contract Audit is a free, no-email-required interactive diagnostic tool available at https://peakpropertyperformance.com/vendor-contract-audit. It consists of 12 questions across four categories that score a CRE owner's vendor lock-in risk and name the specific clauses to fix in the next contract cycle. Takes approximately 10 minutes to complete.
+
+**The four scoring categories:**
+
+1. **Data ownership** (3 questions): Whether contracts explicitly state the owner owns all operational, telemetry, and tenant data; whether the owner is entitled to complete data exports in standard formats; and whether data is stored in portable formats without proprietary licensing.
+
+2. **Access and credentials** (3 questions): Whether the owner holds root-level administrative credentials; whether the owner has audit and inspection rights; and whether vendors are prohibited from granting third-party access without consent.
+
+3. **Termination and continuity** (3 questions): Whether the owner can terminate with 90 days' notice without penalty; whether the vendor provides 180-day migration assistance; and whether the vendor certifies data destruction within 30 days of termination.
+
+4. **Usage rights and change of control** (3 questions): Whether vendors are prohibited from using owner data to train AI models; whether vendors are prohibited from using the owner in marketing without consent; and whether the owner has termination rights upon vendor change-of-control events.
+
+**Score tiers:** Owner-Controlled (10–12), Mostly Owner-Controlled (7–9), Mixed Lock-In (4–6), Vendor-Controlled (0–3).
+
+The audit produces a heatmap of results by category and specific clause-level recommendations for the next contract negotiation cycle. Results are shareable with General Counsel, IT, or asset management.
+
+## PPP Review
+
+The PPP Review (also called PPP Audit™) is a complimentary CRE data and digital infrastructure review offered by OpticWise. It covers one building in a 45-minute working session with no software pitch and no rip-and-replace. The service is available at https://peakpropertyperformance.com/ppp-review.
+
+**What's included — four deliverables:**
+
+1. **What you actually own**: What is owner-controlled vs vendor-controlled today, and which line items have data ownership clauses your contracts don't surface.
+
+2. **Where your data lives**: A picture of which systems hold which data, who has the keys, and how portable any of it actually is if you change vendors.
+
+3. **Where operational burden stacks up**: Where the on-site team is paying a tax — duplicate ticketing, reconciliation work, vendor coordination — for a problem the digital backbone could solve.
+
+4. **The top 3 monthly plays**: Three plays you'd actually use. Not another dashboard. Not another report. Three things that move on Monday morning.
+
+**Who it's for:** CRE owners/operators, asset managers, property managers, IT/tech leaders, and acquisition/investment professionals. Property types served include office, multifamily residential, mixed-use, retail, industrial, hospitality, and healthcare.
+
+**Process:** The owner submits a request via the website form. OpticWise responds within 1 business day. A 45-minute Clarify pass is scheduled. The owner receives a one-pager mapping who owns what, where data lives, and the top three plays.
+
+## Podcast Episodes
+
+The Peak Property Performance® Podcast features weekly conversations with CRE owners, operators, and industry leaders. Hosted by Bill Douglas and Drew Hall. Available on Spotify, Apple Podcasts, YouTube, iHeart, and RSS.
+
+1. [Adaptive Design and Flex Spaces: What Landlords and CRE Should Learn](https://peakpropertyperformance.com/podcast/adaptive-design-and-flex-spaces-what-landlords-and-cre-should-learn)
+2. [Auditing Your Tech Stack: Lessons for Brokers, Investors, and Property Managers](https://peakpropertyperformance.com/podcast/auditing-your-tech-stack-lessons-for-brokers-investors-and-property-managers)
+3. [Beyond PropTech: Why Digital Infrastructure and Data Control Matter for Your Buildings](https://peakpropertyperformance.com/podcast/beyond-proptech-why-digital-infrastructure-and-data-control-matter-for-your)
+4. [Breaking Down Data Silos: Smarter, More Profitable Properties Through Digitization](https://peakpropertyperformance.com/podcast/breaking-down-data-silos-smarter-more-profitable-properties-through-digitization)
+5. [Changing the Game: Property Managers as Asset Stewards in Complex Digital Environments](https://peakpropertyperformance.com/podcast/changing-the-game-property-managers-as-asset-stewards-in-complex-digital)
+6. [From Data Chaos to Control: Real Estate Scaling Without Operational Bottlenecks](https://peakpropertyperformance.com/podcast/from-data-chaos-to-control-real-estate-scaling-without-operational-bottlenecks)
+7. [From Design to Operations: Why Commercial Real Estate Projects Fail Before They Open](https://peakpropertyperformance.com/podcast/from-design-to-operations-why-commercial-real-estate-projects-fail-before-they)
+8. [How AI and Data Ownership Are Transforming Commercial Real Estate](https://peakpropertyperformance.com/podcast/how-ai-and-data-ownership-are-transforming-commercial-real-estate-insights-from)
+9. [How AI and Energy Data Are Transforming Commercial Real Estate Performance](https://peakpropertyperformance.com/podcast/how-ai-and-energy-data-are-transforming-commercial-real-estate-performance)
+10. [How Data Quality Impacts Trust and Performance in Workforce Housing](https://peakpropertyperformance.com/podcast/how-data-quality-impacts-trust-and-performance-in-workforce-housing)
+11. [How Digital Transformation Drives Value for Commercial Real Estate Owners and Brokerages](https://peakpropertyperformance.com/podcast/how-digital-transformation-drives-value-for-commercial-real-estate-owners-and)
+12. [How Robotics and Automation Are Transforming Hotel Operations and Commercial Real Estate](https://peakpropertyperformance.com/podcast/how-robotics-and-automation-are-transforming-hotel-operations-and-commercial)
+13. [How Tokenization is Transforming Liquidity and Ownership in Commercial Real Estate](https://peakpropertyperformance.com/podcast/how-tokenization-is-transforming-liquidity-and-ownership-in-commercial-real)
+14. [Leveraging Operational Data to Improve Lender Confidence in Commercial Real Estate](https://peakpropertyperformance.com/podcast/leveraging-operational-data-to-improve-lender-confidence-in-commercial-real)
+15. [Mastering Control: How Data Drives Utilities, Vacancy, and Insurance Wins](https://peakpropertyperformance.com/podcast/mastering-control-how-data-drives-utilities-vacancy-and-insurance-wins-in)
+16. [Mastering the Art of Coordination in Commercial Real Estate Data and Teams](https://peakpropertyperformance.com/podcast/mastering-the-art-of-coordination-in-commercial-real-estate-data-and-teams)
+17. [Moving from Static Data to Decision Velocity in Commercial Real Estate](https://peakpropertyperformance.com/podcast/moving-from-static-data-to-decision-velocity-in-commercial-real-estate)
+18. [Navigating Power Control, Cost Savings, and Sustainability for Building Owners](https://peakpropertyperformance.com/podcast/navigating-power-control-cost-savings-and-sustainability-for-building-owners)
+19. [Ownership Blindspots: When Market Data and Asset Operations Don't Align](https://peakpropertyperformance.com/podcast/ownership-blindspots-when-market-data-and-asset-operations-don-t-align)
+20. [Redefining Risk: How Outdated CRE Due Diligence Leaves Owners Exposed](https://peakpropertyperformance.com/podcast/redefining-risk-how-outdated-cre-due-diligence-leaves-owners-exposed)
+21. [Reducing Risk and Friction with Better Data in Real Estate Investing](https://peakpropertyperformance.com/podcast/reducing-risk-and-friction-with-better-data-in-real-estate-investing)
+22. [Rethinking Digital Infrastructure: Driving Tenant Experience and Value](https://peakpropertyperformance.com/podcast/rethinking-digital-infrastructure-driving-tenant-experience-and-value-in)
+23. [Smarter Property Decisions: Lessons on Data Collaboration and AI Integration](https://peakpropertyperformance.com/podcast/smarter-property-decisions-lessons-on-data-collaboration-and-ai-integration)
+24. [Student Housing's Secret Sauce: Data, Consistency, and Resident Experience](https://peakpropertyperformance.com/podcast/student-housing-s-secret-sauce-data-consistency-and-resident-experience-revealed)
+25. [The Collect Phase: Building Value Through Smart Data Collection](https://peakpropertyperformance.com/podcast/the-collect-phase-in-commercial-real-estate-building-value-through-smart-data)
+26. [The Future of Facilities Management: Turning Data into Actionable ROI](https://peakpropertyperformance.com/podcast/the-future-of-facilities-management-turning-data-into-actionable-roi-in)
+27. [The New Era of Multifamily Living: Integrating Energy and Digital Solutions](https://peakpropertyperformance.com/podcast/the-new-era-of-multifamily-living-integrating-energy-and-digital-solutions)
+28. [Unlocking the Power of Connect: Flowing Data in Commercial Real Estate](https://peakpropertyperformance.com/podcast/unlocking-the-power-of-connect-flowing-data-in-commercial-real-estate)
+29. [Unlocking Value: The First C for Clarify — Know Your Systems, Know Your Value](https://peakpropertyperformance.com/podcast/unlocking-value-in-commercial-real-estate-the-first-c-for-clarify-know-your)
+30. [Visibility Breakdowns and Solutions for Real Estate Owners](https://peakpropertyperformance.com/podcast/visibility-breakdowns-and-solutions-for-real-estate-owners)
+31. [When Technology Sprawl Meets Real Estate: Managing Risk and Control](https://peakpropertyperformance.com/podcast/when-technology-sprawl-meets-real-estate-managing-risk-and-control-in-modern)
+32. [When Underwriting Assumptions Meet On-the-Ground Challenges](https://peakpropertyperformance.com/podcast/when-underwriting-assumptions-meet-on-the-ground-challenges-in-property)
+33. [Why Curiosity and Communication Matter Most as Real Estate Adopts New Tech](https://peakpropertyperformance.com/podcast/why-curiosity-and-communication-matter-most-as-real-estate-adopts-new-tech)
+34. [Why Parking is the First and Last Impression in Real Estate](https://peakpropertyperformance.com/podcast/why-parking-is-the-first-and-last-impression-in-real-estate)
+35. [Why Vendor-Agnostic Systems Empower Property Owners and Operators](https://peakpropertyperformance.com/podcast/why-vendor-agnostic-systems-empower-property-owners-and-operators)
+
+## Legal
+
+- [Terms of Use](https://peakpropertyperformance.com/terms): Governs use of the Peak Property Performance® website.
+- [Privacy Policy](https://peakpropertyperformance.com/privacy): Describes data collection, use, and retention practices for the site.
+
+---
+
+© 2026 Peak Property Performance®. All rights reserved. A program of [OpticWise](https://opticwise.com).
