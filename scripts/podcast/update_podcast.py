@@ -439,10 +439,16 @@ def refresh_listing_cards(verbose: bool = True) -> int:
 
 
 # ---------------------------------------------------------------------------
-# Step 6: rewrite homepage episode cards with latest 3 episodes + Drive thumbs
+# Step 6: rewrite homepage + role-page episode cards with latest 3 + Drive thumbs
 # ---------------------------------------------------------------------------
 
 HOMEPAGE = ROOT / 'index.html'
+ROLE_PAGES = [
+    ROOT / 'for-owners' / 'index.html',
+    ROOT / 'for-asset-managers' / 'index.html',
+    ROOT / 'for-property-managers' / 'index.html',
+    ROOT / 'for-it-managers' / 'index.html',
+]
 
 
 def _iso_duration_to_min(iso: str) -> int:
@@ -455,11 +461,61 @@ def _iso_duration_to_min(iso: str) -> int:
     return round(total_sec / 60)
 
 
+def _build_episode_cards(latest: list[dict], thumbs: dict, path_prefix: str) -> str:
+    """Build HTML for episode cards. path_prefix is e.g. './podcast/' or '../podcast/'."""
+    cards_html = ''
+    for ep in latest:
+        ep_num = ep['rss_ep_num']
+        slug = ep.get('slug', '')
+        title = ep.get('rss_title', '')
+        duration_min = _iso_duration_to_min(ep.get('local_duration', ''))
+        duration_str = f'{duration_min} min' if duration_min else ''
+
+        th = thumbs.get(str(ep_num))
+        if th:
+            thumb_src = f'https://drive.google.com/thumbnail?id={th["id_1x1"]}&amp;sz=w1280'
+        else:
+            thumb_src = ep.get('rss_image', '')
+
+        alt_text = html.escape(title, quote=True)
+        meta = f'Episode {ep_num} \u00b7 {duration_str}' if duration_str else f'Episode {ep_num}'
+
+        cards_html += (
+            f'<a class="episode-card" href="{path_prefix}{slug}/index.html">'
+            f'<div class="episode-card__art">'
+            f'<img src="{thumb_src}" alt="{alt_text}" class="episode-card__art-img"/>'
+            f'</div>'
+            f'<div class="episode-card__body">'
+            f'<div class="episode-card__meta">{meta}</div>'
+            f'<div class="episode-card__title">{html.escape(title)}</div>'
+            f'</div></a>'
+        )
+    return cards_html
+
+
+def _replace_episode_grid(page: Path, cards_html: str) -> bool:
+    """Replace episode-grid__cards content in a page. Returns True if changed."""
+    if not page.exists():
+        return False
+    s = page.read_text()
+    pattern = re.compile(
+        r'(<div class="episode-grid__cards">).*?(</div></div></section>)',
+        re.DOTALL,
+    )
+    m = pattern.search(s)
+    if not m:
+        return False
+    new_section = f'{m.group(1)}{cards_html}{m.group(2)}'
+    if new_section == m.group(0):
+        return False
+    s2 = s[:m.start()] + new_section + s[m.end():]
+    page.write_text(s2)
+    return True
+
+
 def refresh_homepage_cards(verbose: bool = True) -> int:
-    """Rewrite the homepage episode-grid__cards section with the latest 3
-    episodes and their per-episode Drive thumbnails. Idempotent."""
-    if not HOMEPAGE.exists():
-        return 0
+    """Rewrite episode-grid__cards on the homepage and all role pages with the
+    latest 3 episodes and their per-episode Drive thumbnails. Idempotent."""
     thumbs_path = SCRIPTS / '_drive_thumbnails.json'
     if not INDEX_PATH.exists():
         return 0
@@ -469,7 +525,6 @@ def refresh_homepage_cards(verbose: bool = True) -> int:
     if thumbs_path.exists():
         thumbs = json.loads(thumbs_path.read_text()).get('episodes', {})
 
-    # Filter to real episodes (rss_ep_num not null), sort newest first
     eps = [e for e in idx_data['episodes'] if e.get('rss_ep_num') is not None]
     eps.sort(key=lambda e: e.get('rss_pub_date', ''), reverse=True)
     latest = eps[:3]
@@ -477,59 +532,26 @@ def refresh_homepage_cards(verbose: bool = True) -> int:
     if not latest:
         return 0
 
-    # Build card HTML for each episode
-    cards_html = ''
-    for ep in latest:
-        ep_num = ep['rss_ep_num']
-        slug = ep.get('slug', '')
-        title = ep.get('rss_title', '')
-        duration_min = _iso_duration_to_min(ep.get('local_duration', ''))
-        duration_str = f'{duration_min} min' if duration_min else ''
+    updated = 0
 
-        # Thumbnail: prefer Drive override, fall back to rss_image
-        th = thumbs.get(str(ep_num))
-        if th:
-            thumb_src = f'https://drive.google.com/thumbnail?id={th["id_1x1"]}&amp;sz=w1280'
-        else:
-            thumb_src = ep.get('rss_image', '')
+    # Homepage uses ./podcast/ prefix
+    homepage_cards = _build_episode_cards(latest, thumbs, './podcast/')
+    if _replace_episode_grid(HOMEPAGE, homepage_cards):
+        updated += 1
 
-        alt_text = html.escape(title, quote=True)
-        meta = f'Episode {ep_num} · {duration_str}' if duration_str else f'Episode {ep_num}'
+    # Role pages use ../podcast/ prefix
+    role_cards = _build_episode_cards(latest, thumbs, '../podcast/')
+    for page in ROLE_PAGES:
+        if _replace_episode_grid(page, role_cards):
+            updated += 1
 
-        cards_html += (
-            f'<a class="episode-card" href="./podcast/{slug}/index.html">'
-            f'<div class="episode-card__art">'
-            f'<img src="{thumb_src}" alt="{alt_text}" class="episode-card__art-img"/>'
-            f'</div>'
-            f'<div class="episode-card__body">'
-            f'<div class="episode-card__meta">{meta}</div>'
-            f'<div class="episode-card__title">{html.escape(title)}</div>'
-            f'</div></a>'
-        )
-
-    # Replace content between episode-grid__cards markers
-    s = HOMEPAGE.read_text()
-    pattern = re.compile(
-        r'(<div class="episode-grid__cards">).*?(</div></div></section>)',
-        re.DOTALL,
-    )
-    m = pattern.search(s)
-    if not m:
-        if verbose:
-            print('[6/6] Homepage episode-grid__cards not found — skipped')
-        return 0
-
-    new_section = f'{m.group(1)}{cards_html}{m.group(2)}'
-    if new_section == m.group(0):
-        if verbose:
-            print('[6/6] Homepage episode cards already up to date')
-        return 0
-
-    s2 = s[:m.start()] + new_section + s[m.end():]
-    HOMEPAGE.write_text(s2)
     if verbose:
-        print(f'[6/6] Refreshed homepage with latest 3 episodes: {[e["rss_ep_num"] for e in latest]}')
-    return len(latest)
+        ep_nums = [e['rss_ep_num'] for e in latest]
+        if updated:
+            print(f'[6/6] Refreshed {updated} page(s) with latest episodes: {ep_nums}')
+        else:
+            print(f'[6/6] Episode cards already up to date on all pages')
+    return updated
 
 
 def print_gated(gated: list[dict], verbose: bool = True) -> None:
