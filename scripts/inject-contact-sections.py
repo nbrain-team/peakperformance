@@ -63,8 +63,11 @@ def build_guest_html(guest):
     if email:
         lines.append(f'<li>Email: <a href="mailto:{email}">{email}</a></li>')
     if website:
-        display_url = website.replace("https://www.", "").replace("https://", "").replace("http://www.", "").replace("http://", "").rstrip("/")
-        lines.append(f'<li>Website: <a href="{website}" target="_blank" rel="noopener">{display_url}</a></li>')
+        href = website
+        if not href.startswith("http"):
+            href = "https://" + href
+        display_url = href.replace("https://www.", "").replace("https://", "").replace("http://www.", "").replace("http://", "").rstrip("/")
+        lines.append(f'<li>Website: <a href="{href}" target="_blank" rel="noopener">{display_url}</a></li>')
     if phone:
         lines.append(f'<li>Phone: {phone}</li>')
     if other:
