@@ -511,9 +511,9 @@ def refresh_listing_cards(verbose: bool = True) -> int:
     if s2 != s:
         listing.write_text(s2)
         if verbose:
-            print(f'[5/5] Refreshed {changed} listing-page card thumbnails')
+            print(f'[5b/7] Refreshed {changed} listing-page card thumbnails')
     elif verbose:
-        print('[5/5] Listing-page card thumbnails already up to date')
+        print('[5b/7] Listing-page card thumbnails already up to date')
     return changed
 
 
