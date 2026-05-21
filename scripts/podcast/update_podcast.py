@@ -697,6 +697,7 @@ def main():
             build_pages(to_build)
 
     if not args.report_only:
+        insert_new_listing_cards()
         refresh_listing_cards()
         refresh_homepage_cards()
 
