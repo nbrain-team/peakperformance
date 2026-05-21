@@ -14,8 +14,8 @@
 #   3. Hit "Trigger Run" once on the cron service to verify it works.
 #
 # Pricing: the cron service runs ~1-2 minutes per invocation. At every
-# 30 minutes that's ~60-120 min/day. Render charges $0.00X per minute
-# for cron services on the Starter plan. See https://render.com/pricing.
+# hour that's ~24-48 min/day. Render charges $0.00X per minute for cron
+# services on the Starter plan. See https://render.com/pricing.
 
 services:
   # ---- Static site (existing) ---------------------------------------------
