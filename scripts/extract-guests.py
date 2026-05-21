@@ -76,7 +76,7 @@ def find_website(text, guest_name):
     ]
     exclude = ['linkedin.com', 'peakpropertyperformance.com', 'opticwise.com',
                'youtube.com', 'spotify.com', 'apple.com', 'anchor.fm',
-               'iheart.com', 'google.com', 'cloudfront.net']
+               'iheart.com', 'google.com', 'cloudfront.net', 'gmail.com']
 
     websites = []
     for p in patterns:
