@@ -673,6 +673,7 @@ def render_episode(ep: dict, all_eps: list[dict], master: dict[int, dict], drive
     meta_desc = description_meta_aeo(title, sn.get('overview', []), desc_html)
     show_notes_html = render_show_notes_html(sn)
     transcript_html = _render_transcript_clean(tr) if tr['dialogue'] else ''
+    contact_sections_html = _render_contact_sections(slug)
     recent_html = render_recent_episodes(slug, all_eps)
 
     # YouTube facade (lightweight click-to-play)
