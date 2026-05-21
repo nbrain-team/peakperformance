@@ -627,9 +627,9 @@ def refresh_homepage_cards(verbose: bool = True) -> int:
     if verbose:
         ep_nums = [e['rss_ep_num'] for e in latest]
         if updated:
-            print(f'[6/6] Refreshed {updated} page(s) with latest episodes: {ep_nums}')
+            print(f'[6/7] Refreshed {updated} page(s) with latest episodes: {ep_nums}')
         else:
-            print(f'[6/6] Episode cards already up to date on all pages')
+            print(f'[6/7] Episode cards already up to date on all pages')
     return updated
 
 
