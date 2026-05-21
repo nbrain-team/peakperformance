@@ -763,6 +763,7 @@ def render_episode(ep: dict, all_eps: list[dict], master: dict[int, dict], drive
 {audio_player}
 <div class="rich-content">
 {show_notes_html}
+{contact_sections_html}
 {transcript_html}
 </div>
 </article>
