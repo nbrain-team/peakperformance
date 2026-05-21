@@ -104,13 +104,31 @@ def inject_into_html(html, guest_block, hosts_block):
 
 
 def strip_existing_contact(html):
-    """Remove any previously injected episode-connect blocks."""
-    return re.sub(
-        r'<div class="episode-connect">.*?</div>\s*</div>\s*</div>\n?',
-        '',
-        html,
-        flags=re.DOTALL,
-    )
+    """Remove all episode-connect blocks by tracking div nesting."""
+    result = html
+    while True:
+        start = result.find('<div class="episode-connect">')
+        if start == -1:
+            break
+        depth = 0
+        i = start
+        end = -1
+        while i < len(result):
+            if result[i:i+4] == '<div':
+                depth += 1
+            elif result[i:i+6] == '</div>':
+                depth -= 1
+                if depth == 0:
+                    end = i + 6
+                    break
+            i += 1
+        if end == -1:
+            break
+        # Also consume a trailing newline if present
+        if end < len(result) and result[end] == '\n':
+            end += 1
+        result = result[:start] + result[end:]
+    return result
 
 
 def main():
