@@ -103,12 +103,19 @@ def inject_into_html(html, guest_block, hosts_block):
     return html
 
 
-def already_has_contact(html):
-    """Check if contact sections already exist."""
-    return 'episode-connect' in html
+def strip_existing_contact(html):
+    """Remove any previously injected episode-connect blocks."""
+    return re.sub(
+        r'<div class="episode-connect">.*?</div>\s*</div>\s*</div>\n?',
+        '',
+        html,
+        flags=re.DOTALL,
+    )
 
 
 def main():
+    force = '--force' in sys.argv
+
     data_file = os.path.join(WORKSPACE, "scripts", "guest-data.json")
     if not os.path.exists(data_file):
         print(f"ERROR: {data_file} not found. Create it first.", file=sys.stderr)
@@ -134,9 +141,11 @@ def main():
         with open(filepath, "r", encoding="utf-8") as f:
             html = f.read()
 
-        if already_has_contact(html):
-            print(f"ALREADY DONE: {slug}")
-            continue
+        if 'episode-connect' in html:
+            if not force:
+                print(f"ALREADY DONE: {slug}")
+                continue
+            html = strip_existing_contact(html)
 
         guest_block = "" if is_hosts_only else build_guest_html(entry)
         new_html = inject_into_html(html, guest_block, HOSTS_HTML)
