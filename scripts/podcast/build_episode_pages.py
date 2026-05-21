@@ -516,6 +516,75 @@ def _render_transcript_clean(tr: dict) -> str:
     return '\n'.join(parts)
 
 
+def _render_contact_sections(slug: str) -> str:
+    """Render Connect with Guest + Connect with Hosts HTML blocks.
+
+    Guest data comes from scripts/guest-data.json. If no entry found for slug,
+    only the hosts block is returned.
+    """
+    import pathlib
+    guest_data_path = pathlib.Path(__file__).resolve().parent.parent / 'guest-data.json'
+    guests = []
+    if guest_data_path.exists():
+        import json as _json
+        guests = _json.loads(guest_data_path.read_text(encoding='utf-8'))
+
+    hosts_html = (
+        '<div class="episode-connect">\n'
+        '<h3 class="episode-connect__heading">Connect With The Hosts</h3>\n'
+        '<div class="episode-connect__person">\n'
+        '<p class="episode-connect__name">Bill Douglas (Host)</p>\n'
+        '<ul class="episode-connect__links">\n'
+        '<li>LinkedIn: <a href="https://www.linkedin.com/in/billdouglas/" target="_blank" rel="noopener">linkedin.com/in/billdouglas</a></li>\n'
+        '<li>Email: <a href="mailto:bill.douglas@opticwise.com">bill.douglas@opticwise.com</a></li>\n'
+        '<li>OpticWise: <a href="https://opticwise.com" target="_blank" rel="noopener">opticwise.com</a></li>\n'
+        '</ul>\n</div>\n'
+        '<div class="episode-connect__person">\n'
+        '<p class="episode-connect__name">Drew Hall (Co-Host)</p>\n'
+        '<ul class="episode-connect__links">\n'
+        '<li>LinkedIn: <a href="https://www.linkedin.com/in/drewhall33/" target="_blank" rel="noopener">linkedin.com/in/drewhall33</a></li>\n'
+        '<li>Email: <a href="mailto:drew.hall@opticwise.com">drew.hall@opticwise.com</a></li>\n'
+        '<li>OpticWise: <a href="https://opticwise.com" target="_blank" rel="noopener">opticwise.com</a></li>\n'
+        '</ul>\n</div>\n</div>'
+    )
+
+    entry = next((g for g in guests if g.get('slug') == slug), None)
+    if not entry or entry.get('is_hosts_only') or entry.get('skip'):
+        return hosts_html
+
+    name = entry.get('guest_name', '')
+    title = entry.get('guest_title', '')
+    linkedin = entry.get('linkedin', '')
+    email = entry.get('email', '')
+    website = entry.get('website', '')
+    phone = entry.get('phone', '')
+    other = entry.get('other_contact', '')
+
+    lines = ['<div class="episode-connect">',
+             '<h3 class="episode-connect__heading">Connect With The Guest</h3>',
+             '<div class="episode-connect__person">',
+             f'<p class="episode-connect__name">{name}</p>']
+    if title:
+        lines.append(f'<p class="episode-connect__role">{title}</p>')
+    lines.append('<ul class="episode-connect__links">')
+    if linkedin:
+        display = linkedin.replace("https://www.", "").replace("https://", "").rstrip("/")
+        lines.append(f'<li>LinkedIn: <a href="{linkedin}" target="_blank" rel="noopener">{display}</a></li>')
+    if email:
+        lines.append(f'<li>Email: <a href="mailto:{email}">{email}</a></li>')
+    if website:
+        href = website if website.startswith("http") else "https://" + website
+        display_url = href.replace("https://www.", "").replace("https://", "").replace("http://", "").rstrip("/")
+        lines.append(f'<li>Website: <a href="{href}" target="_blank" rel="noopener">{display_url}</a></li>')
+    if phone:
+        lines.append(f'<li>Phone: {phone}</li>')
+    if other:
+        lines.append(f'<li>{other}</li>')
+    lines.extend(['</ul>', '</div>', '</div>'])
+
+    return '\n'.join(lines) + '\n' + hosts_html
+
+
 def description_first_para(html_desc: str) -> str:
     """Get plain-text version of the RSS HTML description, first paragraph only."""
     text = re.sub(r'<[^>]+>', ' ', html_desc or '')
