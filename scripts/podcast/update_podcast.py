@@ -385,7 +385,86 @@ def print_drive_instructions(needs_assets: list[dict], verbose: bool = True) -> 
 
 
 # ---------------------------------------------------------------------------
-# Step 5: rewrite listing-page episode cards from current _drive_thumbnails.json
+# Step 5a: insert NEW episode cards into podcast/index.html for RSS episodes
+#          that don't already have a card on the listing page.
+# ---------------------------------------------------------------------------
+
+def insert_new_listing_cards(verbose: bool = True) -> int:
+    """Add episode cards to podcast/index.html for any RSS episodes that
+    have a slug but no card on the listing page yet. Idempotent."""
+    listing = PODCAST_DIR / 'index.html'
+    if not listing.exists():
+        return 0
+
+    idx_data = json.loads(INDEX_PATH.read_text())
+    thumbs_path = SCRIPTS / '_drive_thumbnails.json'
+    thumbs = {}
+    if thumbs_path.exists():
+        thumbs = json.loads(thumbs_path.read_text()).get('episodes', {})
+
+    s = listing.read_text()
+
+    existing_slugs = set(re.findall(
+        r'<a class="episode-card" href="\./([a-z0-9\-]+)/index\.html"',
+        s,
+    ))
+
+    eps = [
+        e for e in idx_data['episodes']
+        if e.get('slug') and e.get('rss_ep_num') is not None
+           and e['slug'] not in existing_slugs
+    ]
+    if not eps:
+        if verbose:
+            print('[5a/7] No new episode cards to insert on listing page')
+        return 0
+
+    eps.sort(key=lambda e: e.get('rss_pub_date', ''), reverse=True)
+
+    new_cards = ''
+    for ep in eps:
+        ep_num = ep['rss_ep_num']
+        slug = ep['slug']
+        title = ep.get('rss_title', '')
+        duration_min = _iso_duration_to_min(ep.get('local_duration', ''))
+        duration_str = f'{duration_min} min' if duration_min else ''
+
+        th = thumbs.get(str(ep_num))
+        if th:
+            thumb_src = f'https://drive.google.com/thumbnail?id={th["id_1x1"]}&amp;sz=w1280'
+        else:
+            thumb_src = ep.get('rss_image', '')
+
+        alt_text = html.escape(title, quote=True)
+        meta = f'Episode {ep_num} \u00b7 {duration_str}' if duration_str else f'Episode {ep_num}'
+
+        new_cards += (
+            f'<a class="episode-card" href="./{slug}/index.html">'
+            f'<div class="episode-card__art">'
+            f'<img src="{thumb_src}" alt="{alt_text}" class="episode-card__art-img"/>'
+            f'</div>'
+            f'<div class="episode-card__body">'
+            f'<div class="episode-card__meta">{meta}</div>'
+            f'<div class="episode-card__title">{html.escape(title)}</div>'
+            f'</div></a>'
+        )
+
+    marker = '<div class="episode-grid__cards">'
+    if marker not in s:
+        if verbose:
+            print('[5a/7] Cannot find episode-grid__cards marker in listing page')
+        return 0
+
+    s2 = s.replace(marker, marker + new_cards, 1)
+    listing.write_text(s2)
+    added = [e['rss_ep_num'] for e in eps]
+    if verbose:
+        print(f'[5a/7] Inserted {len(added)} new episode card(s) on listing page: {added}')
+    return len(added)
+
+
+# ---------------------------------------------------------------------------
+# Step 5b: rewrite listing-page episode cards from current _drive_thumbnails.json
 # ---------------------------------------------------------------------------
 
 def refresh_listing_cards(verbose: bool = True) -> int:
