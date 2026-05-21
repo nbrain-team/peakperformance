@@ -2,7 +2,7 @@
 #
 # Declares the always-on services for the PPP site:
 #   - The static site (existing) that serves the HTML from main.
-#   - A cron job that runs every hour to check RSS + refresh Drive
+#   - A cron job that runs every 30 minutes to check RSS + refresh Drive
 #     assets + rebuild any changed episode pages + push to main.
 #
 # To use:
@@ -44,7 +44,7 @@ services:
     runtime: python
     repo: https://github.com/nbrain-team/peakperformance
     branch: main
-    schedule: "0 * * * *"        # every hour, on the hour
+    schedule: "*/30 * * * *"     # every 30 minutes
     buildCommand: pip install --no-cache-dir -r scripts/podcast/requirements.txt
     startCommand: bash scripts/podcast/cron_run.sh
     envVars:
