@@ -633,6 +633,45 @@ def refresh_homepage_cards(verbose: bool = True) -> int:
     return updated
 
 
+def publish_ow_insights(ready: list[dict], verbose: bool = True) -> None:
+    """Generate and publish OpticWise Insights blog posts for newly built episodes."""
+    import os
+    if not os.environ.get('OPENAI_API_KEY'):
+        if verbose:
+            print('[7/7] Skipping OW Insights publish (OPENAI_API_KEY not set)')
+        return
+
+    ow_html = Path.home() / 'My Drive' / 'Cursor' / 'opticwise-html'
+    missing_eps = []
+    for info in ready:
+        slug = info['slug']
+        ow_post = ow_html / 'insights' / f'ppp-{slug}' / 'index.html'
+        if not ow_post.exists():
+            missing_eps.append(info['ep_num'])
+
+    if not missing_eps:
+        if verbose:
+            print('[7/7] All episodes already have OW Insights posts')
+        return
+
+    if verbose:
+        print(f'[7/7] Publishing OW Insights posts for {len(missing_eps)} new episodes: {missing_eps}')
+
+    out = subprocess.run(
+        [sys.executable, str(SCRIPTS / 'publish_ow_insights.py'),
+         '--eps', ','.join(str(n) for n in missing_eps)],
+        capture_output=True, text=True,
+    )
+    if verbose:
+        for line in out.stdout.splitlines():
+            if line.strip():
+                print(f'      {line.strip()}')
+        if out.returncode != 0:
+            print(f'      ! exit {out.returncode}')
+            if out.stderr:
+                print(out.stderr[:500])
+
+
 def print_gated(gated: list[dict], verbose: bool = True) -> None:
     if not gated:
         return
