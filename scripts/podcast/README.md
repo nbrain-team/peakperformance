@@ -44,7 +44,8 @@ we avoid pre-announcing).
 | `extract.py` | Standalone DOCX/PDF text-extraction helper (not used by the main loop) |
 | `build_episode_pages.py` | Renders one or all `podcast/<slug>/index.html` files |
 | `save_drive_asset.py` | Decodes a base64 blob from the gdrive MCP and writes it to the local mirror |
-| `update_podcast.py` | **Main entry.** Refresh RSS → rebuild index → audit gaps → build ready pages → report what still needs Drive fetches and what's gated |
+| `update_podcast.py` | **Main entry.** Refresh RSS → rebuild index → audit gaps → build ready pages → publish OW Insights posts → report what still needs Drive fetches and what's gated |
+| `publish_ow_insights.py` | Bridge script that calls the OpticWise `generate-ppp-blog-posts.ts` to create Insights blog posts for newly built episodes (requires OPENAI_API_KEY) |
 
 ## Routine update workflow
 
