@@ -700,6 +700,7 @@ def main():
         insert_new_listing_cards()
         refresh_listing_cards()
         refresh_homepage_cards()
+        publish_ow_insights(ready)
 
     print_drive_instructions(needs_assets)
     print_gated(gated)
