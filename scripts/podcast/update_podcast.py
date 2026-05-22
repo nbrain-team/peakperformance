@@ -670,6 +670,25 @@ def publish_ow_insights(ready: list[dict], verbose: bool = True) -> None:
             print(f'      ! exit {out.returncode}')
             if out.stderr:
                 print(out.stderr[:500])
+            return
+
+    ep_labels = ', '.join(str(n) for n in missing_eps)
+
+    # Auto-commit & push opticwise-html so the OW Insights posts go live
+    if ow_html.exists():
+        subprocess.run(['git', 'add', '-A'], cwd=str(ow_html), capture_output=True)
+        subprocess.run(
+            ['git', 'commit', '-m',
+             f'Add PPP Insights posts for ep {ep_labels}'],
+            cwd=str(ow_html), capture_output=True)
+        push = subprocess.run(
+            ['git', 'push', 'origin', 'main'],
+            cwd=str(ow_html), capture_output=True, text=True)
+        if verbose:
+            if push.returncode == 0:
+                print(f'      Pushed opticwise-html (OW Insights posts)')
+            else:
+                print(f'      ! opticwise-html push failed: {push.stderr[:200]}')
 
 
 def print_gated(gated: list[dict], verbose: bool = True) -> None:
