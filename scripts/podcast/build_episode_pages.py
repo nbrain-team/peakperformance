@@ -807,6 +807,8 @@ def render_episode(ep: dict, all_eps: list[dict], master: dict[int, dict], drive
 <script type="application/ld+json">{org_jsonld}</script>
 <script type="application/ld+json">{breadcrumb_jsonld}</script>
 <script type="application/ld+json">{podcast_episode_jsonld}</script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag('consent','default',{{analytics_storage:'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',wait_for_update:500}});gtag('js',new Date());gtag('config','G-DF9CQ5M85D');</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DF9CQ5M85D"></script>
 </head>
 <body>
 {NAV_HTML}
