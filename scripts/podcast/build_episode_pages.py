@@ -783,6 +783,7 @@ def render_episode(ep: dict, all_eps: list[dict], master: dict[int, dict], drive
 <link rel="preload" as="image" href="{thumb_local_1x1}">
 <link rel="stylesheet" href="../../_next/static/css/f3145fbd800cc712.css" data-precedence="next">
 <link rel="stylesheet" href="../../public/css/ppp-additions.css">
+<link rel="stylesheet" href="../../public/css/cookie-consent.css">
 <link rel="icon" type="image/x-icon" href="../../public/favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="../../public/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="../../public/favicon-16x16.png">
