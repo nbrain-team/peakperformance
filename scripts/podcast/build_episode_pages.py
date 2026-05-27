@@ -859,6 +859,7 @@ def render_episode(ep: dict, all_eps: list[dict], master: dict[int, dict], drive
 {THREE_WAYS_HTML}
 </main>
 {FOOTER_HTML}
+<script defer src="../../public/js/cookie-consent.js"></script>
 </body>
 </html>
 '''
