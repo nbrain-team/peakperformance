@@ -163,6 +163,14 @@
       });
     });
 
+    banner.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        saveConsent(false, false);
+        updateGtagConsent(false, false);
+        hideBanner();
+      }
+    });
+
     banner.addEventListener('click', function (e) {
       var btn = e.target.closest('[data-cc]');
       if (!btn) return;
