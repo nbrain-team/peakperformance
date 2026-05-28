@@ -3,6 +3,148 @@
    Loaded after the Next.js bundle CSS so these rules win cascade.
    ============================================================ */
 
+/* ============================================================
+   WCAG 2.1 AA — accessibility layer
+   ============================================================ */
+
+/* ---- Skip-to-main link ---- */
+.ow-skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: 10000;
+  padding: 0.75rem 1.5rem;
+  background: #fff;
+  color: #0f172a;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 0 0 8px 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+.ow-skip-link:focus {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: auto;
+  height: auto;
+  overflow: visible;
+}
+
+/* ---- Screen-reader-only utility ---- */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---- Global :focus-visible ring ---- */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible,
+summary:focus-visible {
+  outline: 2px solid #61a60e;
+  outline-offset: 2px;
+}
+
+/* Override any transparent/none focus outlines from the bundle */
+*:focus-visible {
+  outline-color: #61a60e !important;
+  outline-style: solid !important;
+  outline-width: 2px !important;
+}
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ---- Reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---- Phase 4: Color contrast remediation ---- */
+
+/* Footer bottom links — inline rgba(245,240,228,0.7) bumped to 0.82 for 4.5:1 */
+.footer__bottom a {
+  color: rgba(245, 240, 228, 0.82) !important;
+}
+.footer__bottom a:hover,
+.footer__bottom a:focus-visible {
+  color: #F5F0E4 !important;
+}
+
+/* Footer tagline — ensure 4.5:1 on dark green */
+.footer__tagline {
+  color: rgba(245, 240, 228, 0.82);
+}
+
+/* --text-on-dark-mute is 0.72 — bump to 0.82 where used as body text */
+.subscribe-row__label,
+.episode-card__meta {
+  color: rgba(245, 240, 228, 0.82);
+}
+
+/* Episode transcript meta on light bg */
+.episode-transcript__meta {
+  color: rgba(27, 53, 38, 0.62);
+}
+
+/* Audit progress label and result-card eyebrow */
+.audit-progress,
+.result-card .eyebrow {
+  color: rgba(27, 53, 38, 0.7);
+}
+
+/* Episode connect role text */
+.episode-connect__role {
+  color: rgba(27, 53, 38, 0.7);
+}
+
+/* Glossary see-also text */
+.glossary-seealso {
+  color: rgba(27, 53, 38, 0.75);
+}
+
+/* Form note text */
+.ppp-review-form .form-note {
+  color: rgba(27, 53, 38, 0.7);
+}
+
+/* Form success attribution text */
+.form-success__attribution {
+  color: rgba(27, 53, 38, 0.75);
+}
+
+/* FAQ subhead — bump from 0.65 opacity */
+.faq-list__subhead {
+  color: rgba(27, 53, 38, 0.7);
+}
+
+/* Cookie consent prefs description — bump from 0.75 opacity */
+.cc-prefs__desc {
+  opacity: 1;
+  color: rgba(245, 240, 228, 0.82);
+}
+
 /* ---- Amazon Best Seller badge overlay (book + home heros) ---- */
 .book-cover-with-badge {
   position: relative;
