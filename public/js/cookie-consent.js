@@ -73,8 +73,16 @@
     });
   }
 
+  var _ccTrap = null;
+  var _ccPrevFocus = null;
+
   function hideBanner() {
     var banner = document.getElementById('cc-banner');
+    if (_ccTrap) { _ccTrap.release(); _ccTrap = null; }
+    if (_ccPrevFocus && _ccPrevFocus.focus) {
+      _ccPrevFocus.focus();
+      _ccPrevFocus = null;
+    }
     if (banner) {
       banner.classList.remove('cc-banner--visible');
       setTimeout(function () { banner.remove(); }, 400);
@@ -142,9 +150,16 @@
 
     document.body.appendChild(banner);
 
+    _ccPrevFocus = document.activeElement;
+
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {
         banner.classList.add('cc-banner--visible');
+        if (typeof window.OWTrapFocus === 'function') {
+          _ccTrap = window.OWTrapFocus(banner);
+        }
+        var firstBtn = banner.querySelector('.cc-btn');
+        if (firstBtn) firstBtn.focus();
       });
     });
 
