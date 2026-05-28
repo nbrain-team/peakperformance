@@ -98,8 +98,7 @@ summary:focus-visible {
 }
 
 /* --text-on-dark-mute is 0.72 — bump to 0.82 where used as body text */
-.subscribe-row__label,
-.episode-card__meta {
+.subscribe-row__label {
   color: rgba(245, 240, 228, 0.82);
 }
 
