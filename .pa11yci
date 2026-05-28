@@ -1,0 +1,24 @@
+{
+  "defaults": {
+    "standard": "WCAG2AA",
+    "timeout": 15000,
+    "wait": 1000
+  },
+  "urls": [
+    "https://peakpropertyperformance.com/",
+    "https://peakpropertyperformance.com/book",
+    "https://peakpropertyperformance.com/podcast",
+    "https://peakpropertyperformance.com/5c-framework",
+    "https://peakpropertyperformance.com/about",
+    "https://peakpropertyperformance.com/for-owners",
+    "https://peakpropertyperformance.com/for-asset-managers",
+    "https://peakpropertyperformance.com/resources",
+    "https://peakpropertyperformance.com/faq",
+    "https://peakpropertyperformance.com/glossary",
+    "https://peakpropertyperformance.com/ppp-review",
+    "https://peakpropertyperformance.com/vendor-contract-audit",
+    "https://peakpropertyperformance.com/podcast/adaptive-design-and-flex-spaces-what-landlords-and-cre-should-learn",
+    "https://peakpropertyperformance.com/accessibility",
+    "https://peakpropertyperformance.com/privacy"
+  ]
+}
