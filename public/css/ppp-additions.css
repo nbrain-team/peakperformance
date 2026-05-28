@@ -139,6 +139,31 @@ summary:focus-visible {
   color: rgba(27, 53, 38, 0.7);
 }
 
+/* Footer bottom non-link text — bundle sets 0.5, bump to 0.62 for 4.5:1+ */
+.footer__bottom {
+  color: rgba(245, 240, 228, 0.62);
+}
+
+/* Footer link color — bundle sets 0.7, bump to 0.78 for comfortable margin */
+.footer__link {
+  color: rgba(245, 240, 228, 0.78);
+}
+
+/* Footer publisher sub-text — bundle sets 0.55, bump to 0.7 */
+.footer__publisher-text span {
+  color: rgba(245, 240, 228, 0.7);
+}
+
+/* Episode card meta on dark sections — bundle sets 0.58, bump to 0.72 */
+.episode-grid-section--dark .episode-card__meta {
+  color: rgba(245, 240, 228, 0.72);
+}
+
+/* Starter kit disclaimer — bundle sets 0.5, bump to 0.7 */
+.starter-kit__disclaimer {
+  color: rgba(245, 240, 228, 0.7);
+}
+
 /* Cookie consent prefs description — bump from 0.75 opacity */
 .cc-prefs__desc {
   opacity: 1;
