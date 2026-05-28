@@ -1,0 +1,12 @@
+{
+  "name": "peakpropertyperformance",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Peak Property Performance® — static site",
+  "scripts": {
+    "a11y": "pa11y-ci"
+  },
+  "devDependencies": {
+    "pa11y-ci": "^4.1.0"
+  }
+}
