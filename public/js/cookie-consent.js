@@ -91,7 +91,10 @@
 
   function showPrefs(banner) {
     var prefs = banner.querySelector('.cc-prefs');
-    if (prefs) prefs.classList.toggle('cc-prefs--open');
+    if (prefs) {
+      prefs.classList.toggle('cc-prefs--open');
+      if (_ccTrap) _ccTrap.update();
+    }
   }
 
   function renderBanner() {
